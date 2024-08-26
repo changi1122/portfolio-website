@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>changi1122 홈</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/home.css" th:href="@{/css/home.css}" />
+
+
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap' rel='stylesheet'/>
+</head>
+<body>
+    <!-- Header -->
+    <header><!--style="height: 110vh"-->
+        <div class="container header-wrap">
+            <div class="header-logo">
+                <a href="./">
+                    <h1>changi1122</h1>
+                </a>
+            </div>
+            <!-- Desktop -->
+            <nav class="header-menu" aria-label="사이트 전체 메뉴">
+                <a href="./">홈</a>
+                <a href="./about">소개</a>
+                <a href="./project">프로젝트</a>
+                <a href="./blog/1">블로그</a>
+                <a href="./manage">관리</a>
+            </nav>
+            <span class="menu-right">
+                <a href="./login">로그인</a>
+            </span>
+            <div id="menu-button" class="menu-button">
+                <span id="menu-open-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2 4.75C2 4.33579 2.33579 4 2.75 4H17.25C17.6642 4 18 4.33579 18 4.75C18 5.16421 17.6642 5.5 17.25 5.5H2.75C2.33579 5.5 2 5.16421 2 4.75ZM2 9.75C2 9.33579 2.33579 9 2.75 9H17.25C17.6642 9 18 9.33579 18 9.75C18 10.1642 17.6642 10.5 17.25 10.5H2.75C2.33579 10.5 2 10.1642 2 9.75ZM2.75 14C2.33579 14 2 14.3358 2 14.75C2 15.1642 2.33579 15.5 2.75 15.5H17.25C17.6642 15.5 18 15.1642 18 14.75C18 14.3358 17.6642 14 17.25 14H2.75Z"/>
+                    </svg>
+                </span>
+                <span id="menu-close-icon" class="invisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M3.89705 4.05379L3.96967 3.96967C4.23594 3.7034 4.6526 3.6792 4.94621 3.89705L5.03033 3.96967L10 8.939L14.9697 3.96967C15.2359 3.7034 15.6526 3.6792 15.9462 3.89705L16.0303 3.96967C16.2966 4.23594 16.3208 4.6526 16.1029 4.94621L16.0303 5.03033L11.061 10L16.0303 14.9697C16.2966 15.2359 16.3208 15.6526 16.1029 15.9462L16.0303 16.0303C15.7641 16.2966 15.3474 16.3208 15.0538 16.1029L14.9697 16.0303L10 11.061L5.03033 16.0303C4.76406 16.2966 4.3474 16.3208 4.05379 16.1029L3.96967 16.0303C3.7034 15.7641 3.6792 15.3474 3.89705 15.0538L3.96967 14.9697L8.939 10L3.96967 5.03033C3.7034 4.76406 3.6792 4.3474 3.89705 4.05379L3.96967 3.96967L3.89705 4.05379Z"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
+        <!-- Mobile -->
+        <nav id="mobile-header-menu" class="container mobile-menu" aria-label="사이트 전체 메뉴">
+            <a href="./">홈</a>
+            <a href="./about">소개</a>
+            <a href="./project">프로젝트</a>
+            <a href="./blog/1">블로그</a>
+            <a href="./manage">관리</a>
+            <span class="menu-bottom">
+                <a href="./login">로그인</a>
+            </span>
+        </nav>
+    </header>
+
+    <!-- Top Section -->
+    <div class="top-section">
+        <div class="top-background">
+            <img class="no-drag no-select" src="../static/img/background.jpg" th:src="@{/img/background.jpg}" alt="">
+        </div>
+        <div class="container top-profile">
+            <img class="avatar no-select" src="../static/img/face.jpg" th:src="@{/img/face.jpg}" alt="">
+            <div class="profile-name">
+                <h3>이우창</h3>
+                <p>changi1122</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link Buttons -->
+    <div class="container link-wrap">
+        <a class="button-design clickable" href="mailto:changi112242@gmail.com">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="#fff" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/>
+                </svg>
+            </span>
+            changi112242@gmail.com
+        </a>
+        <a class="button-design clickable" href="https://constructionsite.tistory.com" target="_blank">
+            <span class="icon">Blog</span>장난감 연구소
+        </a>
+        <a class="button-design clickable" href="https://github.com/changi1122" target="_blank">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#fff" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+            </span>
+            Github
+        </a>
+    </div>
+
+    <!-- Content -->
+    <section class="container">
+        <article>
+            <h2>관심 분야</h2>
+            <ul class="interest no-select">
+                <li>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 128 128"><path fill="#77bc1f" d="M116.452 6.643a59 59 0 0 1-6.837 12.136A64.25 64.25 0 0 0 64.205-.026C28.984-.026 0 28.982 0 64.242a64.32 64.32 0 0 0 19.945 46.562l2.368 2.1a64.22 64.22 0 0 0 41.358 15.122c33.487 0 61.637-26.24 64.021-59.683c1.751-16.371-3.051-37.077-11.24-61.7M29.067 111.17a5.5 5.5 0 0 1-4.269 2.034c-3.018 0-5.487-2.484-5.487-5.502s2.485-5.501 5.487-5.501c1.25 0 2.485.433 3.452 1.234c2.351 1.9 2.718 5.384.817 7.735m87.119-19.238c-15.843 21.122-49.68 14.003-71.376 15.02c0 0-3.852.234-7.721.867c0 0 1.45-.617 3.335-1.334c15.226-5.301 22.43-6.335 31.685-11.086c17.427-8.869 34.654-28.274 38.24-48.463c-6.637 19.422-26.75 36.11-45.077 42.895c-12.557 4.635-35.238 9.136-35.238 9.136l-.917-.484c-15.442-7.518-15.91-40.977 12.157-51.78c12.291-4.735 24.048-2.134 37.323-5.302c14.175-3.367 30.568-14.004 37.238-27.874c7.471 22.19 16.46 56.932.35 78.405z"/></svg>
+                    </div>
+                    <span>Spring</span>
+                </li>
+                <li>
+                    <span>클라우드<br>컴퓨팅</span>
+                </li>
+                <li>
+                    <span>기계학습</span>
+                </li>
+                <li>
+                    <span>추천시스템</span>
+                </li>
+            </ul>
+        </article>
+    </section>
+    <section class="container">
+        <article class="introduce">
+            <h2 class="sr-only">자기 소개</h2>
+            <div class="title-wrap">
+                <p class="title">
+                    안녕하세요! <span class="mobile-invisible">매일매일 배우고 있는</span> 학생 개발자 <b>이우창</b>입니다.<br>
+                    저를 소개하기 위해 질문과 답변을 적어보았습니다.
+                </p>
+                <a class="more-button" href="./about">
+                    더 알아보기
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                </a>
+            </div>
+            <div class="qna-wrap">
+                <div class="qna">
+                    <div>
+                        <span class="badge">Question 1</span>
+                        <p class="q">프로그래밍을 시작하게 된 계기는 무엇인가요?</p>
+                    </div>
+                    <p class="a">
+                        프로그래밍에 처음 관심을 갖게 된 것은 게임이었습니다.
+                        중학생 시절 내 마음속으로 상상하던 것들을 직접 게임으로 만들어보고자 하였습니다.
+                        그러나 노코드(NoCode) 게임 제작 툴에 한계를 느끼고 나만의 것을 만들어보자 한 것이 컴퓨터 프로그래밍을 시작하게 된 계기입니다.
+                    </p>
+                </div>
+                <div class="qna">
+                    <div>
+                        <span class="badge">Question 2</span>
+                        <p class="q">주로 다루고 있는 분야는 무엇인가요?</p>
+                    </div>
+                    <p class="a">
+                        그런데 소프트웨어 개발을 하면서 느낀 멋진 점 하나는 제 손을 거쳐 만들어진 프로그램이 사람들에게 도움을 줄 수 있다는 점이었습니다.
+                        작은 코드에 불과하지만 무수히 많은 곳에서 쓰일 수 있다는 게 놀라웠습니다.
+                        <br><br>
+                        그 점에서 저는 사람들의 수많은 요구를 처리하고 뒷받침해 주고 있는 <b>Backend 개발</b>에 관심 갖게 되었습니다.
+                        Spring Boot 프레임워크 사용해 개발해보다 보니, 패키지 구조라던가 로깅, 검증(Validation) 등 깊은 생각이 숨겨져 있음을 깨닫고, Spring에 대해 알아가고 있습니다.
+                    </p>
+                </div>
+                <div class="qna">
+                    <div>
+                        <span class="badge">Question 3</span>
+                        <p class="q">소프트웨어 개발자로서<br> 이루고 싶은 목표는 무엇인가요?</p>
+                    </div>
+                    <p class="a">
+                        개발을 해보면서 제가 만든 서비스나 프로그램이 사람들에게 알려졌으면 하는 욕심이 생겨났습니다.
+                        이 욕구는 제가 만든 것이 많은 사람들에게 쓰이고, 도움이 되도록 해야겠다는 목표가 되었습니다.
+                        이를 원동력으로 새로운 걸 배우고 무언갈 만들어가겠습니다.
+                    </p>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section class="container">
+        <article>
+            <div class="title-wrap">
+                <h2>프로젝트</h2>
+                <a class="more-button" href="./about">
+                    프로젝트 더보기
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                </a>
+            </div>
+            <div class="project">
+                <div class="main-project">
+                    <div>
+                        <a href="./">
+                            <img src="../static/img/project/project1.png" th:src="@{/img/project/project1.png}" alt="하모나이즈 프로젝트 사진">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="./"><h3 class="title">하모나이즈</h3></a>
+                        <p class="description">사용자 목소리 기반 노래방 음악 추천시스템</p>
+                        <ul class="summary">
+                            <li><span>목표</span> 목소리 분석을 통해 <span class="mobile-invisible">사용자가</span> 부르기 좋은 노래를 추천해주는 서비스</li>
+                            <li><span>플랫폼</span> 안드로이드 앱</li>
+                            <li><span>기간</span> 2024. 02. ~ 2024. 10.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sub-project">
+                    <div>
+                        <a href="./">
+                            <img src="../static/img/project/project2.jpeg" th:src="@{/img/project/project2.jpeg}" alt="나눔 광장 프로젝트 사진">
+                        </a>
+                        <a href="./"><h3 class="title">나눔 광장</h3></a>
+                        <p class="description">지역 기반 P2P 일회용품 재활용 지원 서비스</p>
+                    </div>
+                    <div>
+                        <a href="./">
+                            <img src="../static/img/project/project3.jpeg" th:src="@{/img/project/project3.jpeg}" alt="TUX 홈페이지 프로젝트 사진">
+                        </a>
+                        <a href="./"><h3 class="title">학술 동아리 TUX 홈페이지</h3></a>
+                        <p class="description"><span class="mobile-invisible">충북대학교</span> 소프트웨어학부 학술 동아리 TUX 홈페이지 백엔드 개발</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section class="container">
+        <article>
+            <div class="title-wrap">
+                <h2><span class="mobile-invisible">최근 </span>블로그 게시글</h2>
+                <a class="more-button" href="./blog/1">
+                    블로그 더보기
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                </a>
+            </div>
+            <div class="blog">
+                <div class="blog-article">
+                    <a href="./">
+                        <img src="../static/img/blog/1.png" th:src="@{/img/blog/1.png}" alt="">
+                    </a>
+                    <a href="./">
+                        <p class="title">음 높이(Pitch) 예측 모델 정리</p>
+                        <p class="description">음악 오디오 파일에서 가수의 노래 목소리의 음 높이를 추출하는 작업을 하면서, 사용해 본 음 높이 예측(Pitch Estimation) 모델을 정리하였습니다. 기계학습과 관련해서 잘 알고 있지는 않지만, 관련된 글이 없어 개인적으로 사용할 때 참고용으로 적어 보았습니다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">토이프로젝트</span>
+                        <span class="divider"></span>
+                        <span>2024.07.24</span>
+                    </div>
+                </div>
+                <div class="blog-article">
+                    <a href="./">
+                        <img src="../static/img/blog/2.jpg" th:src="@{/img/blog/2.jpg}" alt="">
+                    </a>
+                    <a href="./">
+                        <p class="title">위도와 경도를 사용하여 가까운 지점 찾기</p>
+                        <p class="description">프로젝트를 진행하면서 자신과 가까이 있는 지점들을 검색하는 기능이 필요했다. 데이터베이스에 아래와 같이 모든 지점들의 위도와 경도를 실수 형태로 가지고 있다. 이때 한 지점과의 직선 거리가 일정 값 이하인 지점들을 어떻게 찾을 수 있을까?</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">개발</span>
+                        <span class="divider"></span>
+                        <span>2022.09.13</span>
+                    </div>
+                </div>
+                <div class="blog-article">
+                    <a href="./">
+                        <img src="../static/img/blog/3.jpg" th:src="@{/img/blog/3.jpg}" alt="">
+                    </a>
+                    <a href="./">
+                        <p class="title">대칭 최소-최대 힙(SMMH)</p>
+                        <p class="description">대칭 최대-최소 힙(SMMH, symmetric min-max heap)은 양쪽 끝 우선순위 큐를 표현할 수 있는 자료구조이다. 양쪽 끝 우선순위 큐(double-ended priority queue)는 일반적인 우선순위 큐와 달리 최소 우선순위 원소의 반환과 삭제, 최대 우선순위 원소의 반환과 삭제를 동시에 지원하는 자료구조이다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">자료구조</span>
+                        <span class="divider"></span>
+                        <span>2022.06.17</span>
+                    </div>
+                </div>
+                <div class="blog-article">
+                    <a href="./">
+                        <img src="../static/img/blog/4.jpg" th:src="@{/img/blog/4.jpg}" alt="">
+                    </a>
+                    <a href="./">
+                        <p class="title">최대한 빠르게 한글 검색하기</p>
+                        <p class="description">학교 과제나 작은 프로젝트를 진행하면서 검색 기능이 필요한 경우가 있다. 다행히도 Elasticsearch (엘라스틱 서치)라는 훌륭한 오픈소스 검색 엔진을 사용하면 검색 기능을 쉽게 만들 수 있다. 그런데 하나씩 꼼꼼히 익혀가면서 만들기에는 홈페이지의 가이드 내용이 너무 방대하다. 그런 상황에 쓸 수 있게, 한글 검색이 최소한으로 작동만 하게 만들어 보는 가이드 글이다.  오라클 클라우드 프리티어에서 제공하는 무료 Compute 인스턴스의 메모리 용량은 1GB이다. 이 글의 목적에서 알 수 있듯이 무료 Compute 인스턴스에서 작동해줬으면 했기에, 1GB 메모리 우분투 서버 가상머신에서 테스트되었다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">개발/Elasticsearch</span>
+                        <span class="divider"></span>
+                        <span>2022.01.12</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-wrap">
+            <div class="no-drag copyright">
+                <span>© changi1122</span>
+                <span class="divider divider-dark"></span>
+                <span>무단 전재 및 재배포 금지</span>
+            </div>
+            <ul class="links mobile-invisible">
+                <li><a href="./">홈</a></li>
+                <li><a href="mailto:changi112242@gmail.com">문의</a></li>
+                <li><a href="./">링크</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
