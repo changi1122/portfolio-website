@@ -26,7 +26,7 @@
                 <a href="./">홈</a>
                 <a href="./about">소개</a>
                 <a href="./project">프로젝트</a>
-                <a href="./blog/1">블로그</a>
+                <a href="./blog.html">블로그</a>
                 <a href="./manage">관리</a>
             </nav>
             <span class="menu-right">
@@ -50,7 +50,7 @@
             <a href="./">홈</a>
             <a href="./about">소개</a>
             <a href="./project">프로젝트</a>
-            <a href="./blog/1">블로그</a>
+            <a href="./blog.html">블로그</a>
             <a href="./manage">관리</a>
             <span class="menu-bottom">
                 <a href="./login">로그인</a>
@@ -217,17 +217,17 @@
         <article>
             <div class="title-wrap">
                 <h2><span class="mobile-invisible">최근 </span>블로그 게시글</h2>
-                <a class="more-button" href="./blog/1">
+                <a class="more-button" href="./blog.html">
                     블로그 더보기
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                 </a>
             </div>
             <div class="blog">
                 <div class="blog-article">
-                    <a href="./">
+                    <a href="./" target="_blank">
                         <img src="../static/img/blog/1.png" th:src="@{/img/blog/1.png}" alt="">
                     </a>
-                    <a href="./">
+                    <a href="./" target="_blank">
                         <p class="title">음 높이(Pitch) 예측 모델 정리</p>
                         <p class="description">음악 오디오 파일에서 가수의 노래 목소리의 음 높이를 추출하는 작업을 하면서, 사용해 본 음 높이 예측(Pitch Estimation) 모델을 정리하였습니다. 기계학습과 관련해서 잘 알고 있지는 않지만, 관련된 글이 없어 개인적으로 사용할 때 참고용으로 적어 보았습니다.</p>
                     </a>
@@ -237,11 +237,12 @@
                         <span>2024.07.24</span>
                     </div>
                 </div>
-                <div class="blog-article">
-                    <a href="./">
+                <div class="blog-article no-image">
+                    <!-- 대표 이미지가 존재하지 않으면 -->
+                    <!--<a href="./" target="_blank">
                         <img src="../static/img/blog/2.jpg" th:src="@{/img/blog/2.jpg}" alt="">
-                    </a>
-                    <a href="./">
+                    </a>-->
+                    <a href="./" target="_blank">
                         <p class="title">위도와 경도를 사용하여 가까운 지점 찾기</p>
                         <p class="description">프로젝트를 진행하면서 자신과 가까이 있는 지점들을 검색하는 기능이 필요했다. 데이터베이스에 아래와 같이 모든 지점들의 위도와 경도를 실수 형태로 가지고 있다. 이때 한 지점과의 직선 거리가 일정 값 이하인 지점들을 어떻게 찾을 수 있을까?</p>
                     </a>
@@ -252,10 +253,10 @@
                     </div>
                 </div>
                 <div class="blog-article">
-                    <a href="./">
+                    <a href="./" target="_blank">
                         <img src="../static/img/blog/3.jpg" th:src="@{/img/blog/3.jpg}" alt="">
                     </a>
-                    <a href="./">
+                    <a href="./" target="_blank">
                         <p class="title">대칭 최소-최대 힙(SMMH)</p>
                         <p class="description">대칭 최대-최소 힙(SMMH, symmetric min-max heap)은 양쪽 끝 우선순위 큐를 표현할 수 있는 자료구조이다. 양쪽 끝 우선순위 큐(double-ended priority queue)는 일반적인 우선순위 큐와 달리 최소 우선순위 원소의 반환과 삭제, 최대 우선순위 원소의 반환과 삭제를 동시에 지원하는 자료구조이다.</p>
                     </a>
@@ -266,10 +267,10 @@
                     </div>
                 </div>
                 <div class="blog-article">
-                    <a href="./">
+                    <a href="./" target="_blank">
                         <img src="../static/img/blog/4.jpg" th:src="@{/img/blog/4.jpg}" alt="">
                     </a>
-                    <a href="./">
+                    <a href="./" target="_blank">
                         <p class="title">최대한 빠르게 한글 검색하기</p>
                         <p class="description">학교 과제나 작은 프로젝트를 진행하면서 검색 기능이 필요한 경우가 있다. 다행히도 Elasticsearch (엘라스틱 서치)라는 훌륭한 오픈소스 검색 엔진을 사용하면 검색 기능을 쉽게 만들 수 있다. 그런데 하나씩 꼼꼼히 익혀가면서 만들기에는 홈페이지의 가이드 내용이 너무 방대하다. 그런 상황에 쓸 수 있게, 한글 검색이 최소한으로 작동만 하게 만들어 보는 가이드 글이다.  오라클 클라우드 프리티어에서 제공하는 무료 Compute 인스턴스의 메모리 용량은 1GB이다. 이 글의 목적에서 알 수 있듯이 무료 Compute 인스턴스에서 작동해줬으면 했기에, 1GB 메모리 우분투 서버 가상머신에서 테스트되었다.</p>
                     </a>

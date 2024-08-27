@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>changi1122 홈</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/blog.css" th:href="@{/css/blog.css}" />
+
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap' rel='stylesheet'/>
+</head>
+<body>
+    <!-- Header -->
+    <header><!--style="height: 110vh"-->
+        <div class="container header-wrap">
+            <div class="header-logo">
+                <a href="./">
+                    <h1>changi1122</h1>
+                </a>
+            </div>
+            <!-- Desktop -->
+            <nav class="header-menu" aria-label="사이트 전체 메뉴">
+                <a href="./">홈</a>
+                <a href="./about">소개</a>
+                <a href="./project">프로젝트</a>
+                <a href="./blog.html">블로그</a>
+                <a href="./manage">관리</a>
+            </nav>
+            <span class="menu-right">
+                <a href="./login">로그인</a>
+            </span>
+            <div id="menu-button" class="menu-button">
+                <span id="menu-open-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2 4.75C2 4.33579 2.33579 4 2.75 4H17.25C17.6642 4 18 4.33579 18 4.75C18 5.16421 17.6642 5.5 17.25 5.5H2.75C2.33579 5.5 2 5.16421 2 4.75ZM2 9.75C2 9.33579 2.33579 9 2.75 9H17.25C17.6642 9 18 9.33579 18 9.75C18 10.1642 17.6642 10.5 17.25 10.5H2.75C2.33579 10.5 2 10.1642 2 9.75ZM2.75 14C2.33579 14 2 14.3358 2 14.75C2 15.1642 2.33579 15.5 2.75 15.5H17.25C17.6642 15.5 18 15.1642 18 14.75C18 14.3358 17.6642 14 17.25 14H2.75Z"/>
+                    </svg>
+                </span>
+                <span id="menu-close-icon" class="invisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M3.89705 4.05379L3.96967 3.96967C4.23594 3.7034 4.6526 3.6792 4.94621 3.89705L5.03033 3.96967L10 8.939L14.9697 3.96967C15.2359 3.7034 15.6526 3.6792 15.9462 3.89705L16.0303 3.96967C16.2966 4.23594 16.3208 4.6526 16.1029 4.94621L16.0303 5.03033L11.061 10L16.0303 14.9697C16.2966 15.2359 16.3208 15.6526 16.1029 15.9462L16.0303 16.0303C15.7641 16.2966 15.3474 16.3208 15.0538 16.1029L14.9697 16.0303L10 11.061L5.03033 16.0303C4.76406 16.2966 4.3474 16.3208 4.05379 16.1029L3.96967 16.0303C3.7034 15.7641 3.6792 15.3474 3.89705 15.0538L3.96967 14.9697L8.939 10L3.96967 5.03033C3.7034 4.76406 3.6792 4.3474 3.89705 4.05379L3.96967 3.96967L3.89705 4.05379Z"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
+        <!-- Mobile -->
+        <nav id="mobile-header-menu" class="container mobile-menu" aria-label="사이트 전체 메뉴">
+            <a href="./">홈</a>
+            <a href="./about">소개</a>
+            <a href="./project">프로젝트</a>
+            <a href="./blog.html">블로그</a>
+            <a href="./manage">관리</a>
+            <span class="menu-bottom">
+                <a href="./login">로그인</a>
+            </span>
+        </nav>
+    </header>
+
+    <!-- Content -->
+    <section class="container">
+        <article>
+            <div class="title-wrap">
+                <h2>블로그</h2>
+            </div>
+            <div class="filter">
+                <div class="category-select">
+                    <button>
+                        전체 카테고리
+                        <span class="category-select-icon ">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M15.794 7.73271C16.0797 8.03263 16.0681 8.50737 15.7682 8.79306L10.5178 13.7944C10.2281 14.0703 9.77285 14.0703 9.48318 13.7944L4.23271 8.79306C3.93279 8.50737 3.92125 8.03263 4.20694 7.73271C4.49264 7.43279 4.96737 7.42125 5.26729 7.70694L10.0005 12.2155L14.7336 7.70694C15.0336 7.42125 15.5083 7.43279 15.794 7.73271Z"></path>
+                            </svg>
+                        </span>
+                        <span class="category-select-icon invisible">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M4.20694 12.2667C3.92125 11.9667 3.93279 11.492 4.23271 11.2063L9.48318 6.20499C9.77285 5.92907 10.2281 5.92907 10.5178 6.20499L15.7682 11.2063C16.0681 11.492 16.0797 11.9667 15.794 12.2667C15.5083 12.5666 15.0336 12.5781 14.7336 12.2924L10.0005 7.78385L5.26729 12.2924C4.96737 12.5781 4.49264 12.5666 4.20694 12.2667Z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <ul class="category-list invisible">
+                        <li>
+                            <a href="./blog/1">전체 카테고리</a>
+                        </li>
+                        <li>
+                            <a href="./blog/1?category=%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D">프로그래밍</a>
+                            <ul>
+                                <li><a href="./blog/1?category=%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%252FC%2523">C#</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="./blog/1?category=%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0">자료구조</a>
+                        </li>
+                        <li>
+                            <a href="./blog/1?category=%EA%B0%9C%EB%B0%9C">개발</a>
+                            <ul>
+                                <li><a href="./blog/1?category=%EA%B0%9C%EB%B0%9C%252FReact">React</a></li>
+                                <li><a href="./blog/1?category=%EA%B0%9C%EB%B0%9C%252FUWP">UWP</a></li>
+                                <li><a href="./blog/1?category=%EA%B0%9C%EB%B0%9C%252FElasticsearch">Elasticsearch</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="./blog/1?category=%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">토이프로젝트</a>
+                        </li>
+                        <li>
+                            <a href="./blog/1?category=%EC%B1%85">책</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search">
+                    <input type="text" placeholder="글 제목 검색" aria-label="글 제목 검색 창">
+                    <button aria-label="검색하기 버튼">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#fff" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="blog">
+                <div class="blog-article">
+                    <a href="./" target="_blank">
+                        <img src="../static/img/blog/1.png" th:src="@{/img/blog/1.png}" alt="">
+                    </a>
+                    <a href="./" target="_blank">
+                        <p class="title">음 높이(Pitch) 예측 모델 정리</p>
+                        <p class="description">음악 오디오 파일에서 가수의 노래 목소리의 음 높이를 추출하는 작업을 하면서, 사용해 본 음 높이 예측(Pitch Estimation) 모델을 정리하였습니다. 기계학습과 관련해서 잘 알고 있지는 않지만, 관련된 글이 없어 개인적으로 사용할 때 참고용으로 적어 보았습니다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">토이프로젝트</span>
+                        <span class="divider"></span>
+                        <span>2024.07.24</span>
+                    </div>
+                    <ul class="tags">
+                        <li><a href="./">#기계학습</a></li>
+                        <li><a href="./">#토이프로젝트</a></li>
+                        <li><a href="./">#기계학습</a></li>
+                        <li><a href="./">#토이프로젝트</a></li>
+                    </ul>
+                </div>
+                <div class="blog-article no-image">
+                    <!-- 대표 이미지가 존재하지 않으면 -->
+                    <!--<a href="./" target="_blank">
+                        <img src="../static/img/blog/2.jpg" th:src="@{/img/blog/2.jpg}" alt="">
+                    </a>-->
+                    <a href="./" target="_blank">
+                        <p class="title">위도와 경도를 사용하여 가까운 지점 찾기</p>
+                        <p class="description">프로젝트를 진행하면서 자신과 가까이 있는 지점들을 검색하는 기능이 필요했다. 데이터베이스에 아래와 같이 모든 지점들의 위도와 경도를 실수 형태로 가지고 있다. 이때 한 지점과의 직선 거리가 일정 값 이하인 지점들을 어떻게 찾을 수 있을까?</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">개발</span>
+                        <span class="divider"></span>
+                        <span>2022.09.13</span>
+                    </div>
+                    <ul class="tags">
+                        <li><a href="./">#SQL</a></li>
+                        <li><a href="./">#수학</a></li>
+                    </ul>
+                </div>
+                <div class="blog-article">
+                    <a href="./" target="_blank">
+                        <img src="../static/img/blog/3.jpg" th:src="@{/img/blog/3.jpg}" alt="">
+                    </a>
+                    <a href="./" target="_blank">
+                        <p class="title">대칭 최소-최대 힙(SMMH)</p>
+                        <p class="description">대칭 최대-최소 힙(SMMH, symmetric min-max heap)은 양쪽 끝 우선순위 큐를 표현할 수 있는 자료구조이다. 양쪽 끝 우선순위 큐(double-ended priority queue)는 일반적인 우선순위 큐와 달리 최소 우선순위 원소의 반환과 삭제, 최대 우선순위 원소의 반환과 삭제를 동시에 지원하는 자료구조이다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">자료구조</span>
+                        <span class="divider"></span>
+                        <span>2022.06.17</span>
+                    </div>
+                    <ul class="tags">
+                        <li><a href="./">#자료구조</a></li>
+                    </ul>
+                </div>
+                <div class="blog-article">
+                    <a href="./" target="_blank">
+                        <img src="../static/img/blog/4.jpg" th:src="@{/img/blog/4.jpg}" alt="">
+                    </a>
+                    <a href="./" target="_blank">
+                        <p class="title">최대한 빠르게 한글 검색하기</p>
+                        <p class="description">학교 과제나 작은 프로젝트를 진행하면서 검색 기능이 필요한 경우가 있다. 다행히도 Elasticsearch (엘라스틱 서치)라는 훌륭한 오픈소스 검색 엔진을 사용하면 검색 기능을 쉽게 만들 수 있다. 그런데 하나씩 꼼꼼히 익혀가면서 만들기에는 홈페이지의 가이드 내용이 너무 방대하다. 그런 상황에 쓸 수 있게, 한글 검색이 최소한으로 작동만 하게 만들어 보는 가이드 글이다.  오라클 클라우드 프리티어에서 제공하는 무료 Compute 인스턴스의 메모리 용량은 1GB이다. 이 글의 목적에서 알 수 있듯이 무료 Compute 인스턴스에서 작동해줬으면 했기에, 1GB 메모리 우분투 서버 가상머신에서 테스트되었다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">개발/Elasticsearch</span>
+                        <span class="divider"></span>
+                        <span>2022.01.12</span>
+                    </div>
+                    <ul class="tags">
+                        <li><a href="./">#Elasticsearch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="blog">
+                <div class="blog-article">
+                    <a href="./" target="_blank">
+                        <img src="../static/img/blog/1.png" th:src="@{/img/blog/1.png}" alt="">
+                    </a>
+                    <a href="./" target="_blank">
+                        <p class="title">음 높이(Pitch) 예측 모델 정리</p>
+                        <p class="description">음악 오디오 파일에서 가수의 노래 목소리의 음 높이를 추출하는 작업을 하면서, 사용해 본 음 높이 예측(Pitch Estimation) 모델을 정리하였습니다. 기계학습과 관련해서 잘 알고 있지는 않지만, 관련된 글이 없어 개인적으로 사용할 때 참고용으로 적어 보았습니다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">토이프로젝트</span>
+                        <span class="divider"></span>
+                        <span>2024.07.24</span>
+                    </div>
+                    <ul class="tags">
+                        <li><a href="./">#기계학습</a></li>
+                        <li><a href="./">#토이프로젝트</a></li>
+                    </ul>
+                </div>
+                <div class="blog-article">
+                    <a href="./" target="_blank">
+                        <img src="../static/img/blog/2.jpg" th:src="@{/img/blog/2.jpg}" alt="">
+                    </a>
+                    <a href="./" target="_blank">
+                        <p class="title">위도와 경도를 사용하여 가까운 지점 찾기</p>
+                        <p class="description">프로젝트를 진행하면서 자신과 가까이 있는 지점들을 검색하는 기능이 필요했다. 데이터베이스에 아래와 같이 모든 지점들의 위도와 경도를 실수 형태로 가지고 있다. 이때 한 지점과의 직선 거리가 일정 값 이하인 지점들을 어떻게 찾을 수 있을까?</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">개발</span>
+                        <span class="divider"></span>
+                        <span>2022.09.13</span>
+                    </div>
+                </div>
+                <div class="blog-article no-image">
+                    <!--<a href="./" target="_blank">
+                        <img src="../static/img/blog/3.jpg" th:src="@{/img/blog/3.jpg}" alt="">
+                    </a>-->
+                    <a href="./" target="_blank">
+                        <p class="title">대칭 최소-최대 힙(SMMH)</p>
+                        <p class="description">대칭 최대-최소 힙(SMMH, symmetric min-max heap)은 양쪽 끝 우선순위 큐를 표현할 수 있는 자료구조이다. 양쪽 끝 우선순위 큐(double-ended priority queue)는 일반적인 우선순위 큐와 달리 최소 우선순위 원소의 반환과 삭제, 최대 우선순위 원소의 반환과 삭제를 동시에 지원하는 자료구조이다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">자료구조</span>
+                        <span class="divider"></span>
+                        <span>2022.06.17</span>
+                    </div>
+                </div>
+                <div class="blog-article">
+                    <a href="./" target="_blank">
+                        <img src="../static/img/blog/4.jpg" th:src="@{/img/blog/4.jpg}" alt="">
+                    </a>
+                    <a href="./" target="_blank">
+                        <p class="title">최대한 빠르게 한글 검색하기</p>
+                        <p class="description">학교 과제나 작은 프로젝트를 진행하면서 검색 기능이 필요한 경우가 있다. 다행히도 Elasticsearch (엘라스틱 서치)라는 훌륭한 오픈소스 검색 엔진을 사용하면 검색 기능을 쉽게 만들 수 있다. 그런데 하나씩 꼼꼼히 익혀가면서 만들기에는 홈페이지의 가이드 내용이 너무 방대하다. 그런 상황에 쓸 수 있게, 한글 검색이 최소한으로 작동만 하게 만들어 보는 가이드 글이다.  오라클 클라우드 프리티어에서 제공하는 무료 Compute 인스턴스의 메모리 용량은 1GB이다. 이 글의 목적에서 알 수 있듯이 무료 Compute 인스턴스에서 작동해줬으면 했기에, 1GB 메모리 우분투 서버 가상머신에서 테스트되었다.</p>
+                    </a>
+                    <div class="meta">
+                        <span class="category">개발/Elasticsearch</span>
+                        <span class="divider"></span>
+                        <span>2022.01.12</span>
+                    </div>
+                    <ul class="tags">
+                        <li><a href="./">#Elasticsearch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="pagination">
+                <a class="invisible" href="/blog/1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
+                </a>
+                <a class="active" href="/blog/1">
+                    1
+                </a>
+                <a href="/blog/2">
+                    2
+                </a>
+                <a href="/blog/3">
+                    3
+                </a>
+                <a href="/blog/4">
+                    4
+                </a>
+                <a href="/blog/5">
+                    5
+                </a>
+                <a href="/blog/1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
+                </a>
+            </ul>
+        </article>
+        </article>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-wrap">
+            <div class="no-drag copyright">
+                <span>© changi1122</span>
+                <span class="divider divider-dark"></span>
+                <span>무단 전재 및 재배포 금지</span>
+            </div>
+            <ul class="links mobile-invisible">
+                <li><a href="./">홈</a></li>
+                <li><a href="mailto:changi112242@gmail.com">문의</a></li>
+                <li><a href="./">링크</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
