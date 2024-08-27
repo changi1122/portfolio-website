@@ -196,6 +196,7 @@ article h2 {
     height: 345px;
     object-fit: cover;
     border: 1px solid #D1D5DA;
+    box-sizing: border-box;
 }
 .main-project .summary {
     margin-top: 24px;
@@ -374,6 +375,10 @@ article h2 {
         max-width: 100%;
         width: 400px;
         height: 300px;
+    }
+    .main-project>*:nth-child(2) {
+        max-width: 100%;
+        width: 400px;
     }
 
     .blog {

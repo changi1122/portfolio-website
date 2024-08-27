@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>changi1122 홈</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/project.css" th:href="@{/css/project.css}" />
+
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap' rel='stylesheet'/>
+</head>
+<body>
+    <!-- Header -->
+    <header><!--style="height: 110vh"-->
+        <div class="container header-wrap">
+            <div class="header-logo">
+                <a href="./">
+                    <h1>changi1122</h1>
+                </a>
+            </div>
+            <!-- Desktop -->
+            <nav class="header-menu" aria-label="사이트 전체 메뉴">
+                <a href="./">홈</a>
+                <a href="./about.html">소개</a>
+                <a href="./project.html">프로젝트</a>
+                <a href="./blog.html">블로그</a>
+                <a href="./manage.html">관리</a>
+            </nav>
+            <span class="menu-right">
+                <a href="./login.html">로그인</a>
+            </span>
+            <div id="menu-button" class="menu-button">
+                <span id="menu-open-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2 4.75C2 4.33579 2.33579 4 2.75 4H17.25C17.6642 4 18 4.33579 18 4.75C18 5.16421 17.6642 5.5 17.25 5.5H2.75C2.33579 5.5 2 5.16421 2 4.75ZM2 9.75C2 9.33579 2.33579 9 2.75 9H17.25C17.6642 9 18 9.33579 18 9.75C18 10.1642 17.6642 10.5 17.25 10.5H2.75C2.33579 10.5 2 10.1642 2 9.75ZM2.75 14C2.33579 14 2 14.3358 2 14.75C2 15.1642 2.33579 15.5 2.75 15.5H17.25C17.6642 15.5 18 15.1642 18 14.75C18 14.3358 17.6642 14 17.25 14H2.75Z"/>
+                    </svg>
+                </span>
+                <span id="menu-close-icon" class="invisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M3.89705 4.05379L3.96967 3.96967C4.23594 3.7034 4.6526 3.6792 4.94621 3.89705L5.03033 3.96967L10 8.939L14.9697 3.96967C15.2359 3.7034 15.6526 3.6792 15.9462 3.89705L16.0303 3.96967C16.2966 4.23594 16.3208 4.6526 16.1029 4.94621L16.0303 5.03033L11.061 10L16.0303 14.9697C16.2966 15.2359 16.3208 15.6526 16.1029 15.9462L16.0303 16.0303C15.7641 16.2966 15.3474 16.3208 15.0538 16.1029L14.9697 16.0303L10 11.061L5.03033 16.0303C4.76406 16.2966 4.3474 16.3208 4.05379 16.1029L3.96967 16.0303C3.7034 15.7641 3.6792 15.3474 3.89705 15.0538L3.96967 14.9697L8.939 10L3.96967 5.03033C3.7034 4.76406 3.6792 4.3474 3.89705 4.05379L3.96967 3.96967L3.89705 4.05379Z"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
+        <!-- Mobile -->
+        <nav id="mobile-header-menu" class="container mobile-menu" aria-label="사이트 전체 메뉴">
+            <a href="./">홈</a>
+            <a href="./about.html">소개</a>
+            <a href="./project.html">프로젝트</a>
+            <a href="./blog.html">블로그</a>
+            <a href="./manage.html">관리</a>
+            <span class="menu-bottom">
+                <a href="./login.html">로그인</a>
+            </span>
+        </nav>
+    </header>
+
+    <!-- Content -->
+    <section class="container">
+        <article>
+            <div>
+                <h2>프로젝트</h2>
+            </div>
+            <div class="project">
+                <div class="main-project">
+                    <div>
+                        <a href="./">
+                            <img src="../static/img/project/project1.png" th:src="@{/img/project/project1.png}" alt="하모나이즈 프로젝트 사진">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="./">
+                            <h3 class="title">하모나이즈</h3>
+                            <p class="description">사용자 목소리 기반 노래방 음악 추천시스템</p>
+                        </a>
+                        <ul class="summary">
+                            <li><span style="color: #9800FF">목표</span> 목소리 분석을 통해 <span class="mobile-invisible">사용자가</span> 부르기 좋은 노래를 추천해주는 서비스</li>
+                            <li><span style="color: #9800FF">플랫폼</span> 안드로이드 앱</li>
+                            <li><span style="color: #9800FF">역할</span> Backend 및 추천시스템 개발</li>
+                            <li><span style="color: #9800FF">기간</span> 2024. 02. ~ 2024. 10.</li>
+                        </ul>
+                        <div class="links">
+                            <a class="more-button" href="./">
+                                홈페이지
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                            </a>
+                            <a class="more-button" href="./">
+                                코드
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                            </a>
+                            <a class="more-button" href="./">
+                                프로젝트 소개
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-project">
+                    <div>
+                        <a href="./">
+                            <img src="../static/img/project/project2.jpeg" th:src="@{/img/project/project2.jpeg}" alt="나눔광장 프로젝트 사진">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="./">
+                            <h3 class="title">나눔광장</h3>
+                            <p class="description">지역 기반 P2P 일회용품 재활용 지원 서비스</p>
+                        </a>
+                        <ul class="summary">
+                            <li><span style="color: #00C37E">목표</span> <span class="mobile-invisible">위치를 기반으로 </span>재사용할 수 있는 물건 나눔을 도와주는 서비스</li>
+                            <li><span style="color: #00C37E">플랫폼</span> 웹 서비스</li>
+                            <li><span style="color: #00C37E">역할</span> 회원 서비스 Backend 및 Frontend 개발</li>
+                            <li><span style="color: #00C37E">기간</span> 2022. 09. ~ 2022. 12.</li>
+                        </ul>
+                        <div class="links">
+                            <a class="more-button" href="./">
+                                코드
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                            </a>
+                            <a class="more-button" href="./">
+                                프로젝트 소개
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-project">
+                    <div>
+                        <a href="./">
+                            <img src="../static/img/project/project3.jpeg" th:src="@{/img/project/project3.jpeg}" alt="학술 동아리 TUX 홈페이지 프로젝트 사진">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="./">
+                            <h3 class="title">학술 동아리 TUX 홈페이지</h3>
+                            <p class="description"><span class="mobile-invisible">충북대학교</span> 소프트웨어학부 학술 동아리 TUX 홈페이지 백엔드 개발</p>
+                        </a>
+                        <ul class="summary">
+                            <li><span style="color: #E95420">목표</span> 학과 내 학술 동아리 활동을 지원하는 웹사이트 개발</li>
+                            <li><span style="color: #E95420">플랫폼</span> 웹 서비스</li>
+                            <li><span style="color: #E95420">역할</span> Backend 개발</li>
+                            <li><span style="color: #E95420">기간</span> 2023. 07. ~ 2023. 09.</li>
+                        </ul>
+                        <div class="links">
+                            <a class="more-button" href="./">
+                                홈페이지
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                            </a>
+                            <a class="more-button" href="./">
+                                코드
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                            </a>
+                            <a class="more-button" href="./">
+                                프로젝트 소개
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-wrap">
+            <div class="no-drag copyright">
+                <span>© changi1122</span>
+                <span class="divider divider-dark"></span>
+                <span>무단 전재 및 재배포 금지</span>
+            </div>
+            <ul class="links mobile-invisible">
+                <li><a href="./">홈</a></li>
+                <li><a href="mailto:changi112242@gmail.com">문의</a></li>
+                <li><a href="./">링크</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
