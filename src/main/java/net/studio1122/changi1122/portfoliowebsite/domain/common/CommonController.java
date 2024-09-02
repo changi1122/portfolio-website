@@ -13,6 +13,12 @@ public class CommonController {
     }
 
     /* For test */
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    /* For test */
     @GetMapping("/blog/{page}")
     public String blog(@PathVariable Integer page) {
         return "blog";

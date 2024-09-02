@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>changi1122 홈</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/about.css" th:href="@{/css/about.css}" />
+
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap' rel='stylesheet'/>
+</head>
+<body>
+    <!-- Header -->
+    <header><!--style="height: 110vh"-->
+        <div class="container header-wrap">
+            <div class="header-logo">
+                <a href="./">
+                    <h1>changi1122</h1>
+                </a>
+            </div>
+            <!-- Desktop -->
+            <nav class="header-menu" aria-label="사이트 전체 메뉴">
+                <a href="./">홈</a>
+                <a href="./about.html">소개</a>
+                <a href="./project.html">프로젝트</a>
+                <a href="./blog.html">블로그</a>
+                <a href="./manage.html">관리</a>
+            </nav>
+            <span class="menu-right">
+                <a href="./login.html">로그인</a>
+            </span>
+            <div id="menu-button" class="menu-button">
+                <span id="menu-open-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2 4.75C2 4.33579 2.33579 4 2.75 4H17.25C17.6642 4 18 4.33579 18 4.75C18 5.16421 17.6642 5.5 17.25 5.5H2.75C2.33579 5.5 2 5.16421 2 4.75ZM2 9.75C2 9.33579 2.33579 9 2.75 9H17.25C17.6642 9 18 9.33579 18 9.75C18 10.1642 17.6642 10.5 17.25 10.5H2.75C2.33579 10.5 2 10.1642 2 9.75ZM2.75 14C2.33579 14 2 14.3358 2 14.75C2 15.1642 2.33579 15.5 2.75 15.5H17.25C17.6642 15.5 18 15.1642 18 14.75C18 14.3358 17.6642 14 17.25 14H2.75Z"/>
+                    </svg>
+                </span>
+                <span id="menu-close-icon" class="invisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M3.89705 4.05379L3.96967 3.96967C4.23594 3.7034 4.6526 3.6792 4.94621 3.89705L5.03033 3.96967L10 8.939L14.9697 3.96967C15.2359 3.7034 15.6526 3.6792 15.9462 3.89705L16.0303 3.96967C16.2966 4.23594 16.3208 4.6526 16.1029 4.94621L16.0303 5.03033L11.061 10L16.0303 14.9697C16.2966 15.2359 16.3208 15.6526 16.1029 15.9462L16.0303 16.0303C15.7641 16.2966 15.3474 16.3208 15.0538 16.1029L14.9697 16.0303L10 11.061L5.03033 16.0303C4.76406 16.2966 4.3474 16.3208 4.05379 16.1029L3.96967 16.0303C3.7034 15.7641 3.6792 15.3474 3.89705 15.0538L3.96967 14.9697L8.939 10L3.96967 5.03033C3.7034 4.76406 3.6792 4.3474 3.89705 4.05379L3.96967 3.96967L3.89705 4.05379Z"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
+        <!-- Mobile -->
+        <nav id="mobile-header-menu" class="container mobile-menu" aria-label="사이트 전체 메뉴">
+            <a href="./">홈</a>
+            <a href="./about.html">소개</a>
+            <a href="./project.html">프로젝트</a>
+            <a href="./blog.html">블로그</a>
+            <a href="./manage.html">관리</a>
+            <span class="menu-bottom">
+                <a href="./login.html">로그인</a>
+            </span>
+        </nav>
+    </header>
+
+    <!-- Content -->
+    <div class="container about-wrap">
+        <div class="profile">
+            <div>
+                <img class="avatar no-select" src="../static/img/face.jpg" th:src="@{/img/face.jpg}" alt="">
+                <h3>이우창</h3>
+                <ul class="profile-link">
+                    <li><a href="mailto:changi112242@gmail.com" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/></svg>
+                        <p>changi112242@gmail.com</p>
+                    </a></li>
+                    <li><a href="/" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+                        <p>https://github.com/changi1122</p>
+                    </a></li>
+                    <li><a href="https://www.linkedin.com/in/woochang-lee/" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M20.47 2H3.53a1.45 1.45 0 0 0-1.47 1.43v17.14A1.45 1.45 0 0 0 3.53 22h16.94a1.45 1.45 0 0 0 1.47-1.43V3.43A1.45 1.45 0 0 0 20.47 2M8.09 18.74h-3v-9h3ZM6.59 8.48a1.56 1.56 0 1 1 0-3.12a1.57 1.57 0 1 1 0 3.12m12.32 10.26h-3v-4.83c0-1.21-.43-2-1.52-2A1.65 1.65 0 0 0 12.85 13a2 2 0 0 0-.1.73v5h-3v-9h3V11a3 3 0 0 1 2.71-1.5c2 0 3.45 1.29 3.45 4.06Z"/></svg>
+                        <p>LinkedIn</p>
+                    </a></li>
+                </ul>
+                <div class="interest">
+                    <p class="sub-title">주요 기술 및 관심 분야</p>
+                    <ul>
+                        <li>Java</li>
+                        <li>Spring</li>
+                        <li>Cloud</li>
+                        <li>추천시스템</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <article class="resume">
+            <section class="introduce">
+                <div class="title">
+                    <h3>자기소개</h3>
+                    <span class="open-button invisible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"/></svg>
+                    </span>
+                    <span class="close-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6z"/></svg>
+                    </span>
+                </div>
+                <p class="intro">
+                    안녕하세요! <span class="mobile-invisible">매일매일 배우고 있는</span> 신입 백엔드 개발자 <b>이우창</b>입니다.<br>
+                    저를 소개하기 위해 질문과 답변을 적어보았습니다.
+                </p>
+                <div class="qna-wrap">
+                    <div class="qna">
+                        <span class="badge">Q1.</span>
+                        <div>
+                            <p class="q">프로그래밍을 시작하게 된 계기는 무엇인가요?</p>
+                            <p class="a">
+                                프로그래밍에 처음 관심을 갖게 된 것은 게임이었습니다.
+                                중학생 시절 내 마음속으로 상상하던 것들을 직접 게임으로 만들어보고자 하였습니다.
+                                그러나 노코드(NoCode) 게임 제작 툴에 한계를 느끼고 나만의 것을 만들어보자 한 것이 컴퓨터 프로그래밍을 시작하게 된 계기입니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="qna">
+                        <span class="badge">Q2.</span>
+                        <div>
+                            <p class="q">주로 다루고 있는 분야는 무엇인가요?</p>
+                            <p class="a">
+                                그런데 소프트웨어 개발을 하면서 느낀 멋진 점 하나는 제 손을 거쳐 만들어진 프로그램이 사람들에게 도움을 줄 수 있다는 점이었습니다.
+                                작은 코드에 불과하지만 무수히 많은 곳에서 쓰일 수 있다는 게 놀라웠습니다.
+                                <br><br>
+                                그 점에서 저는 사람들의 수많은 요구를 처리하고 뒷받침해 주고 있는 <b>Backend 개발</b>에 관심 갖게 되었습니다.
+                                Spring Boot 프레임워크 사용해 개발해보다 보니, 패키지 구조라던가 로깅, 검증(Validation) 등 깊은 생각이 숨겨져 있음을 깨닫고, Spring에 대해 알아가고 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="qna">
+                        <span class="badge">Q3.</span>
+                        <div>
+                            <p class="q">소프트웨어 개발자로서 이루고 싶은 목표는 무엇인가요?</p>
+                            <p class="a">
+                                개발을 해보면서 제가 만든 서비스나 프로그램이 사람들에게 알려졌으면 하는 욕심이 생겨났습니다.
+                                이 욕구는 제가 만든 것이 많은 사람들에게 쓰이고, 도움이 되도록 해야겠다는 목표가 되었습니다.
+                                이를 원동력으로 새로운 걸 배우고 무언갈 만들어가겠습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="experience">
+                <div class="title">
+                    <h3>경력</h3>
+                    <span class="open-button invisible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"/></svg>
+                    </span>
+                    <span class="close-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6z"/></svg>
+                    </span>
+                </div>
+                <div>
+                    <div class="exp">
+                        <span class="duration">2021-00 ~ 재직 중<br>(n년 n개월)</span>
+                        <div>
+                            <p class="name">ㅁㅁㅁㅁ 컴퍼니</p>
+                            <p class="job">DevOps</p>
+                            <p class="task">
+                                - 저러한 저러한 업무 담당<br>
+                                - 이러한 이러한 업무 해본바 있음
+                            </p>
+                            <ul class="related">
+                                <li>Java</li>
+                                <li>Spring</li>
+                                <li>Cloud</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="exp">
+                        <span class="duration">2020-00 ~ 2021-00<br>(n개월)</span>
+                        <div>
+                            <p class="name">ㅇㅇ 소프트</p>
+                            <p class="job">Backend 개발자</p>
+                            <p class="task">
+                                - 어떠한 어떠한 업무 담당<br>
+                                - 이러한 이러한 업무 해본바 있음
+                            </p>
+                            <ul class="related">
+                                <li>Java</li>
+                                <li>Spring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="school">
+                <div class="title">
+                    <h3>학력</h3>
+                    <span class="open-button invisible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"/></svg>
+                    </span>
+                    <span class="close-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6z"/></svg>
+                    </span>
+                </div>
+                <div>
+                    <div class="exp">
+                        <span class="duration">2019-03 ~ 2025-02<br>(졸업 예정)</span>
+                        <div>
+                            <p class="name">충북대학교</p>
+                            <p class="job" style="color: #B5285B">소프트웨어학과 (학사)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="project">
+                <div class="title">
+                    <h3>사이드 프로젝트</h3>
+                    <span class="open-button invisible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"/></svg>
+                    </span>
+                    <span class="close-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6z"/></svg>
+                    </span>
+                </div>
+                <div>
+                    <div class="exp">
+                        <span class="duration">2024-10</span>
+                        <div>
+                            <p class="name">하모나이즈</p>
+                            <p class="description">사용자 목소리 기반 노래방 음악 추천시스템</p>
+                            <ul class="summary">
+                                <li><span style="color: #9800FF">기술</span> Spring boot, JPA, Kafka, Tensorflow, Android</li>
+                                <li><span style="color: #9800FF">역할</span> Backend 및 추천시스템 개발</li>
+                                <li><span style="color: #9800FF">성과</span> 앱 출시 및 n,000 회 다운로드 달성</li>
+                            </ul>
+                            <div class="links">
+                                <a class="more-button" href="./">
+                                    홈페이지
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                                </a>
+                                <a class="more-button" href="./">
+                                    코드
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                                </a>
+                                <a class="more-button" href="./">
+                                    프로젝트 소개
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exp">
+                        <span class="duration">2023-09</span>
+                        <div>
+                            <p class="name">학술 동아리 TUX 홈페이지</p>
+                            <p class="description">충북대학교 소프트웨어학부 학술 동아리 TUX 홈페이지 백엔드 개발</p>
+                            <ul class="summary">
+                                <li><span style="color: #E95420">기술</span> Spring boot, JPA, React</li>
+                                <li><span style="color: #E95420">역할</span> Backend 개발</li>
+                            </ul>
+                            <div class="links">
+                                <a class="more-button" href="./">
+                                    홈페이지
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                                </a>
+                                <a class="more-button" href="./">
+                                    코드
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="license">
+                <div class="title">
+                    <h3>수상 및 자격증</h3>
+                    <span class="open-button invisible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"/></svg>
+                    </span>
+                    <span class="close-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6z"/></svg>
+                    </span>
+                </div>
+                <div class="license-wrap">
+                    <div class="exp">
+                        <span class="duration">2024-09</span>
+                        <div>
+                            <p class="name">정보처리기사</p>
+                        </div>
+                    </div>
+                    <div class="exp">
+                        <span class="duration">2023-11</span>
+                        <div>
+                            <p class="name">SQLD</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="exp">
+                        <span class="duration">2024-07</span>
+                        <div>
+                            <p class="name">제 21회 TOPCIT 정기평가 동상(4위)</p>
+                            <div class="links">
+                                <a class="more-button" href="./">
+                                    뉴스 기사
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exp">
+                        <span class="duration">2024-07</span>
+                        <div>
+                            <p class="name">제 3회 충청북도 대학생 프로그래밍 경진대회 우수상</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-wrap">
+            <div class="no-drag copyright">
+                <span>© changi1122</span>
+                <span class="divider divider-dark"></span>
+                <span>무단 전재 및 재배포 금지</span>
+            </div>
+            <ul class="links mobile-invisible">
+                <li><a href="./">홈</a></li>
+                <li><a href="mailto:changi112242@gmail.com">문의</a></li>
+                <li><a href="./">링크</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
