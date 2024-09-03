@@ -9,6 +9,7 @@
 }
 .resume {
     flex: 1 0;
+    min-height: calc(100vh - 218px - 120px - 60px);
 }
 
 .avatar {
@@ -73,6 +74,25 @@
     background-color: #F5F5F5;
     padding: 4px 8px;
     border-radius: 4px;
+}
+
+.resume section {
+    overflow: hidden;
+}
+.resume section.closed {
+    height: 27px;
+}
+.resume section>.title>.open-button {
+    display: none;
+}
+.resume section>.title>.close-button {
+    display: block;
+}
+.resume section.closed>.title>.open-button {
+    display: block;
+}
+.resume section.closed>.title>.close-button {
+    display: none;
 }
 
 .resume section:not(:first-child) {
