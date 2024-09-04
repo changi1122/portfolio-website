@@ -6,10 +6,14 @@ article h2 {
     font-weight: bold;
     flex: 1 0;
 }
+section {
+    min-height: calc(100vh - 68px - 60px - 40px);
+}
 
 .blog {
     display: flex;
     gap: 24px;
+    flex-wrap: wrap;
     margin: 36px auto 12px;
 }
 .blog:last-child {
@@ -35,6 +39,11 @@ article h2 {
     line-height: 1.6;
     font-weight: bold;
     color: #000;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .blog-article .description {
     font-size: 14px;
@@ -75,6 +84,8 @@ article h2 {
 }
 .blog .no-image .description {
     -webkit-line-clamp: 8;
+}
+.blog .no-image .description-wrap {
     min-height: 236px;
 }
 
@@ -116,6 +127,7 @@ article h2 {
     background-color: white;
     overflow: hidden;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+    z-index: 50;
 }
 .filter .category-list a {
     display: block;
@@ -153,7 +165,7 @@ article h2 {
     height: 36px;
     padding: 0 12px;
     font-size: 14px;
-    color: #808080;
+    color: #000;
     border: 1px solid #D1D5DA;
     border-radius: 8px;
 }
@@ -168,6 +180,12 @@ article h2 {
 }
 .filter .search>button:hover {
     background-color: #00D5B8;
+}
+
+.tag-label {
+    margin-top: 24px;
+    color: #808080;
+    font-size: 15px;
 }
 
 .pagination {
