@@ -17,19 +17,19 @@ public class BlogService {
         this.blogArticleRepository = blogArticleRepository;
     }
 
-    Page<BlogArticle> list(Pageable pageable) {
+    public Page<BlogArticle> list(Pageable pageable) {
         return blogArticleRepository.findAllByOrderByPubDateDesc(pageable);
     }
 
-    Page<BlogArticle> listByCategory(Pageable pageable, String category) {
+    public Page<BlogArticle> listByCategory(Pageable pageable, String category) {
         return blogArticleRepository.findByCategoryOrderByPubDateDesc(pageable, category);
     }
 
-    Page<BlogArticle> listByQuery(Pageable pageable, String query) {
+    public Page<BlogArticle> listByQuery(Pageable pageable, String query) {
         return blogArticleRepository.findByTitleContainingOrderByPubDateDesc(pageable, query);
     }
 
-    Page<BlogArticle> listByTag(Pageable pageable, String tag) {
+    public Page<BlogArticle> listByTag(Pageable pageable, String tag) {
         return blogArticleRepository.findByTagsOrderByPubDateDesc(pageable, tag);
     }
 }
