@@ -1,5 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,15 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/blog")
 public class BlogController {
 
     public final BlogService blogService;
 
-    @Autowired
-    public BlogController(BlogService blogService) {
-        this.blogService = blogService;
-    }
 
     @GetMapping("/{page}")
     public String blog(@PathVariable int page,

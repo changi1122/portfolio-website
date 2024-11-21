@@ -1,5 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,14 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BlogService {
 
     public final BlogArticleRepository blogArticleRepository;
 
-    @Autowired
-    public BlogService(final BlogArticleRepository blogArticleRepository) {
-        this.blogArticleRepository = blogArticleRepository;
-    }
 
     public Page<BlogArticle> list(Pageable pageable) {
         return blogArticleRepository.findAllByOrderByPubDateDesc(pageable);
