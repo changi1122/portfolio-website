@@ -1,7 +1,7 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.common;
+package net.studio1122.changi1122.portfoliowebsite.web.common;
 
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticle;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogService;
+import net.studio1122.changi1122.portfoliowebsite.web.blog.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

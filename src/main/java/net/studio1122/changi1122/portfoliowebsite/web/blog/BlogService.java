@@ -1,12 +1,11 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.blog;
+package net.studio1122.changi1122.portfoliowebsite.web.blog;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticle;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
