@@ -9,4 +9,8 @@ public interface HomeRepository extends MongoRepository<Home, String> {
 
     Optional<Home> findByAccessKeyAndExpireDateGreaterThanEqual(String accessKey, LocalDate today);
 
+    Optional<Home> findByAccessKey(String accessKey);
+
+    boolean existsByAccessKey(String accessKey);
+
 }
