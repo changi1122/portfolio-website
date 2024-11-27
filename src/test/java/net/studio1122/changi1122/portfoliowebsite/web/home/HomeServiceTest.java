@@ -104,7 +104,7 @@ class HomeServiceTest {
         assertThat(saved.getExpireDate()).isEqualTo(request.getExpireDate());
     }
 
-    @DisplayName("존재하지 않는 accessKey로 홈 화면 객체를 수정하면 오류가 반환됩니다.")
+    @DisplayName("존재하지 않는 accessKey로 홈화면 객체를 수정하면 오류가 반환됩니다.")
     @Test
     void updateHomeNoSuchAccessKey() {
         //given
@@ -112,6 +112,81 @@ class HomeServiceTest {
 
         // when then
         assertThatThrownBy(() -> homeService.updateHome(request.getAccessKey(), request))
+                .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @DisplayName("accessKey로 홈화면 객체를 조회합니다.")
+    @Test
+    void readHome() {
+        //given
+        LocalDate today = LocalDate.of(2025, 12, 31);
+        Home home = createHome("default", LocalDate.of(2025, 12, 31));
+        homeRepository.save(home);
+
+        // when
+        Home found = homeService.readHome("default", today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo(home.getAccessKey());
+        assertThat(found.getInterests()).hasSize(2)
+                .containsExactlyInAnyOrder("Spring", "추천시스템");
+        assertThat(found.getIntro()).isEqualTo(home.getIntro());
+        assertThat(found.getQuestions()).hasSize(2)
+                .extracting("question", "answer")
+                .containsExactlyInAnyOrder(
+                        tuple("질문?", "대답"),
+                        tuple("질문2?", "대답")
+                );
+        assertThat(found.getExpireDate()).isEqualTo(home.getExpireDate());
+    }
+
+    @DisplayName("만료된 홈화면 객체를 조회하면 오류가 반환됩니다.")
+    @Test
+    void readHomeExpired() {
+        //given
+        LocalDate today = LocalDate.of(2025, 12, 31);
+        Home home = createHome("default", LocalDate.of(2025, 12, 30));
+        homeRepository.save(home);
+
+        // when then
+        assertThatThrownBy(() -> homeService.readHome("default", today))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("유효 기한이 만료되었습니다.");
+    }
+
+    @DisplayName("존재하지 않는 accessKey로 홈화면 객체를 조회하면 오류가 반환됩니다.")
+    @Test
+    void readHomeNoSuchAccessKey() {
+        //given
+        Home request = createHome("no-such-key", LocalDate.of(2025, 12, 31));
+
+        // when then
+        assertThatThrownBy(() -> homeService.updateHome(request.getAccessKey(), request))
+                .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @DisplayName("accessKey로 홈화면 객체를 삭제합니다.")
+    @Test
+    void deleteHome() {
+        //given
+        Home home = createHome("default", LocalDate.of(2025, 12, 30));
+        homeRepository.save(home);
+
+        // when
+        homeService.deleteHome(home.getAccessKey());
+
+        // then
+        assertThat(homeRepository.existsByAccessKey(home.getAccessKey())).isFalse();
+    }
+
+    @DisplayName("존재하지 않는 accessKey로 홈화면 객체를 삭제하면 오류가 반환됩니다.")
+    @Test
+    void deleteHomeNoSuchAccessKey() {
+        //given
+        Home request = createHome("no-such-key", LocalDate.of(2025, 12, 31));
+
+        // when then
+        assertThatThrownBy(() -> homeService.deleteHome(request.getAccessKey()))
                 .isInstanceOf(NoSuchElementException.class);
     }
 

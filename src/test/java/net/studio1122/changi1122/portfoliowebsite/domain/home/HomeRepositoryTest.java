@@ -1,5 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.home;
 
+import net.studio1122.changi1122.portfoliowebsite.web.home.HomeService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class HomeRepositoryTest {
@@ -26,7 +26,7 @@ class HomeRepositoryTest {
     }
 
     @Test
-    @DisplayName("홈 화면객체를 AccessKey로 조회합니다.")
+    @DisplayName("홈화면 객체를 accessKey로 조회합니다.")
     void findByAccessKey() {
         // given
         LocalDate today = LocalDate.of(2024, 12, 31);
@@ -66,6 +66,21 @@ class HomeRepositoryTest {
 
         // then
         assertThat(saved.isEmpty()).isTrue();
+    }
+
+    @DisplayName("홈화면 객체를 accessKey로 삭제합니다.")
+    @Test
+    void deleteByAccessKey() {
+        //given
+        Home home = createHome("default", LocalDate.of(2024, 12, 31));
+        homeRepository.save(home);
+
+        // when
+        homeRepository.deleteByAccessKey(home.getAccessKey());
+
+        // then
+        Optional<Home> homeOptional = homeRepository.findByAccessKey(home.getAccessKey());
+        assertThat(homeOptional.isEmpty()).isTrue();
     }
 
     private Home createHome(String accessKey, LocalDate expireDate) {

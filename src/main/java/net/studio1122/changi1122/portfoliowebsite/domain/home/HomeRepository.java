@@ -11,6 +11,7 @@ public interface HomeRepository extends MongoRepository<Home, String> {
 
     Optional<Home> findByAccessKey(String accessKey);
 
-    boolean existsByAccessKey(String accessKey);
+    void deleteByAccessKey(String accessKey);
 
+    boolean existsByAccessKey(String accessKey);
 }

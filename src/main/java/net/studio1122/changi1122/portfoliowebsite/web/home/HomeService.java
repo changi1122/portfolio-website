@@ -6,6 +6,7 @@ import net.studio1122.changi1122.portfoliowebsite.domain.home.HomeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 @Service
@@ -30,6 +31,22 @@ public class HomeService {
         home.setQuestions(request.getQuestions());
         home.setExpireDate(request.getExpireDate());
         return homeRepository.save(home);
+    }
+
+    public Home readHome(String accessKey, LocalDate today) {
+        Home home = homeRepository.findByAccessKey(accessKey).orElseThrow();
+
+        if (home.getExpireDate().isBefore(today))
+            throw new IllegalArgumentException("유효 기한이 만료되었습니다.");
+
+        return home;
+    }
+
+    public void deleteHome(String accessKey) {
+        if (!homeRepository.existsByAccessKey(accessKey)) {
+            throw new NoSuchElementException();
+        }
+        homeRepository.deleteByAccessKey(accessKey);
     }
 
 }
