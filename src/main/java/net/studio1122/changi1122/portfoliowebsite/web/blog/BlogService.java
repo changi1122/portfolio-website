@@ -6,9 +6,11 @@ import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticleReposit
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BlogService {
 
     public final BlogArticleRepository blogArticleRepository;

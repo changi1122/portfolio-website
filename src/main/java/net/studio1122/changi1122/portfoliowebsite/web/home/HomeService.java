@@ -10,12 +10,13 @@ import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class HomeService {
 
     private final HomeRepository homeRepository;
 
+    @Transactional
     public Home createHome(Home request) {
         if (homeRepository.existsByAccessKey(request.getAccessKey()))
             throw new IllegalArgumentException("accessKey가 동일한 홈화면 객체가 존재합니다.");
@@ -23,6 +24,7 @@ public class HomeService {
         return homeRepository.save(request);
     }
 
+    @Transactional
     public Home updateHome(String accessKey, Home request) {
         Home home = homeRepository.findByAccessKey(accessKey).orElseThrow();
 
@@ -42,6 +44,7 @@ public class HomeService {
         return home;
     }
 
+    @Transactional
     public void deleteHome(String accessKey) {
         if (!homeRepository.existsByAccessKey(accessKey)) {
             throw new NoSuchElementException();
