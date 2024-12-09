@@ -1,5 +1,7 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.home;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -22,8 +24,11 @@ public class Home {
     @NotNull
     private LocalDate expireDate;
 
+    @NotEmpty
     private List<String> interests;
+    @NotBlank
     private String intro;
+    @NotEmpty
     private List<Question> questions;
 
     // TODO: 프로젝트 추가

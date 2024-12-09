@@ -21,16 +21,6 @@ public class CommonController {
         this.blogService = blogService;
     }
 
-    @GetMapping("/")
-    public String index(Model model) {
-
-        Pageable pageable = PageRequest.of(0, 4);
-        List<BlogArticle> articles = blogService.list(pageable).getContent();
-        model.addAttribute("articles", articles);
-
-        return "index";
-    }
-
     /* For test */
     @GetMapping("/about")
     public String about() {

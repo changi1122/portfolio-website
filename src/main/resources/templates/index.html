@@ -56,20 +56,8 @@
         <article>
             <h2>관심 분야</h2>
             <ul class="interest no-select">
-                <li>
-                    <div class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 128 128"><path fill="#77bc1f" d="M116.452 6.643a59 59 0 0 1-6.837 12.136A64.25 64.25 0 0 0 64.205-.026C28.984-.026 0 28.982 0 64.242a64.32 64.32 0 0 0 19.945 46.562l2.368 2.1a64.22 64.22 0 0 0 41.358 15.122c33.487 0 61.637-26.24 64.021-59.683c1.751-16.371-3.051-37.077-11.24-61.7M29.067 111.17a5.5 5.5 0 0 1-4.269 2.034c-3.018 0-5.487-2.484-5.487-5.502s2.485-5.501 5.487-5.501c1.25 0 2.485.433 3.452 1.234c2.351 1.9 2.718 5.384.817 7.735m87.119-19.238c-15.843 21.122-49.68 14.003-71.376 15.02c0 0-3.852.234-7.721.867c0 0 1.45-.617 3.335-1.334c15.226-5.301 22.43-6.335 31.685-11.086c17.427-8.869 34.654-28.274 38.24-48.463c-6.637 19.422-26.75 36.11-45.077 42.895c-12.557 4.635-35.238 9.136-35.238 9.136l-.917-.484c-15.442-7.518-15.91-40.977 12.157-51.78c12.291-4.735 24.048-2.134 37.323-5.302c14.175-3.367 30.568-14.004 37.238-27.874c7.471 22.19 16.46 56.932.35 78.405z"/></svg>
-                    </div>
-                    <span>Spring</span>
-                </li>
-                <li>
-                    <span>클라우드<br>컴퓨팅</span>
-                </li>
-                <li>
-                    <span>기계학습</span>
-                </li>
-                <li>
-                    <span>추천시스템</span>
+                <li th:each="interest : ${home.interests}">
+                    <span th:utext="${interest}">Spring</span>
                 </li>
             </ul>
         </article>
@@ -78,7 +66,7 @@
         <article class="introduce">
             <h2 class="sr-only">자기 소개</h2>
             <div class="title-wrap">
-                <p class="title">
+                <p class="title" th:utext="${home.intro}">
                     안녕하세요! <span class="mobile-invisible">매일매일 배우고 있는</span> 신입 백엔드 개발자 <b>이우창</b>입니다.<br>
                     저를 소개하기 위해 질문과 답변을 적어보았습니다.
                 </p>
@@ -88,39 +76,15 @@
                 </a>
             </div>
             <div class="qna-wrap">
-                <div class="qna">
+                <div class="qna" th:each="question : ${home.questions}">
                     <div>
-                        <span class="badge">Question 1</span>
-                        <p class="q">프로그래밍을 시작하게 된 계기는 무엇인가요?</p>
+                        <span class="badge">Question [[${question.questionNumber}]]</span>
+                        <p class="q" th:utext="${question.question}">프로그래밍을 시작하게 된 계기는 무엇인가요?</p>
                     </div>
-                    <p class="a">
+                    <p class="a" th:utext="${question.answer}">
                         프로그래밍에 처음 관심을 갖게 된 것은 게임이었습니다.
                         중학생 시절 내 마음속으로 상상하던 것들을 직접 게임으로 만들어보고자 하였습니다.
                         그러나 노코드(NoCode) 게임 제작 툴에 한계를 느끼고 나만의 것을 만들어보자 한 것이 컴퓨터 프로그래밍을 시작하게 된 계기입니다.
-                    </p>
-                </div>
-                <div class="qna">
-                    <div>
-                        <span class="badge">Question 2</span>
-                        <p class="q">주로 다루고 있는 분야는 무엇인가요?</p>
-                    </div>
-                    <p class="a">
-                        그런데 소프트웨어 개발을 하면서 느낀 멋진 점 하나는 제 손을 거쳐 만들어진 프로그램이 사람들에게 도움을 줄 수 있다는 점이었습니다.
-                        작은 코드에 불과하지만 무수히 많은 곳에서 쓰일 수 있다는 게 놀라웠습니다.
-                        <br><br>
-                        그 점에서 저는 사람들의 수많은 요구를 처리하고 뒷받침해 주고 있는 <b>Backend 개발</b>에 관심 갖게 되었습니다.
-                        Spring Boot 프레임워크 사용해 개발해보다 보니, 패키지 구조라던가 로깅, 검증(Validation) 등 깊은 생각이 숨겨져 있음을 깨닫고, Spring에 대해 알아가고 있습니다.
-                    </p>
-                </div>
-                <div class="qna">
-                    <div>
-                        <span class="badge">Question 3</span>
-                        <p class="q">소프트웨어 개발자로서<br> 이루고 싶은 목표는 무엇인가요?</p>
-                    </div>
-                    <p class="a">
-                        개발을 해보면서 제가 만든 서비스나 프로그램이 사람들에게 알려졌으면 하는 욕심이 생겨났습니다.
-                        이 욕구는 제가 만든 것이 많은 사람들에게 쓰이고, 도움이 되도록 해야겠다는 목표가 되었습니다.
-                        이를 원동력으로 새로운 걸 배우고 무언갈 만들어가겠습니다.
                     </p>
                 </div>
             </div>
