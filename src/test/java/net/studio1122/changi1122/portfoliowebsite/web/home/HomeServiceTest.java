@@ -158,10 +158,11 @@ class HomeServiceTest {
     @Test
     void readHomeNoSuchAccessKey() {
         //given
+        LocalDate today = LocalDate.of(2024, 12, 31);
         Home request = createHome("no-such-key", LocalDate.of(2025, 12, 31));
 
         // when then
-        assertThatThrownBy(() -> homeService.updateHome(request.getAccessKey(), request))
+        assertThatThrownBy(() -> homeService.readHome(request.getAccessKey(), today))
                 .isInstanceOf(NoSuchElementException.class);
     }
 
