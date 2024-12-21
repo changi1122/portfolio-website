@@ -22,12 +22,6 @@ public class CommonController {
     }
 
     /* For test */
-    @GetMapping("/about")
-    public String about() {
-        return "about";
-    }
-
-    /* For test */
     @GetMapping("/project")
     public String project() {
         return "project";
