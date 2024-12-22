@@ -120,6 +120,28 @@ class BlogServiceTest {
                 .isInstanceOf(NoSuchElementException.class);
     }
 
+    @DisplayName("id로 블로그 게시글을 단건 조회합니다.")
+    @Test
+    void readBlogArticle() {
+        // given
+        BlogArticle request = createBlogArticle("제목", "카테고리");
+        request = blogService.createBlogArticle(request);
+
+        // when
+        BlogArticle article = blogService.readBlogArticle(request.getId());
+
+        // then
+        assertThat(article.getTitle()).isEqualTo(request.getTitle());
+    }
+
+    @DisplayName("존재하지 않는 id로 블로그 게시글을 단건 조회하면 오류가 반환됩니다.")
+    @Test
+    void readBlogArticleNoSuchId() {
+        // when then
+        assertThatThrownBy(() -> blogService.readBlogArticle("no-such-id"))
+                .isInstanceOf(NoSuchElementException.class);
+    }
+
     public BlogArticle createBlogArticle(String title, String category) {
         return BlogArticle.builder()
                 .title(title)

@@ -41,6 +41,10 @@ public class BlogService {
         blogArticleRepository.delete(article);
     }
 
+    public BlogArticle readBlogArticle(String id) {
+        return blogArticleRepository.findById(id).orElseThrow();
+    }
+
     public Page<BlogArticle> list(Pageable pageable) {
         return blogArticleRepository.findAllByOrderByPubDateDesc(pageable);
     }

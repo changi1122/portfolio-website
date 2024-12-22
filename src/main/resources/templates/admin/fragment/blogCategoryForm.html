@@ -1,3 +1,13 @@
 <div th:fragment="content">
-    <p>이것은 블로그 카테고리 관리 페이지 콘텐츠입니다.</p>
+    <div class="mTitle">
+        <p class="set-title">블로그 카테고리 관리</p>
+    </div>
+    <form class="mBox" th:action="@{/blog/category}" method="post">
+        <label for="category">블로그 카테고리 설정 (JSON)</label>
+        <textarea class="long-textarea" type="text" id="category" name="category" th:text="${category}">
+        </textarea>
+        <div class="right-align">
+            <input class="submit-button" type="submit" value="저장">
+        </div>
+    </form>
 </div>

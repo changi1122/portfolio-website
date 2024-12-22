@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +16,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Document("blog_articles")
-@ToString
 public class BlogArticle {
 
     @Id
@@ -28,6 +28,7 @@ public class BlogArticle {
 
     private String description;
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime pubDate;
     @NotBlank
     private String link;

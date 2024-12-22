@@ -41,28 +41,13 @@
                         <li>
                             <a th:href="@{/blog/1(category=${''})}">전체 카테고리</a>
                         </li>
-                        <li>
-                            <a th:href="@{/blog/1(category=${'프로그래밍'})}">프로그래밍</a>
-                            <ul>
-                                <li><a th:href="@{/blog/1(category=${'프로그래밍/C#'})}">C#</a></li>
+                        <li th:each="cat : ${categories.category}">
+                            <a th:href="@{/blog/1(category=${cat.category})}" th:text="${cat.text}"></a>
+                            <ul th:if="${cat.subCategories != null}">
+                                <li th:each="sub : ${cat.subCategories}">
+                                    <a th:href="@{/blog/1(category=${sub.category})}" th:text="${sub.text}"></a>
+                                </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a th:href="@{/blog/1(category=${'자료구조'})}">자료구조</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/blog/1(category=${'개발'})}">개발</a>
-                            <ul>
-                                <li><a th:href="@{/blog/1(category=${'개발/React'})}">React</a></li>
-                                <li><a th:href="@{/blog/1(category=${'개발/UWP'})}">UWP</a></li>
-                                <li><a th:href="@{/blog/1(category=${'개발/Elasticsearch'})}">Elasticsearch</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a th:href="@{/blog/1(category=${'토이프로젝트'})}">토이프로젝트</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/blog/1(category=${'책'})}">책</a>
                         </li>
                     </ul>
                 </div>
