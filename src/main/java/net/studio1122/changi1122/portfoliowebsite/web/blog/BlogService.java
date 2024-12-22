@@ -15,6 +15,31 @@ public class BlogService {
 
     public final BlogArticleRepository blogArticleRepository;
 
+    @Transactional
+    public BlogArticle createBlogArticle(BlogArticle request) {
+        return blogArticleRepository.save(request);
+    }
+
+    @Transactional
+    public BlogArticle updateBlogArticle(String id, BlogArticle request) {
+        BlogArticle article = blogArticleRepository.findById(id).orElseThrow();
+
+        article.setTitle(request.getTitle());
+        article.setCategory(request.getCategory());
+        article.setDescription(request.getDescription());
+        article.setPubDate(request.getPubDate());
+        article.setLink(request.getLink());
+        article.setImageSrc(request.getImageSrc());
+        article.setTags(request.getTags());
+
+        return blogArticleRepository.save(article);
+    }
+
+    @Transactional
+    public void deleteBlogArticle(String id) {
+        BlogArticle article = blogArticleRepository.findById(id).orElseThrow();
+        blogArticleRepository.delete(article);
+    }
 
     public Page<BlogArticle> list(Pageable pageable) {
         return blogArticleRepository.findAllByOrderByPubDateDesc(pageable);
