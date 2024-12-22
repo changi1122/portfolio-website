@@ -227,12 +227,6 @@
     font-size: 14px;
 }
 
-.error-label {
-    margin-top: 8px;
-    font-size: 14px;
-    color: red;
-}
-
 .pagination {
     display: flex;
     align-items: center;
