@@ -35,4 +35,18 @@ public class ResumeController {
         return "about";
     }
 
+    @GetMapping("/manage/resume/list")
+    public String resumeList(Model model) {
+        model.addAttribute("content", "admin/fragment/resumeList");
+
+        return "admin/manage";
+    }
+
+    @GetMapping("/manage/resume/new")
+    public String resumeForm(Model model) {
+        model.addAttribute("content", "admin/fragment/resumeForm");
+
+        return "admin/manage";
+    }
+
 }

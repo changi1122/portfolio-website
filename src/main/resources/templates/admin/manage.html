@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>관리</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/admin.css" th:href="@{/css/admin.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/admin-fragment.css" th:href="@{/css/admin-fragment.css}" />
+
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap' rel='stylesheet'/>
+</head>
+<body>
+<!-- Header -->
+<header th:replace="~{fragment/style :: header}">
+</header>
+
+<!-- Content -->
+<div>
+    <section class="container mWrap">
+        <aside class="mFeature">
+            <div class="mProfile">
+                <h2>changi1122</h2>
+                <a href="http://changi1122.studio1122.net" th:href="@{/}" target="_blank">changi1122.studio1122.net
+                    <svg width="12" height="12" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.25 4.75a1.5 1.5 0 0 0-1.5 1.5v11.5a1.5 1.5 0 0 0 1.5 1.5h11.5a1.5 1.5 0 0 0 1.5-1.5v-4a1 1 0 1 1 2 0v4a3.5 3.5 0 0 1-3.5 3.5H6.25a3.5 3.5 0 0 1-3.5-3.5V6.25a3.5 3.5 0 0 1 3.5-3.5h4a1 1 0 1 1 0 2h-4Zm6.5-1a1 1 0 0 1 1-1h6.5a1 1 0 0 1 1 1v6.5a1 1 0 1 1-2 0V6.164l-4.793 4.793a1 1 0 1 1-1.414-1.414l4.793-4.793H13.75a1 1 0 0 1-1-1Z"/></svg>
+                </a>
+                <a class="mLogout" href="/logout" th:href="@{/logout}">로그아웃</a>
+            </div>
+            <a class="mNewArticle" href="fragment/blogForm.html" th:href="@{/manage/blog/new}">블로그 글쓰기</a>
+            <div class="mList">
+                <h3 class="mHome" id="mHome">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.55 2.533a2.25 2.25 0 0 1 2.9 0l6.75 5.695c.508.427.8 1.056.8 1.72v9.802a1.75 1.75 0 0 1-1.75 1.75h-3a1.75 1.75 0 0 1-1.75-1.75v-5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75v5a1.75 1.75 0 0 1-1.75 1.75h-3A1.75 1.75 0 0 1 3 19.75V9.947c0-.663.292-1.292.8-1.72l6.75-5.694Z"/></svg>
+                    관리 페이지 홈
+                </h3>
+                <script>
+                    document.getElementById("mHome").addEventListener("click", function(){
+                        window.location.href = "/manage";
+                    });
+                </script>
+                <div class="mBranch">
+                    <h3>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.75 4A2.25 2.25 0 0 1 22 6.25v11.505a2.25 2.25 0 0 1-2.25 2.25H4.25A2.25 2.25 0 0 1 2 17.755V6.25A2.25 2.25 0 0 1 4.25 4h15.5Zm-10 8.5h-3.5a.75.75 0 0 0-.743.648l-.007.102v.492l.008.108C5.67 14.964 6.602 15.5 8 15.5c1.331 0 2.24-.486 2.464-1.494l.028-.155.008-.108v-.493a.75.75 0 0 0-.648-.743L9.75 12.5Zm8 .496h-4.498l-.102.007a.75.75 0 0 0 0 1.486l.102.007h4.498l.102-.007a.75.75 0 0 0 0-1.486l-.102-.007ZM8 8.502a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9.75.998h-4.498l-.102.007a.75.75 0 0 0 0 1.486l.102.007h4.498l.102-.007a.75.75 0 0 0 0-1.486L17.75 9.5Z"/></svg>
+                        홈 화면
+                    </h3>
+                    <a href="fragment/homeList.html" th:href="@{/manage/home/list}">홈 화면 관리</a>
+                    <a href="fragment/homeForm.html" th:href="@{/manage/home/new}">홈 화면 추가</a>
+                </div>
+                <div class="mBranch">
+                    <h3>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10h-6a2 2 0 0 1-2-2Zm-3.75 3.5h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1 0-1.5Zm0 2.75h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1 0-1.5Zm0 2.75h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1 0-1.5Zm5.25-9V2.5l6 6H14a.5.5 0 0 1-.5-.5Z"/></svg>
+                        소개
+                    </h3>
+                    <a href="fragment/resumeList.html" th:href="@{/manage/resume/list}">이력서 관리</a>
+                    <a href="fragment/resumeForm.html" th:href="@{/manage/resume/new}">이력서 추가</a>
+                </div>
+                <div class="mBranch">
+                    <h3>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.25 3a.75.75 0 0 1 .75.75V7h1.75A3.25 3.25 0 0 1 21 10.25v6.5A3.25 3.25 0 0 1 17.75 20H6.25A3.25 3.25 0 0 1 3 16.75v-6.5A3.25 3.25 0 0 1 6.25 7H8V3.75a.75.75 0 0 1 .648-.743L8.75 3h6.5Zm-.75 1.5h-5V7h5V4.5Z"/></svg>
+                        프로젝트
+                    </h3>
+                    <a href="fragment/projectList.html" th:href="@{/manage/project/list}">프로젝트 관리</a>
+                    <a href="projectEditor.html" th:href="@{/manage/project/new}">프로젝트 추가</a>
+                </div>
+                <div class="mBranch">
+                    <h3>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 8v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 19.5V8h16Zm-6 3.5h-4a.75.75 0 0 0 0 1.5h4a.75.75 0 0 0 0-1.5ZM20 3a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h16Z"/></svg>
+                        블로그
+                    </h3>
+                    <a href="fragment/blogList.html" th:href="@{/manage/blog/list}">글 관리</a>
+                    <a href="fragment/blogForm.html" th:href="@{/manage/blog/new}">글쓰기</a>
+                    <a href="fragment/blogCategoryForm.html" th:href="@{/manage/blog/category}">카테고리 관리</a>
+                </div>
+                <div class="mBranch">
+                    <h3>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2a6 6 0 0 1 4.396 10.084l-.19.194-8.727 8.727-.053.05-.056.045a3.721 3.721 0 0 1-5.253-5.242l.149-.164.015-.011 7.29-7.304a1 1 0 0 1 1.416 1.413l-7.29 7.304-.012.008a1.721 1.721 0 0 0 2.289 2.553l.122-.1.001.001 8.702-8.7.159-.165a4 4 0 0 0-5.753-5.554l-.155.16-.018.012-9.326 9.33a1 1 0 0 1-1.414-1.415L11.6 3.913l.046-.043A5.985 5.985 0 0 1 16 2Z"/></svg>
+                        파일
+                    </h3>
+                    <a href="fragment/fileList.html" th:href="@{/manage/file/list}">정적 파일 업로드</a>
+                    <a href="fragment/imageFileList.html" th:href="@{/manage/image/list}">이미지 업로드</a>
+                </div>
+            </div>
+        </aside>
+        <article class="mArticle">
+            <div th:replace="~{${content} :: content}"></div>
+        </article>
+
+    </section>
+</div>
+
+<!-- Footer -->
+<footer th:replace="~{fragment/style :: footer}">
+</footer>
+
+<!-- Scripts -->
+<script type="text/javascript" src="../static/js/style.js" th:src="@{/js/style.js}"></script>
+</body>
+</html>

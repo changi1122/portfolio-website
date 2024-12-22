@@ -13,8 +13,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Document("blog_articles")
+@ToString
 public class BlogArticle {
 
     @Id

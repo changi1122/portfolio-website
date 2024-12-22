@@ -1,0 +1,109 @@
+body {
+    background-color: #f3f5f7;
+}
+a {
+    text-decoration: none;
+}
+
+.mWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 148px;
+    margin-bottom: 96px;
+}
+
+
+.mFeature h2 {
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 24px;
+}
+.mList h3 {
+    padding: 12px 12px 4px;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 20px;
+    border-top: 1px solid lightgray;
+}
+.mList h3>svg {
+    display: inline-block;
+    fill: gray;
+    width: 18px;
+    height: 18px;
+    margin-bottom: -3px;
+    margin-right: 4px;
+}
+.mList a {
+    display: block;
+    padding: 5px 40px 5px;
+    color: gray;
+    font-size: 13px;
+    line-height: 18px;
+}
+.mList a:hover {
+    background-color: #f0f0f0;
+}
+
+.mFeature {
+    width: 216px;
+}
+.mList {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 1px;
+}
+.mBranch {
+    padding-bottom: 10px;
+}
+.mArticle {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.mProfile {
+    background-color: white;
+    padding: 18px 12px;
+    border: 1px solid lightgray;
+    border-radius: 1px;
+}
+.mProfile>a {
+    display: inline-block;
+    color: gray;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 4px 0 0;
+}
+.mProfile>a>svg {
+    fill: gray;
+    margin-bottom: -2px;
+}
+.mProfile>a:hover {
+    text-decoration: underline;
+}
+.mProfile>a>i {
+    font-size: 12px;
+}
+.mProfile>.mLogout {
+    margin-top: 14px;
+    font-size: 14px;
+}
+.mNewArticle {
+    display: block;
+    background-color: black;
+    margin: 10px 0;
+    padding: 14px 12px;
+    color: white;
+    font-size: 14px;
+    border-radius: 1px;
+}
+.mNewArticle:hover {
+    background-color: #464646;
+}
+.mList .mHome {
+    padding: 12px;
+    border-top: none;
+}
+.mList .mHome:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}

@@ -50,4 +50,18 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/manage/home/list")
+    public String homeList(Model model) {
+        model.addAttribute("content", "admin/fragment/homeList");
+
+        return "admin/manage";
+    }
+
+    @GetMapping("/manage/home/new")
+    public String homeForm(Model model) {
+        model.addAttribute("content", "admin/fragment/homeForm");
+
+        return "admin/manage";
+    }
+
 }

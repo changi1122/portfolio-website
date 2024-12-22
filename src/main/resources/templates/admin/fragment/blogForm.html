@@ -1,0 +1,60 @@
+<div th:fragment="content">
+    <form class="mBox" action="/blog" method="post" th:action="@{/blog}" th:object="${article}">
+        <p class="set-title">블로그 글쓰기</p>
+
+        <label for="title">제목</label>
+        <input class="long-textbox" type="text" id="title" name="title" th:field="*{title}">
+        <p class="error-label" th:errors="*{title}">제목 오류</p>
+
+        <label for="link">링크</label>
+        <input class="long-textbox" type="text" id="link" name="link" th:field="*{link}">
+        <p class="error-label" th:errors="*{link}">링크 오류</p>
+
+        <label for="title">발행일</label>
+        <input class="date-input" type="datetime-local" id="pubDate" name="pubDate" th:field="*{pubDate}">
+        <p class="error-label" th:errors="*{pubDate}">발행일 오류</p>
+
+        <label for="category">카테고리</label>
+        <input class="short-textbox" type="text" id="category" name="category" th:field="*{category}">
+        <p class="error-label" th:errors="*{category}">링크 오류</p>
+
+        <label for="imageSrc">대표 이미지</label>
+        <input class="long-textbox" type="text" id="imageSrc" name="imageSrc" th:field="*{imageSrc}">
+        <p class="error-label" th:errors="*{imageSrc}">대표 이미지 오류</p>
+
+
+        <label for="description">본문 설명</label>
+        <input class="long-textbox" type="text" id="description" name="description" th:field="*{description}">
+        <p class="error-label" th:errors="*{description}">대표 이미지 오류</p>
+
+        <label>태그</label>
+        <span id="tagsBox" class="tag-wrap">
+            <input class="tag-textbox" type="text" name="tags" th:each="tag : ${article.tags}" th:value="${tag}">
+        </span>
+        <input class="tag-button" type="button" id="btnAddTag" value="+">
+        <input class="tag-button" type="button" id="btnRemoveTag" value="-">
+        <div class="right-align">
+            <input class="submit-button" type="submit" value="글 발행">
+        </div>
+
+        <script>
+            document.getElementById("btnAddTag").addEventListener("click", addTag);
+            document.getElementById("btnRemoveTag").addEventListener("click", removeTag);
+
+            addTag();
+            function addTag() {
+                const TagsBox = document.getElementById("tagsBox");
+                const input = document.createElement("input");
+                input.classList.add("tag-textbox");
+                input.type = "text";
+                input.name = "tags";
+                TagsBox.appendChild(input);
+            }
+            function removeTag() {
+                const TagsBox = document.getElementById("tagsBox");
+                if (TagsBox.childNodes.length)
+                    TagsBox.removeChild(TagsBox.lastChild);
+            }
+        </script>
+    </form>
+</div>
