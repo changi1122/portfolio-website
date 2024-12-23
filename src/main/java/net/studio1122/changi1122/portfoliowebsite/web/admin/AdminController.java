@@ -27,7 +27,7 @@ public class AdminController {
 
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginForm loginForm, BindingResult bindingResult,
-                        HttpServletRequest request, @RequestParam(defaultValue = "/manage") String redirectURL) {
+                        @RequestParam(defaultValue = "/manage") String redirectURL, HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
             return "admin/login";
@@ -88,7 +88,8 @@ public class AdminController {
     }
 
     @GetMapping("/login")
-    public String loginForm(HttpServletRequest request, Model model) {
+    public String loginForm(@RequestParam(defaultValue = "/manage") String redirectURL,
+                            HttpServletRequest request, Model model) {
         if (!authService.existsAdmin())
             return "redirect:/signup";
 
@@ -97,6 +98,7 @@ public class AdminController {
             return "redirect:/manage";
         }
 
+        model.addAttribute("redirectURL", redirectURL);
         model.addAttribute("loginForm", new LoginForm());
 
         return "admin/login";

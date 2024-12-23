@@ -20,6 +20,7 @@
 <section class="container">
     <div class="user-form-wrap">
         <form class="user-form" method="post" action="/login" th:action="@{/login}" th:object="${loginForm}">
+            <input type="hidden" name="redirectURL" th:value="${redirectURL}" />
             <div class="input-wrap">
                 <label for="loginId">아이디</label>
                 <input type="text" id="loginId" name="loginId" th:field="*{loginId}">
