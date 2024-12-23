@@ -15,7 +15,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         String requestURI = request.getRequestURI();
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute(SessionConst.LOGIN_ID) == null) {
             log.info("미인증 요청 시도 : [{}] from [{}]", requestURI, getClientIp(request));
             response.sendRedirect("/login?redirectURL=" + requestURI);

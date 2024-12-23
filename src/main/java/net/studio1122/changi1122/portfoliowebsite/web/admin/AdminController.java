@@ -93,7 +93,7 @@ public class AdminController {
         if (!authService.existsAdmin())
             return "redirect:/signup";
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute(SessionConst.LOGIN_ID) != null) {
             return "redirect:/manage";
         }
