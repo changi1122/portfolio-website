@@ -11,6 +11,7 @@ import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.SideProje
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Resume {
     @Indexed(unique = true)
     private String accessKey;
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDate expireDate;
 
     @NotEmpty
