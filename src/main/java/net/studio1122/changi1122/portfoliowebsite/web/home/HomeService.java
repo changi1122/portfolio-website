@@ -3,6 +3,8 @@ package net.studio1122.changi1122.portfoliowebsite.web.home;
 import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.Home;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.HomeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +52,10 @@ public class HomeService {
             throw new NoSuchElementException();
         }
         homeRepository.deleteByAccessKey(accessKey);
+    }
+
+    public Page<Home> listHome(Pageable pageable) {
+        return homeRepository.findAllBy(pageable);
     }
 
 }

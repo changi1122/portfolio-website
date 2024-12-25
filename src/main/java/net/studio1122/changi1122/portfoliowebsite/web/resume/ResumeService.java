@@ -3,6 +3,8 @@ package net.studio1122.changi1122.portfoliowebsite.web.resume;
 import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.Resume;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.ResumeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,10 @@ public class ResumeService {
         return resumeRepository.save(resume);
     }
 
+    public Resume readResume(String accessKey) {
+        return resumeRepository.findByAccessKey(accessKey).orElseThrow();
+    }
+
     public Resume readResume(String accessKey, LocalDate today) {
         Resume resume = resumeRepository.findByAccessKey(accessKey).orElseThrow();
 
@@ -52,10 +58,18 @@ public class ResumeService {
         return resume;
     }
 
-    public void deleteHome(String accessKey) {
+    public void deleteResume(String accessKey) {
         if (!resumeRepository.existsByAccessKey(accessKey)) {
             throw new NoSuchElementException();
         }
         resumeRepository.deleteByAccessKey(accessKey);
+    }
+
+    public Page<Resume> listResume(Pageable pageable) {
+        return resumeRepository.findAllBy(pageable);
+    }
+
+    public boolean existsAccessKey(String accessKey) {
+        return resumeRepository.existsByAccessKey(accessKey);
     }
 }

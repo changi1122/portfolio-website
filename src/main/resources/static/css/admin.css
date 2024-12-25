@@ -46,6 +46,7 @@ a {
 
 .mFeature {
     width: 216px;
+    min-width: 216px;
 }
 .mList {
     background-color: white;

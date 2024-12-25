@@ -21,7 +21,6 @@ import java.util.NoSuchElementException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.groups.Tuple.tuple;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ResumeServiceTest {
@@ -212,6 +211,48 @@ class ResumeServiceTest {
                 .hasMessage("유효 기한이 만료되었습니다.");
     }
 
+    @DisplayName("내부에서 현재 날짜에 상관 없이 accessKey로 이력서 객체를 조회합니다.")
+    @Test
+    void readResumeWithoutDate() {
+        //given
+        Resume resume = createResume("default", LocalDate.of(2025, 12, 31));
+        resumeRepository.save(resume);
+
+        // when
+        Resume found = resumeService.readResume("default");
+
+        // then
+        assertThat(found.getExpireDate()).isEqualTo(resume.getExpireDate());
+        assertThat(found.getLinks()).hasSize(2);
+        assertThat(found.getIntro()).isEqualTo(resume.getIntro());
+        assertThat(found.getInterests()).hasSize(2)
+                .containsExactlyInAnyOrder("Spring", "추천시스템");
+        assertThat(found.getQuestions()).hasSize(2)
+                .extracting("question", "answer")
+                .containsExactlyInAnyOrder(
+                        tuple("질문?", "대답"),
+                        tuple("질문2?", "대답")
+                );
+        assertThat(found.getExperiences()).hasSize(1)
+                .extracting("name")
+                .contains("테스트경력");
+        assertThat(found.getDegrees()).hasSize(1)
+                .extracting("name")
+                .contains("테스트학력");
+        assertThat(found.getProjects()).hasSize(1)
+                .extracting("name")
+                .contains("사이드프로젝트");
+        assertThat(found.getCertifications()).hasSize(1)
+                .extracting("name")
+                .contains("자격증");
+        assertThat(found.getAwards()).hasSize(1)
+                .extracting("name")
+                .contains("수상");
+        assertThat(found.getCourseCertifications()).hasSize(1)
+                .extracting("name")
+                .contains("수료증");
+    }
+
     @DisplayName("존재하지 않는 accessKey로 이력서 객체를 조회하면 오류가 반환됩니다.")
     @Test
     void readResumeNoSuchAccessKey() {
@@ -232,7 +273,7 @@ class ResumeServiceTest {
         resumeRepository.save(resume);
 
         // when
-        resumeService.deleteHome(resume.getAccessKey());
+        resumeService.deleteResume(resume.getAccessKey());
 
         // then
         assertThat(resumeRepository.existsByAccessKey(resume.getAccessKey())).isFalse();
@@ -245,7 +286,7 @@ class ResumeServiceTest {
         Resume request = createResume("no-such-key", LocalDate.of(2025, 12, 31));
 
         // when then
-        assertThatThrownBy(() -> resumeService.deleteHome(request.getAccessKey()))
+        assertThatThrownBy(() -> resumeService.deleteResume(request.getAccessKey()))
                 .isInstanceOf(NoSuchElementException.class);
     }
 

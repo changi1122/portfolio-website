@@ -1,3 +1,618 @@
 <div th:fragment="content">
-    <p>이것은 이력서 추가 페이지 콘텐츠입니다.</p>
+    <div class="mTitle">
+        <p class="set-title">이력서 쓰기</p>
+    </div>
+
+    <script>
+        /* Utility function */
+        function formatString(template, ...values) {
+            return template.replace(/{(\d+)}/g, (match, index) => values[index]);
+        }
+    </script>
+
+    <form class="mBox" action="/resume" method="post" th:action="${action}" th:object="${resume}">
+        <label for="accessKey">액세스 키</label>
+        <input class="short-textbox" type="text" id="accessKey" name="accessKey" th:field="*{accessKey}">
+        <p class="error-label" th:errors="*{accessKey}">액세스키 오류</p>
+
+        <label for="expireDate">만료일</label>
+        <input class="date-input" type="date" id="expireDate" name="expireDate" th:field="*{expireDate}">
+        <p class="error-label" th:errors="*{expireDate}">만료일 오류</p>
+
+        <label>연락처 목록</label>
+        <div id="linksBox" class="tag-wrap">
+            <textarea class="short-textarea" name="links" th:each="link : ${resume.links}" th:text="${link}">
+            </textarea>
+        </div>
+        <input class="tag-button" type="button" value="+" onclick="addLink()">
+        <input class="tag-button" type="button" value="-" onclick="removeLink()">
+        <script>
+            const LINKTEXTAREA = '<textarea class="short-textarea" name="links"></textarea>';
+
+            const linksBox = document.getElementById("linksBox");
+
+            function addLink() {
+                linksBox.innerHTML = linksBox.innerHTML.concat(LINKTEXTAREA);
+            }
+            function removeLink() {
+                if (linksBox.lastElementChild)
+                    linksBox.removeChild(linksBox.lastElementChild);
+            }
+        </script>
+
+        <label>주요 기술 및 관심 분야</label>
+        <span id="interestsBox" class="tag-wrap">
+            <input class="tag-textbox" name="interests" th:each="interest : ${resume.interests}" th:value="${interest}">
+        </span>
+        <input class="tag-button" type="button" value="+" onclick="addInterest()">
+        <input class="tag-button" type="button" value="-" onclick="removeInterest()">
+        <script>
+            const TAGTEXTBOX = '<input class="tag-textbox" name="interests">';
+
+            const interestsBox = document.getElementById("interestsBox");
+
+            function addInterest() {
+                interestsBox.innerHTML = interestsBox.innerHTML.concat(TAGTEXTBOX);
+            }
+            function removeInterest() {
+                if (interestsBox.lastElementChild)
+                    interestsBox.removeChild(interestsBox.lastElementChild);
+            }
+        </script>
+
+
+        <label for="intro">인트로</label>
+        <textarea class="short-textarea" id="intro" name="intro" th:text="*{intro}"></textarea>
+
+        <label>질의응답</label>
+        <div id="qnaBox">
+            <div th:each="qna, qnaStat : ${resume.questions}">
+                <input type="hidden" th:value="${qna.questionNumber}"/>
+                <input class="long-textbox" type="text"
+                       th:name="|questions[${qnaStat.index}].question|" th:value="${qna.question}">
+                <textarea class="short-textarea"
+                          th:name="|questions[${qnaStat.index}].answer|" th:text="${qna.answer}"></textarea>
+            </div>
+        </div>
+        <input class="tag-button" type="button" value="+" onclick="addQna()">
+        <input class="tag-button" type="button" value="-" onclick="removeQna()">
+        <script>
+            const QNADIV =
+                '<div>\n' +
+                '  <input type="hidden" value="{1}">\n' +
+                '  <input class="long-textbox" type="text"' +
+                '   id="questions[{0}].question" name="questions[{0}].question">\n' +
+                '  <textarea class="short-textarea" id="questions[{0}].answer"' +
+                '  name="questions[{0}].answer"></textarea>\n' +
+                '</div>';
+
+            const qnaBox = document.getElementById("qnaBox");
+
+            function addQna() {
+                qnaBox.innerHTML = qnaBox.innerHTML.concat(
+                    formatString(QNADIV, qnaBox.children.length, qnaBox.children.length + 1)
+                );
+            }
+            function removeQna() {
+                if (qnaBox.lastElementChild)
+                    qnaBox.removeChild(qnaBox.lastElementChild);
+            }
+        </script>
+
+
+        <label>경력</label>
+        <div id="exp-wrap">
+            <div th:each="exp, iterStat : ${resume.experiences}" style="margin-bottom: 48px">
+                <input class="long-textbox" type="text" placeholder="기간" th:value="${exp.duration}"
+                       th:name="|experiences[${iterStat.index}].duration|">
+                <input class="long-textbox" type="text" placeholder="직장 또는 단체 이름" th:value="${exp.name}"
+                       th:name="|experiences[${iterStat.index}].name|">
+                <input class="short-textbox" type="text" placeholder="직책" th:value="${exp.position}"
+                       th:name="|experiences[${iterStat.index}].position|">
+                <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)" th:value="${exp.themeColor}"
+                       th:name="|experiences[${iterStat.index}].themeColor|">
+                <textarea class="short-textarea" placeholder="담당 업무 설명" th:text="${exp.description}"
+                          th:name="|experiences[${iterStat.index}].description|"></textarea>
+                <div th:data-index="${iterStat.index}">
+                    <label>태그</label>
+                    <span class="tag-wrap">
+                        <input class="tag-textbox" th:name="|experiences[${iterStat.index}].tags[${tagStat.index}]|"
+                               th:each="tag, tagStat : ${exp.tags}" th:value="${tag}">
+                    </span>
+                    <input class="tag-button" type="button" value="+" onclick="addExpTag(this)">
+                    <input class="tag-button" type="button" value="-" onclick="removeExpTag(this)">
+                </div>
+                <div th:data-index="${iterStat.index}">
+                    <label>관련 링크</label>
+                    <div class="tag-wrap">
+                        <textarea class="short-textarea" th:name="|experiences[${iterStat.index}].links[${linkStat.index}]|"
+                                  th:each="link, linkStat : ${exp.links}" th:text="${link}">
+                        </textarea>
+                    </div>
+                    <input class="tag-button" type="button" value="+" onclick="addExpLink(this)">
+                    <input class="tag-button" type="button" value="-" onclick="removeExpLink(this)">
+                </div>
+            </div>
+        </div>
+        <div class="right-align" style="margin-bottom: 72px">
+            <input class="tag-button" type="button" value="경력 추가" onclick="addExp()">
+            <input class="tag-button" type="button" value="경력 삭제" onclick="removeExp()">
+        </div>
+        <script>
+            const EXPTAGTEXTBOX = '<input class="tag-textbox" name="experiences[{0}].tags[{1}]">';
+            const EXPLINKTEXTAREA = '<textarea class="short-textarea" name="experiences[{0}].links[{1}]"></textarea>';
+            const EXPDIV =
+                '<div style="margin-bottom: 48px">\n' +
+                '  <input class="long-textbox" type="text" placeholder="기간"\n' +
+                '    name="experiences[{0}].duration">\n' +
+                '  <input class="long-textbox" type="text" placeholder="직장 또는 단체 이름"\n' +
+                '    name="experiences[{0}].name">\n' +
+                '  <input class="short-textbox" type="text" placeholder="직책"\n' +
+                '    name="experiences[{0}].position">\n' +
+                '  <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"\n' +
+                '    name="experiences[{0}].themeColor">\n' +
+                '  <textarea class="short-textarea" placeholder="담당 업무 설명"\n' +
+                '    name="experiences[{0}].description"></textarea>\n' +
+                '  <div data-index="{0}">\n' +
+                '    <label>태그</label>\n' +
+                '    <span class="tag-wrap">\n' +
+                '      <input class="tag-textbox" name="experiences[{0}].tags[0]">\n' +
+                '    </span>\n' +
+                '    <input class="tag-button" type="button" value="+" onclick="addExpTag(this)">\n' +
+                '    <input class="tag-button" type="button" value="-" onclick="removeExpTag(this)">\n' +
+                '  </div>\n' +
+                '  <div data-index="{0}">\n' +
+                '    <label>관련 링크</label>\n' +
+                '    <div class="tag-wrap">\n' +
+                '      <textarea class="short-textarea" name="experiences[{0}].links[0]"></textarea>\n' +
+                '    </div>\n' +
+                '    <input class="tag-button" type="button" value="+" onclick="addExpLink(this)">\n' +
+                '    <input class="tag-button" type="button" value="-" onclick="removeExpLink(this)">\n' +
+                '  </div>\n' +
+                '</div>'
+
+            // 경력 태그
+            function addExpTag(et) {
+                const tagBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                const expIndex = et.parentElement.dataset.index;
+                const tagIndex = tagBox.children.length;
+
+                tagBox.innerHTML = tagBox.innerHTML.concat(
+                    formatString(EXPTAGTEXTBOX, expIndex, tagIndex)
+                );
+            }
+            function removeExpTag(et) {
+                const tagBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (tagBox.lastElementChild)
+                    tagBox.removeChild(tagBox.lastElementChild);
+            }
+
+            // 경력 링크
+            function addExpLink(et) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                const expIndex = et.parentElement.dataset.index
+                const linkIndex = linkBox.children.length;
+
+                linkBox.innerHTML = linkBox.innerHTML.concat(
+                    formatString(EXPLINKTEXTAREA, expIndex, linkIndex)
+                );
+            }
+            function removeExpLink(et) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (linkBox.lastElementChild)
+                    linkBox.removeChild(linkBox.lastElementChild);
+            }
+
+            // 경력
+            function addExp() {
+                const expBox = document.querySelector("#exp-wrap")
+                const expIndex = expBox.children.length;
+
+                expBox.innerHTML = expBox.innerHTML.concat(
+                    formatString(EXPDIV, expIndex)
+                );
+            }
+            function removeExp() {
+                const expBox = document.querySelector("#exp-wrap")
+                if (expBox.lastElementChild)
+                    expBox.removeChild(expBox.lastElementChild);
+            }
+        </script>
+
+
+        <label>학력</label>
+        <div id="deg-wrap">
+            <div th:each="deg, iterStat : ${resume.degrees}" style="margin-bottom: 48px">
+                <input class="long-textbox" type="text" placeholder="기간"
+                       th:name="|degrees[${iterStat.index}].duration|" th:value="${deg.duration}">
+                <input class="long-textbox" type="text" placeholder="학교 이름"
+                       th:name="|degrees[${iterStat.index}].name|" th:value="${deg.name}">
+                <input class="short-textbox" type="text" placeholder="학과"
+                       th:name="|degrees[${iterStat.index}].position|" th:value="${deg.position}">
+                <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"
+                       th:name="|degrees[${iterStat.index}].themeColor|" th:value="${deg.themeColor}">
+                <textarea class="short-textarea" placeholder="관련 설명"
+                          th:name="|degrees[${iterStat.index}].description|" th:text="${deg.description}"></textarea>
+                <div th:data-index="${iterStat.index}">
+                    <label>태그</label>
+                    <span class="tag-wrap">
+                        <input class="tag-textbox" th:name="|degrees[${iterStat.index}].tags[${tagStat.index}]|"
+                               th:each="tag, tagStat : ${deg.tags}" th:value="${tag}">
+                    </span>
+                    <input class="tag-button" type="button" value="+" onclick="addDegTag(this)">
+                    <input class="tag-button" type="button" value="-" onclick="removeDegTag(this)">
+                </div>
+                <div th:data-index="${iterStat.index}">
+                    <label>관련 링크</label>
+                    <div class="tag-wrap">
+                        <textarea class="short-textarea" th:name="|degrees[${iterStat.index}].links[${linkStat.index}]|"
+                                  th:each="link, linkStat : ${deg.links}" th:text="${link}">
+                        </textarea>
+                    </div>
+                    <input class="tag-button" type="button" value="+" onclick="addDegLink(this)">
+                    <input class="tag-button" type="button" value="-" onclick="removeExpLink(this)">
+                </div>
+            </div>
+        </div>
+        <div class="right-align" style="margin-bottom: 72px">
+            <input class="tag-button" type="button" value="학력 추가" onclick="addDeg()">
+            <input class="tag-button" type="button" value="학력 삭제" onclick="removeDeg()">
+        </div>
+        <script>
+            const DEGTAGTEXTBOX = '<input class="tag-textbox" name="degrees[{0}].tags[{1}]">';
+            const DEGLINKTEXTAREA = '<textarea class="short-textarea" name="degrees[{0}].links[{1}]"></textarea>';
+            const DEGDIV =
+                '<div style="margin-bottom: 48px">\n' +
+                '  <input class="long-textbox" type="text" placeholder="기간"\n' +
+                '    name="degrees[{0}].duration">\n' +
+                '  <input class="long-textbox" type="text" placeholder="학교 이름"\n' +
+                '    name="degrees[{0}].name">\n' +
+                '  <input class="short-textbox" type="text" placeholder="학과"\n' +
+                '    name="degrees[{0}].position">\n' +
+                '  <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"\n' +
+                '    name="degrees[{0}].themeColor">\n' +
+                '  <textarea class="short-textarea" placeholder="관련 설명"\n' +
+                '    name="degrees[{0}].description"></textarea>\n' +
+                '  <div data-index="{0}">\n' +
+                '    <label>태그</label>\n' +
+                '    <span class="tag-wrap">\n' +
+                '      <input class="tag-textbox" name="degrees[{0}].tags[0]">\n' +
+                '    </span>\n' +
+                '    <input class="tag-button" type="button" value="+" onclick="addDegTag(this)">\n' +
+                '    <input class="tag-button" type="button" value="-" onclick="removeDegTag(this)">\n' +
+                '  </div>\n' +
+                '  <div data-index="{0}">\n' +
+                '    <label>관련 링크</label>\n' +
+                '    <div class="tag-wrap">\n' +
+                '      <textarea class="short-textarea" name="degrees[{0}].links[0]"></textarea>\n' +
+                '    </div>\n' +
+                '    <input class="tag-button" type="button" value="+" onclick="addDegLink(this)">\n' +
+                '    <input class="tag-button" type="button" value="-" onclick="removeExpLink(this)">\n' +
+                '  </div>\n' +
+                '</div>'
+
+            // 학력 태그
+            function addDegTag(et) {
+                const tagBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                const degIndex = et.parentElement.dataset.index;
+                const tagIndex = tagBox.children.length;
+
+                tagBox.innerHTML = tagBox.innerHTML.concat(
+                    formatString(DEGTAGTEXTBOX, degIndex, tagIndex)
+                );
+            }
+            function removeDegTag(et) {
+                const tagBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (tagBox.lastElementChild)
+                    tagBox.removeChild(tagBox.lastElementChild);
+            }
+
+            // 학력 링크
+            function addDegLink(et) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                const degIndex = et.parentElement.dataset.index;
+                const linkIndex = linkBox.children.length;
+
+                linkBox.innerHTML = linkBox.innerHTML.concat(
+                    formatString(DEGLINKTEXTAREA, degIndex, linkIndex)
+                );
+            }
+            function removeDegLink(et) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (linkBox.lastElementChild)
+                    linkBox.removeChild(linkBox.lastElementChild);
+            }
+
+            // 학력
+            function addDeg() {
+                const degBox = document.querySelector("#deg-wrap")
+                const degIndex = degBox.children.length;
+
+                degBox.innerHTML = degBox.innerHTML.concat(
+                    formatString(EXPDIV, degIndex)
+                );
+            }
+            function removeDeg() {
+                const degBox = document.querySelector("#deg-wrap")
+                if (degBox.lastElementChild)
+                    degBox.removeChild(degBox.lastElementChild);
+            }
+        </script>
+
+        
+        <label>사이드 프로젝트</label>
+        <div id="prj-wrap">
+            <div th:each="prj, iterStat : ${resume.projects}" style="margin-bottom: 48px">
+                <input class="long-textbox" type="text" placeholder="기간"
+                       th:name="|projects[${iterStat.index}].duration|" th:value="${prj.duration}">
+                <input class="long-textbox" type="text" placeholder="직장 또는 단체 이름"
+                       th:name="|projects[${iterStat.index}].name|" th:value="${prj.name}">
+                <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"
+                       th:name="|projects[${iterStat.index}].themeColor|" th:value="${prj.themeColor}">
+                <div th:data-index="${iterStat.index}">
+                    <label>키워드</label>
+                    <div class="tag-wrap">
+                        <div th:each="keyword, keyStat : ${prj.keywords}">
+                            <input class="short-textbox" th:value="${keyword.keyword}"
+                                   th:name="|projects[${iterStat.index}].keywords[${keyStat.index}].keyword|">
+                            <input class="long-textbox" th:value="${keyword.description}"
+                                   th:name="|projects[${iterStat.index}].keywords[${keyStat.index}].description|">
+                        </div>
+                    </div>
+                    <div style="margin: 12px 0 24px">
+                        <input class="tag-button" type="button" value="+" onclick="addPrjKeyword(this)">
+                        <input class="tag-button" type="button" value="-" onclick="removePrjKeyword(this)">
+                    </div>
+                </div>
+                <textarea class="short-textarea" placeholder="상세 설명"
+                          th:name="|projects[${iterStat.index}].description|" th:text="${prj.description}"></textarea>
+                <div th:data-index="${iterStat.index}">
+                    <label>관련 링크</label>
+                    <div class="tag-wrap">
+                        <textarea class="short-textarea" th:name="|projects[${iterStat.index}].links[${linkStat.index}]|"
+                                  th:each="link, linkStat : ${prj.links}" th:text="${link}">
+                        </textarea>
+                    </div>
+                    <input class="tag-button" type="button" value="+" onclick="addPrjLink(this)">
+                    <input class="tag-button" type="button" value="-" onclick="removePrjLink(this)">
+                </div>
+            </div>
+        </div>
+        <div class="right-align" style="margin-bottom: 72px">
+            <input class="tag-button" type="button" value="프로젝트 추가" onclick="addPrj()">
+            <input class="tag-button" type="button" value="프로젝트 삭제" onclick="removePrj()">
+        </div>
+        <script>
+            const KEYWORDDIV =
+                '<div>\n' +
+                '  <input class="short-textbox" name="projects[{0}].keywords[{1}].keyword">\n' +
+                '  <input class="long-textbox" name="projects[{0}].keywords[{1}].description">\n' +
+                '</div>';
+            const PRJLINKTEXTAREA = '<textarea class="short-textarea" name="projects[{0}].links[{1}]"></textarea>';
+            const PRJDIV =
+                '<div style="margin-bottom: 48px">\n' +
+                '    <input class="long-textbox" type="text" placeholder="기간"\n' +
+                '           name="projects[{0}].duration">\n' +
+                '    <input class="long-textbox" type="text" placeholder="직장 또는 단체 이름"\n' +
+                '           name="projects[{0}].name">\n' +
+                '    <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"\n' +
+                '           name="projects[{0}].themeColor">\n' +
+                '    <div data-index="{0}">\n' +
+                '        <label>키워드</label>\n' +
+                '        <div class="tag-wrap">\n' +
+                '            <div>\n' +
+                '                <input class="short-textbox"\n' +
+                '                       name="projects[{0}].keywords[0].keyword">\n' +
+                '                <input class="long-textbox"\n' +
+                '                       name="projects[{0}].keywords[0].description">\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '        <div style="margin: 12px 0 24px">\n' +
+                '            <input class="tag-button" type="button" value="+" onclick="addPrjKeyword(this)">\n' +
+                '            <input class="tag-button" type="button" value="-" onclick="removePrjKeyword(this)">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <textarea class="short-textarea" placeholder="상세 설명"\n' +
+                '              name="projects[{0}].description"></textarea>\n' +
+                '    <div data-index="{0}">\n' +
+                '        <label>관련 링크</label>\n' +
+                '        <div class="tag-wrap">\n' +
+                '            <textarea class="short-textarea" name="projects[{0}].links[0]">\n' +
+                '            </textarea>\n' +
+                '        </div>\n' +
+                '        <input class="tag-button" type="button" value="+" onclick="addPrjLink(this)">\n' +
+                '        <input class="tag-button" type="button" value="-" onclick="removePrjLink(this)">\n' +
+                '    </div>\n' +
+                '</div>'
+
+            // 프로젝트 키워드
+            function addPrjKeyword(et) {
+                const keywordBox = et.parentElement.parentElement.getElementsByClassName("tag-wrap")[0];
+                const prjIndex = et.parentElement.parentElement.dataset.index;
+                const keywordIndex = keywordBox.children.length;
+
+                keywordBox.innerHTML = keywordBox.innerHTML.concat(
+                    formatString(KEYWORDDIV, prjIndex, keywordIndex)
+                );
+            }
+
+            function removePrjKeyword(et) {
+                const keywordBox = et.parentElement.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (keywordBox.lastElementChild)
+                    keywordBox.removeChild(keywordBox.lastElementChild);
+            }
+
+            // 프로젝트 링크
+            function addPrjLink(et) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                const prjIndex = et.parentElement.dataset.index;
+                const linkIndex = linkBox.children.length;
+
+                linkBox.innerHTML = linkBox.innerHTML.concat(
+                    formatString(PRJLINKTEXTAREA, prjIndex, linkIndex)
+                );
+            }
+
+            function removePrjLink(et) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (linkBox.lastElementChild)
+                    linkBox.removeChild(linkBox.lastElementChild);
+            }
+
+            // 프로젝트
+            function addPrj() {
+                const prjBox = document.querySelector("#prj-wrap")
+                const prgIndex = prjBox.children.length;
+
+                prjBox.innerHTML = prjBox.innerHTML.concat(
+                    formatString(PRJDIV, prgIndex)
+                );
+            }
+
+            function removePrj() {
+                const prjBox = document.querySelector("#prj-wrap")
+                if (prjBox.lastElementChild)
+                    prjBox.removeChild(prjBox.lastElementChild);
+            }
+        </script>
+
+
+        <label>자격증/증명</label>
+        <div id="certifications-wrap">
+            <div th:each="cert, iterStat : ${resume.certifications}" style="margin-bottom: 48px">
+                <input class="long-textbox" type="text" placeholder="기간"
+                       th:name="|certifications[${iterStat.index}].duration|" th:value="${cert.duration}">
+                <input class="long-textbox" type="text" placeholder="이름"
+                       th:name="|certifications[${iterStat.index}].name|" th:value="${cert.name}">
+                <textarea class="short-textarea" placeholder="설명"
+                          th:name="|certifications[${iterStat.index}].description|" th:text="${cert.description}"></textarea>
+                <div th:data-index="${iterStat.index}">
+                    <label>관련 링크</label>
+                    <div class="tag-wrap">
+                        <textarea class="short-textarea" th:name="|certifications[${iterStat.index}].links[${linkStat.index}]|"
+                                  th:each="link, linkStat : ${cert.links}" th:text="${link}">
+                        </textarea>
+                    </div>
+                    <input class="tag-button" type="button" value="+" onclick="addRecordLink(this, 'certifications')">
+                    <input class="tag-button" type="button"  value="-" onclick="removeRecordLink(this)">
+                </div>
+            </div>
+        </div>
+        <div class="right-align" style="margin-bottom: 72px">
+            <input class="tag-button" type="button" value="자격증 추가" onclick="addRecord('certifications')">
+            <input class="tag-button" type="button" value="자격증 삭제" onclick="removeRecord('certifications')">
+        </div>
+
+        <label>수상 내역</label>
+        <div id="awards-wrap">
+            <div th:each="awd, iterStat : ${resume.awards}" style="margin-bottom: 48px">
+                <input class="long-textbox" type="text" placeholder="기간"
+                       th:name="|awards[${iterStat.index}].duration|" th:value="${awd.duration}">
+                <input class="long-textbox" type="text" placeholder="이름"
+                       th:name="|awards[${iterStat.index}].name|" th:value="${awd.name}">
+                <textarea class="short-textarea" placeholder="설명"
+                          th:name="|awards[${iterStat.index}].description|" th:text="${awd.description}"></textarea>
+                <div th:data-index="${iterStat.index}">
+                    <label>관련 링크</label>
+                    <div class="tag-wrap">
+                        <textarea class="short-textarea" th:name="|awards[${iterStat.index}].links[${linkStat.index}]|"
+                                  th:each="link, linkStat : ${awd.links}" th:text="${link}">
+                        </textarea>
+                    </div>
+                    <input class="tag-button" type="button" value="+" onclick="addRecordLink(this, 'awards')">
+                    <input class="tag-button" type="button"  value="-" onclick="removeRecordLink(this)">
+                </div>
+            </div>
+        </div>
+        <div class="right-align" style="margin-bottom: 72px">
+            <input class="tag-button" type="button" value="수상 내역 추가" onclick="addRecord('awards')">
+            <input class="tag-button" type="button" value="수상 내역 삭제" onclick="removeRecord('awards')">
+        </div>
+
+        <label>강의 수강 증명</label>
+        <div id="courseCertifications-wrap">
+            <div th:each="ccert, iterStat : ${resume.courseCertifications}" style="margin-bottom: 48px">
+                <input class="long-textbox" type="text" placeholder="기간"
+                       th:name="|courseCertifications[${iterStat.index}].duration|" th:value="${ccert.duration}">
+                <input class="long-textbox" type="text" placeholder="이름"
+                       th:name="|courseCertifications[${iterStat.index}].name|" th:value="${ccert.name}">
+                <textarea class="short-textarea" placeholder="설명"
+                          th:name="|courseCertifications[${iterStat.index}].description|" th:text="${ccert.description}"></textarea>
+                <div th:data-index="${iterStat.index}">
+                    <label>관련 링크</label>
+                    <div class="tag-wrap">
+                        <textarea class="short-textarea" th:name="|courseCertifications[${iterStat.index}].links[${linkStat.index}]|"
+                                  th:each="link, linkStat : ${ccert.links}" th:text="${link}">
+                        </textarea>
+                    </div>
+                    <input class="tag-button" type="button" value="+" onclick="addRecordLink(this, 'courseCertifications')">
+                    <input class="tag-button" type="button"  value="-" onclick="removeRecordLink(this)">
+                </div>
+            </div>
+        </div>
+        <div class="right-align" style="margin-bottom: 72px">
+            <input class="tag-button" type="button" value="강의 수강 내역 추가" onclick="addRecord('courseCertifications')">
+            <input class="tag-button" type="button" value="강의 수강 내역 삭제" onclick="removeRecord('courseCertifications')">
+        </div>
+
+        <div class="right-align">
+            <input class="submit-button" type="submit" value="저장하기">
+        </div>
+
+        <script>
+            // 자격증, 수상 내역, 강의 수강 증명`
+            const RCDLINKTEXTAREA = '<textarea class="short-textarea" name="{0}[{1}].links[{2}]"></textarea>';
+            const RCDDIV =
+                '<div style="margin-bottom: 48px">\n' +
+                '  <input class="long-textbox" type="text" placeholder="기간"\n' +
+                '    name="{0}[{1}].duration">\n' +
+                '  <input class="long-textbox" type="text" placeholder="이름"\n' +
+                '    name="{0}[{1}].name">\n' +
+                '  <textarea class="short-textarea" placeholder="설명"\n' +
+                '    name="{0}[{1}].description"></textarea>\n' +
+                '  <div data-index="{1}">\n' +
+                '    <label>관련 링크</label>\n' +
+                '    <div class="tag-wrap">\n' +
+                '      <textarea class="short-textarea" name="{0}[{1}].links[0]"></textarea>\n' +
+                '    </div>\n' +
+                '    <input class="tag-button" type="button" value="+" onclick="addRecordLink(this, \'{0}\')">\n' +
+                '    <input class="tag-button" type="button"  value="-" onclick="removeRecordLink(this)">\n' +
+                '  </div>\n' +
+                '</div>'
+
+            // 링크
+            function addRecordLink(et, field) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                const rcdIndex = et.parentElement.dataset.index;
+                const linkIndex = linkBox.children.length;
+
+                linkBox.innerHTML = linkBox.innerHTML.concat(
+                    formatString(RCDLINKTEXTAREA, field, rcdIndex, linkIndex)
+                );
+            }
+
+            function removeRecordLink(et) {
+                const linkBox = et.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (linkBox.lastElementChild)
+                    linkBox.removeChild(linkBox.lastElementChild);
+            }
+
+            // 기록
+            function addRecord(field) {
+                const rcdBox = document.querySelector(`#${field}-wrap`)
+                const rcdIndex = rcdBox.children.length;
+
+                rcdBox.innerHTML = rcdBox.innerHTML.concat(
+                    formatString(RCDDIV, field, rcdIndex)
+                );
+            }
+
+            function removeRecord(field) {
+                const rcdBox = document.querySelector(`#${field}-wrap`)
+                if (rcdBox.lastElementChild)
+                    rcdBox.removeChild(rcdBox.lastElementChild);
+            }
+            
+        </script>
+    </form>
 </div>

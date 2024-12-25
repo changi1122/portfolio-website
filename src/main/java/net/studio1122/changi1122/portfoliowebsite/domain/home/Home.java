@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -23,7 +24,7 @@ public class Home {
     @Indexed(unique = true)
     private String accessKey;
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate expireDate;
 
     @NotEmpty
@@ -34,6 +35,10 @@ public class Home {
     private List<Question> questions;
 
     // TODO: 프로젝트 추가
+
+    public String getExpireDateString() {
+        return (expireDate != null) ? expireDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) : "";
+    }
 
     @Builder
     public Home(String accessKey, LocalDate expireDate, List<String> interests, String intro, List<Question> questions)

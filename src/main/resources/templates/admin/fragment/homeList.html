@@ -1,3 +1,55 @@
 <div th:fragment="content">
-    <p>이것은 홈화면 관리 페이지 콘텐츠입니다.</p>
+    <div class="mTitle">
+        <p class="set-title">홈화면 관리</p>
+    </div>
+    <div class="mBoard">
+        <div class="board-item" th:each="home : ${homes}">
+            <a class="board-title" th:href="|/?ack=${home.accessKey}|" th:text="|홈화면 (액세스 키: ${home.accessKey})|">제목</a>
+            <p class="board-category" th:text="|만료일 ${home.getExpireDateString()}|">>1970.01.01</p>
+            <p class="board-id" th:text="${home.id}">>id</p>
+            <div class="board-button">
+                <button class="edit_button">수정</button>
+                <button class="delete_button">삭제</button>
+            </div>
+        </div>
+        <ul class="pagination">
+            <a th:href="@{/manage/home/list(page=${start - 1})}" th:if="${start != 1}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
+            </a>
+            <a th:each="num : ${#numbers.sequence(start, end)}" th:href="@{/manage/home/list(page=${num})}"
+               th:classappend="${num == page} ? 'active' : ''">
+                [[${num}]]
+            </a>
+            <a th:href="@{/manage/home/list(page=${end + 1})}" th:if="${end + 1 <= total}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
+            </a>
+        </ul>
+
+        <script>
+            let editButtons = document.getElementsByClassName("edit_button");
+            for (let i = 0; i < editButtons.length; i++) {
+                editButtons[i].addEventListener("click", editArticle);
+            }
+            let deleteButtons = document.getElementsByClassName("delete_button");
+            for (let i = 0; i < deleteButtons.length; i++) {
+                deleteButtons[i].addEventListener("click", deleteArticle);
+            }
+
+            function editArticle() {
+                let id = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+                window.location = '/manage/home/edit?id=' + id;
+            }
+            function deleteArticle() {
+                if (confirm('게시물을 삭제하겠습니까?')) {
+                    let id = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+
+                    var request = new XMLHttpRequest();
+                    request.open('DELETE', '/home/' + id, true);
+                    request.send();
+
+                    window.location = window.location;
+                }
+            }
+        </script>
+    </div>
 </div>

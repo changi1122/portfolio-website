@@ -45,19 +45,19 @@ public class BlogService {
         return blogArticleRepository.findById(id).orElseThrow();
     }
 
-    public Page<BlogArticle> list(Pageable pageable) {
+    public Page<BlogArticle> listBlog(Pageable pageable) {
         return blogArticleRepository.findAllByOrderByPubDateDesc(pageable);
     }
 
-    public Page<BlogArticle> listByCategory(Pageable pageable, String category) {
+    public Page<BlogArticle> listBlogByCategory(Pageable pageable, String category) {
         return blogArticleRepository.findByCategoryOrderByPubDateDesc(pageable, category);
     }
 
-    public Page<BlogArticle> listByQuery(Pageable pageable, String query) {
+    public Page<BlogArticle> listBlogByQuery(Pageable pageable, String query) {
         return blogArticleRepository.findByTitleContainingOrderByPubDateDesc(pageable, query);
     }
 
-    public Page<BlogArticle> listByTag(Pageable pageable, String tag) {
+    public Page<BlogArticle> listBlogByTag(Pageable pageable, String tag) {
         return blogArticleRepository.findByTagsOrderByPubDateDesc(pageable, tag);
     }
 }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -100,13 +99,13 @@ public class BlogController {
         Page<BlogArticle> articles;
 
         if (!tag.isBlank())
-            articles = blogService.listByTag(pageable, tag);
+            articles = blogService.listBlogByTag(pageable, tag);
         else if (!query.isBlank())
-            articles = blogService.listByQuery(pageable, query);
+            articles = blogService.listBlogByQuery(pageable, query);
         else if (!category.isBlank())
-            articles = blogService.listByCategory(pageable, category);
+            articles = blogService.listBlogByCategory(pageable, category);
         else
-            articles = blogService.list(pageable);
+            articles = blogService.listBlog(pageable);
 
         addArticlesToModel(model, articles, page);
 
@@ -119,7 +118,7 @@ public class BlogController {
     @GetMapping("/manage/blog/list")
     public String blogList(@RequestParam(defaultValue = "1") int page, Model model) {
 
-        Page<BlogArticle> articles = blogService.list(PageRequest.of(page - 1, 8));
+        Page<BlogArticle> articles = blogService.listBlog(PageRequest.of(page - 1, 8));
 
         addArticlesToModel(model, articles, page);
         model.addAttribute("content", "admin/fragment/blogList");

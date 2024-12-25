@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticle;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.Home;
 import net.studio1122.changi1122.portfoliowebsite.web.blog.BlogService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class HomeController {
     /* CRUD Operation Methods */
 
     public String createHome(@Validated @RequestParam Home request) {
+        // TODO 구현필요
         homeService.createHome(request);
         return null;
     }
@@ -43,14 +45,18 @@ public class HomeController {
         model.addAttribute("home", home);
 
         Pageable pageable = PageRequest.of(0, 4);
-        List<BlogArticle> articles = blogService.list(pageable).getContent();
+        List<BlogArticle> articles = blogService.listBlog(pageable).getContent();
         model.addAttribute("articles", articles);
 
         return "index";
     }
 
     @GetMapping("/manage/home/list")
-    public String homeList(Model model) {
+    public String homeList(@RequestParam(defaultValue = "1") int page, Model model) {
+
+        Page<Home> homes = homeService.listHome(PageRequest.of(page - 1, 8));
+
+        addHomesToModel(model, homes, page);
         model.addAttribute("content", "admin/fragment/homeList");
 
         return "admin/manage";
@@ -58,9 +64,19 @@ public class HomeController {
 
     @GetMapping("/manage/home/new")
     public String homeForm(Model model) {
+
         model.addAttribute("content", "admin/fragment/homeForm");
 
         return "admin/manage";
     }
 
+    private void addHomesToModel(Model model, Page<Home> homes, int page) {
+        model.addAttribute("homes", homes);
+        model.addAttribute("total", homes.getTotalPages());
+        model.addAttribute("page", page);
+
+        int start = page - (page - 1) % 5;
+        model.addAttribute("start", start);
+        model.addAttribute("end", Math.max(Math.min(start + 4, homes.getTotalPages()), 1));
+    }
 }
