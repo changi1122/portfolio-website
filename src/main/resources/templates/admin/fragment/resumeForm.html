@@ -3,12 +3,7 @@
         <p class="set-title">이력서 쓰기</p>
     </div>
 
-    <script>
-        /* Utility function */
-        function formatString(template, ...values) {
-            return template.replace(/{(\d+)}/g, (match, index) => values[index]);
-        }
-    </script>
+    <script th:src="@{/js/utility.js}"></script>
 
     <form class="mBox" action="/resume" method="post" th:action="${action}" th:object="${resume}">
         <label for="accessKey">액세스 키</label>
@@ -345,7 +340,7 @@
             <div th:each="prj, iterStat : ${resume.projects}" style="margin-bottom: 48px">
                 <input class="long-textbox" type="text" placeholder="기간"
                        th:name="|projects[${iterStat.index}].duration|" th:value="${prj.duration}">
-                <input class="long-textbox" type="text" placeholder="직장 또는 단체 이름"
+                <input class="long-textbox" type="text" placeholder="프로젝트 이름"
                        th:name="|projects[${iterStat.index}].name|" th:value="${prj.name}">
                 <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"
                        th:name="|projects[${iterStat.index}].themeColor|" th:value="${prj.themeColor}">
@@ -393,7 +388,7 @@
                 '<div style="margin-bottom: 48px">\n' +
                 '    <input class="long-textbox" type="text" placeholder="기간"\n' +
                 '           name="projects[{0}].duration">\n' +
-                '    <input class="long-textbox" type="text" placeholder="직장 또는 단체 이름"\n' +
+                '    <input class="long-textbox" type="text" placeholder="프로젝트 이름"\n' +
                 '           name="projects[{0}].name">\n' +
                 '    <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"\n' +
                 '           name="projects[{0}].themeColor">\n' +
@@ -555,10 +550,6 @@
             <input class="tag-button" type="button" value="강의 수강 내역 삭제" onclick="removeRecord('courseCertifications')">
         </div>
 
-        <div class="right-align">
-            <input class="submit-button" type="submit" value="저장하기">
-        </div>
-
         <script>
             // 자격증, 수상 내역, 강의 수강 증명`
             const RCDLINKTEXTAREA = '<textarea class="short-textarea" name="{0}[{1}].links[{2}]"></textarea>';
@@ -612,7 +603,11 @@
                 if (rcdBox.lastElementChild)
                     rcdBox.removeChild(rcdBox.lastElementChild);
             }
-            
+
         </script>
+
+        <div class="right-align">
+            <input class="submit-button" type="submit" value="저장하기"/>
+        </div>
     </form>
 </div>

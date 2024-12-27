@@ -1,3 +1,189 @@
 <div th:fragment="content">
-    <p>이것은 홈화면 추가 페이지 콘텐츠입니다.</p>
+    <div class="mTitle">
+        <p class="set-title" th:text="${action == '/home' ? '홈화면 추가' : '홈화면 편집'}">
+            홈화면 편집
+        </p>
+    </div>
+
+    <script th:src="@{/js/utility.js}"></script>
+
+    <form class="mBox" action="/home" method="post" th:action="${action}" th:object="${home}">
+        <label for="accessKey">액세스 키</label>
+        <input class="short-textbox" type="text" id="accessKey" name="accessKey" th:field="*{accessKey}">
+        <p class="error-label" th:errors="*{accessKey}">액세스키 오류</p>
+
+        <label for="expireDate">만료일</label>
+        <input class="date-input" type="date" id="expireDate" name="expireDate" th:field="*{expireDate}">
+        <p class="error-label" th:errors="*{expireDate}">만료일 오류</p>
+
+        <label>관심 분야</label>
+        <div id="interestsBox" class="tag-wrap">
+            <textarea class="short-textarea" name="interests" th:each="interest : ${home.interests}" th:text="${interest}">
+            </textarea>
+        </div>
+        <input class="tag-button" type="button" value="+" onclick="addInterest()">
+        <input class="tag-button" type="button" value="-" onclick="removeInterest()">
+        <script>
+            const LINKTEXTAREA = '<textarea class="short-textarea" name="interests"></textarea>';
+
+            const intetestsBox = document.getElementById("interestsBox");
+
+            function addInterest() {
+                intetestsBox.innerHTML = intetestsBox.innerHTML.concat(LINKTEXTAREA);
+            }
+            function removeInterest() {
+                if (intetestsBox.lastElementChild)
+                    intetestsBox.removeChild(intetestsBox.lastElementChild);
+            }
+        </script>
+
+        <label for="intro">인트로</label>
+        <textarea class="short-textarea" id="intro" name="intro" th:text="*{intro}"></textarea>
+
+        <label>질의응답</label>
+        <div id="qnaBox">
+            <div th:each="qna, qnaStat : ${home.questions}">
+                <input type="hidden" th:value="${qna.questionNumber}"/>
+                <input class="long-textbox" type="text"
+                       th:name="|questions[${qnaStat.index}].question|" th:value="${qna.question}">
+                <textarea class="short-textarea"
+                          th:name="|questions[${qnaStat.index}].answer|" th:text="${qna.answer}"></textarea>
+            </div>
+        </div>
+        <input class="tag-button" type="button" value="+" onclick="addQna()">
+        <input class="tag-button" type="button" value="-" onclick="removeQna()">
+        <script>
+            const QNADIV =
+                '<div>\n' +
+                '  <input type="hidden" value="{1}">\n' +
+                '  <input class="long-textbox" type="text"' +
+                '   id="questions[{0}].question" name="questions[{0}].question">\n' +
+                '  <textarea class="short-textarea" id="questions[{0}].answer"' +
+                '  name="questions[{0}].answer"></textarea>\n' +
+                '</div>';
+
+            const qnaBox = document.getElementById("qnaBox");
+
+            function addQna() {
+                qnaBox.innerHTML = qnaBox.innerHTML.concat(
+                    formatString(QNADIV, qnaBox.children.length, qnaBox.children.length + 1)
+                );
+            }
+            function removeQna() {
+                if (qnaBox.lastElementChild)
+                    qnaBox.removeChild(qnaBox.lastElementChild);
+            }
+        </script>
+
+
+        <label>사이드 프로젝트</label>
+        <div id="prj-wrap">
+            <div th:each="prj, iterStat : ${home.projects}" style="margin-bottom: 48px">
+                <input class="long-textbox" type="text" placeholder="프로젝트 이름"
+                       th:name="|projects[${iterStat.index}].name|" th:value="${prj.name}">
+                <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"
+                       th:name="|projects[${iterStat.index}].themeColor|" th:value="${prj.themeColor}">
+                <div th:data-index="${iterStat.index}">
+                    <label>키워드</label>
+                    <div class="tag-wrap">
+                        <div th:each="keyword, keyStat : ${prj.keywords}">
+                            <input class="short-textbox" th:value="${keyword.keyword}"
+                                   th:name="|projects[${iterStat.index}].keywords[${keyStat.index}].keyword|">
+                            <input class="long-textbox" th:value="${keyword.description}"
+                                   th:name="|projects[${iterStat.index}].keywords[${keyStat.index}].description|">
+                        </div>
+                    </div>
+                    <div style="margin: 12px 0 24px">
+                        <input class="tag-button" type="button" value="+" onclick="addPrjKeyword(this)">
+                        <input class="tag-button" type="button" value="-" onclick="removePrjKeyword(this)">
+                    </div>
+                </div>
+                <textarea class="short-textarea" placeholder="상세 설명"
+                          th:name="|projects[${iterStat.index}].description|" th:text="${prj.description}"></textarea>
+                <label>상세 페이지 링크</label>
+                <input class="long-textbox" th:name="|projects[${iterStat.index}].link|" th:value="${prj.link}">
+                <label>이미지 링크</label>
+                <input class="long-textbox" th:name="|projects[${iterStat.index}].imageSrc|" th:value="${prj.imageSrc}">
+            </div>
+        </div>
+        <div class="right-align" style="margin-bottom: 72px">
+            <input class="tag-button" type="button" value="프로젝트 추가" onclick="addPrj()">
+            <input class="tag-button" type="button" value="프로젝트 삭제" onclick="removePrj()">
+        </div>
+        <script>
+            const KEYWORDDIV =
+                '<div>\n' +
+                '  <input class="short-textbox" name="projects[{0}].keywords[{1}].keyword">\n' +
+                '  <input class="long-textbox" name="projects[{0}].keywords[{1}].description">\n' +
+                '</div>';
+            const PRJDIV =
+                '<div style="margin-bottom: 48px">\n' +
+                '    <input class="long-textbox" type="text" placeholder="프로젝트 이름"\n' +
+                '           name="projects[{0}].name">\n' +
+                '    <input class="short-textbox" type="text" placeholder="테마 컬러(#000000)"\n' +
+                '           name="projects[{0}].themeColor">\n' +
+                '    <div data-index="{0}">\n' +
+                '        <label>키워드</label>\n' +
+                '        <div class="tag-wrap">\n' +
+                '            <div>\n' +
+                '                <input class="short-textbox"\n' +
+                '                       name="projects[{0}].keywords[0].keyword">\n' +
+                '                <input class="long-textbox"\n' +
+                '                       name="projects[{0}].keywords[0].description">\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '        <div style="margin: 12px 0 24px">\n' +
+                '            <input class="tag-button" type="button" value="+" onclick="addPrjKeyword(this)">\n' +
+                '            <input class="tag-button" type="button" value="-" onclick="removePrjKeyword(this)">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <textarea class="short-textarea" placeholder="상세 설명"\n' +
+                '              name="projects[{0}].description"></textarea>\n' +
+                '    <label>상세 페이지 링크</label>\n' +
+                '    <input class="long-textbox" name="projects[{0}].link">\n' +
+                '    <label>이미지 링크</label>\n' +
+                '    <input class="long-textbox" name="projects[{0}].imageSrc">\n' +
+                '</div>'
+
+            // 프로젝트 키워드
+            function addPrjKeyword(et) {
+                const keywordBox = et.parentElement.parentElement.getElementsByClassName("tag-wrap")[0];
+                const prjIndex = et.parentElement.parentElement.dataset.index;
+                const keywordIndex = keywordBox.children.length;
+
+                keywordBox.innerHTML = keywordBox.innerHTML.concat(
+                    formatString(KEYWORDDIV, prjIndex, keywordIndex)
+                );
+            }
+
+            function removePrjKeyword(et) {
+                const keywordBox = et.parentElement.parentElement.getElementsByClassName("tag-wrap")[0];
+                if (keywordBox.lastElementChild)
+                    keywordBox.removeChild(keywordBox.lastElementChild);
+            }
+
+            // 프로젝트
+            function addPrj() {
+                const prjBox = document.querySelector("#prj-wrap")
+                const prgIndex = prjBox.children.length;
+
+                prjBox.innerHTML = prjBox.innerHTML.concat(
+                    formatString(PRJDIV, prgIndex)
+                );
+            }
+
+            function removePrj() {
+                const prjBox = document.querySelector("#prj-wrap")
+                if (prjBox.lastElementChild)
+                    prjBox.removeChild(prjBox.lastElementChild);
+            }
+        </script>
+
+
+
+
+        <div class="right-align">
+            <input class="submit-button" type="submit" value="저장하기">
+        </div>
+    </form>
 </div>

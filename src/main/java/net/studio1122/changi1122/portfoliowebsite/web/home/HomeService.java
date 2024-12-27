@@ -34,7 +34,12 @@ public class HomeService {
         home.setIntro(request.getIntro());
         home.setQuestions(request.getQuestions());
         home.setExpireDate(request.getExpireDate());
+        home.setProjects(request.getProjects());
         return homeRepository.save(home);
+    }
+
+    public Home readHome(String accessKey) {
+        return homeRepository.findByAccessKey(accessKey).orElseThrow();
     }
 
     public Home readHome(String accessKey, LocalDate today) {
@@ -56,6 +61,10 @@ public class HomeService {
 
     public Page<Home> listHome(Pageable pageable) {
         return homeRepository.findAllBy(pageable);
+    }
+
+    public boolean existsAccessKey(String accessKey) {
+        return homeRepository.existsByAccessKey(accessKey);
     }
 
 }

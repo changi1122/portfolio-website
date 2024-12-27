@@ -3,6 +3,7 @@ package net.studio1122.changi1122.portfoliowebsite.domain.home;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Document("home")
 public class Home {
 
@@ -34,19 +35,22 @@ public class Home {
     @NotEmpty
     private List<Question> questions;
 
-    // TODO: 프로젝트 추가
+    @Size(min = 3, max = 3)
+    private List<SideProjectImage> projects;
 
     public String getExpireDateString() {
         return (expireDate != null) ? expireDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) : "";
     }
 
     @Builder
-    public Home(String accessKey, LocalDate expireDate, List<String> interests, String intro, List<Question> questions)
+    public Home(String accessKey, LocalDate expireDate, List<String> interests, String intro, List<Question> questions,
+                List<SideProjectImage> projects)
     {
         this.accessKey = accessKey;
         this.expireDate = expireDate;
         this.interests = interests;
         this.intro = intro;
         this.questions = questions;
+        this.projects = projects;
     }
 }

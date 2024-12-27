@@ -1,5 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.home;
 
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Keyword;
 import net.studio1122.changi1122.portfoliowebsite.web.home.HomeService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -47,6 +48,9 @@ class HomeRepositoryTest {
                         tuple("질문?", "대답"),
                         tuple("질문2?", "대답")
                 );
+        assertThat(saved.getProjects()).hasSize(3)
+                .extracting("name")
+                .contains("프로젝트 1", "프로젝트 2", "프로젝트 3");
         assertThat(saved.getExpireDate()).isEqualTo(home.getExpireDate());
     }
 
@@ -93,6 +97,25 @@ class HomeRepositoryTest {
                         new Question(2, "질문2?", "대답")
                 ))
                 .expireDate(expireDate)
+                .projects(List.of(
+                        createProject("프로젝트 1"),
+                        createProject("프로젝트 2"),
+                        createProject("프로젝트 3")
+                ))
+                .build();
+    }
+
+    private SideProjectImage createProject(String name) {
+        return SideProjectImage.builder()
+                .name(name)
+                .description("설명")
+                .link("상세 페이지 링크")
+                .imageSrc("이미지 경로")
+                .keywords(List.of(
+                        new Keyword("기술", "Spring, JPA"),
+                        new Keyword("역할", "Backend 개발")
+                ))
+                .themeColor("#000000")
                 .build();
     }
 }

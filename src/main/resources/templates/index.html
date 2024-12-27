@@ -99,40 +99,57 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                 </a>
             </div>
-            <div class="project">
+            <div class="project" th:if="${#lists.size(home.projects) >= 3}">
                 <div class="main-project">
                     <div>
-                        <a href="./" th:href="@{/project}">
-                            <img src="../static/img/project/project1.png" th:src="@{/img/project/project1.png}" alt="하모나이즈 프로젝트 사진">
+                        <a href="javascript:;" th:data-src="${home.projects[0].link}" onclick="openProject(this)">
+                            <img src="../static/img/project/project1.png" th:src="${home.projects[0].imageSrc}" th:alt="|${home.projects[0].name} 프로젝트 사진|">
                         </a>
                     </div>
                     <div>
-                        <a href="./" th:href="@{/project}"><h3 class="title">하모나이즈</h3></a>
-                        <p class="description">사용자 목소리 기반 노래방 음악 추천시스템</p>
+                        <a href="javascript:;" th:data-src="${home.projects[0].link}" onclick="openProject(this)">
+                            <h3 class="title" th:utext="${home.projects[0].name}">하모나이즈</h3>
+                        </a>
+                        <p class="description" th:utext="${home.projects[0].description}">사용자 목소리 기반 노래방 음악 추천시스템</p>
                         <ul class="summary">
-                            <li><span>목표</span> 목소리 분석을 통해 <span class="mobile-invisible">사용자가</span> 부르기 좋은 노래를 추천해주는 서비스</li>
-                            <li><span>기술</span> Spring boot, JPA, Kafka, Tensorflow, Android</li>
-                            <li><span>기간</span> 2024. 02. ~ 2024. 10.</li>
+                            <li th:each="keyword : ${home.projects[0].keywords}">
+                                <span th:text="${keyword.keyword}">목표</span>
+                                <span th:utext="${keyword.description}">목소리 분석을 통해 <span class="mobile-invisible">사용자가</span> 부르기 좋은 노래를 추천해주는 서비스</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <div class="sub-project">
                     <div>
-                        <a href="./" th:href="@{/project}">
-                            <img src="../static/img/project/project2.jpeg" th:src="@{/img/project/project2.jpeg}" alt="나눔 광장 프로젝트 사진">
+                        <a href="javascript:;" th:data-src="${home.projects[1].link}" onclick="openProject(this)">
+                            <img src="../static/img/project/project2.jpeg" th:src="${home.projects[1].imageSrc}" th:alt="|${home.projects[1].name} 프로젝트 사진|">
                         </a>
-                        <a href="./" th:href="@{/project}"><h3 class="title">나눔 광장</h3></a>
-                        <p class="description">지역 기반 P2P 일회용품 재활용 지원 서비스</p>
+                        <a href="javascript:;" th:data-src="${home.projects[1].link}" onclick="openProject(this)">
+                            <h3 class="title" th:utext="${home.projects[1].name}">나눔 광장</h3>
+                        </a>
+                        <p class="description" th:utext="${home.projects[1].description}">지역 기반 P2P 일회용품 재활용 지원 서비스</p>
                     </div>
                     <div>
-                        <a href="./" th:href="@{/project}">
-                            <img src="../static/img/project/project3.jpeg" th:src="@{/img/project/project3.jpeg}" alt="TUX 홈페이지 프로젝트 사진">
+                        <a href="javascript:;" th:data-src="${home.projects[2].link}" onclick="openProject(this)">
+                            <img src="../static/img/project/project3.jpeg" th:src="${home.projects[2].imageSrc}" th:alt="|${home.projects[2].name} 프로젝트 사진|">
                         </a>
-                        <a href="./" th:href="@{/project}"><h3 class="title">학술 동아리 TUX 홈페이지</h3></a>
-                        <p class="description"><span class="mobile-invisible">충북대학교</span> 소프트웨어학부 학술 동아리 TUX 홈페이지 백엔드 개발</p>
+                        <a href="javascript:;" th:data-src="${home.projects[2].link}" onclick="openProject(this)">
+                            <h3 class="title" th:utext="${home.projects[2].name}">학술 동아리 TUX 홈페이지</h3>
+                        </a>
+                        <p class="description" th:utext="${home.projects[2].description}"><span class="mobile-invisible">충북대학교</span> 소프트웨어학부 학술 동아리 TUX 홈페이지 백엔드 개발</p>
                     </div>
                 </div>
             </div>
+            <script>
+                function openProject(et) {
+                    const src = et.dataset.src;
+
+                    if (src.startsWith("/"))
+                        window.location = src;
+                    else
+                        window.open(src, '_blank', 'location=yes,height=800,width=1080,scrollbars=yes,status=yes');
+                }
+            </script>
         </article>
     </section>
     <section class="container fade-effect">
