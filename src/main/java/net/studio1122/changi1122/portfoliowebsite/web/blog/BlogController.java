@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -79,9 +80,8 @@ public class BlogController {
     }
 
     @PostMapping("/blog/category")
-    public String updateBlogCategory(@ModelAttribute("category") String categoryString) throws JsonProcessingException {
+    public String updateBlogCategory(@RequestParam BlogCategory category) {
         // TODO 파싱 예외 처리
-        BlogCategory category = objectMapper.readValue(categoryString, BlogCategory.class);
         blogCategoryService.save(category);
 
         return "redirect:/manage/blog/category";
@@ -159,10 +159,7 @@ public class BlogController {
             ));
         }
 
-        model.addAttribute(
-                "category",
-                objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(category)
-        );
+        model.addAttribute("category", category);
 
         model.addAttribute("content", "admin/fragment/blogCategoryForm");
         return "admin/manage";

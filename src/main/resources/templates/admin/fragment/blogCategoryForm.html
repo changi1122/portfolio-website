@@ -4,7 +4,7 @@
     </div>
     <form class="mBox" th:action="@{/blog/category}" method="post">
         <label for="category">블로그 카테고리 설정 (JSON)</label>
-        <textarea class="long-textarea" type="text" id="category" name="category" th:text="${category}">
+        <textarea class="long-textarea" type="text" id="category" name="category" th:text="${{category}}">
         </textarea>
         <div class="right-align">
             <input class="submit-button" type="submit" value="저장">

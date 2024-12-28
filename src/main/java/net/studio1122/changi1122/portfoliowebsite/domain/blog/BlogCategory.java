@@ -1,7 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,4 +18,7 @@ public class BlogCategory {
         category = new ArrayList<Category>();
     }
 
+    public BlogCategory(List<Category> category) {
+        this.category = category;
+    }
 }

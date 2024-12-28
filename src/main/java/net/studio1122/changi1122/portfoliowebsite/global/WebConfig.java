@@ -1,8 +1,10 @@
 package net.studio1122.changi1122.portfoliowebsite.global;
 
+import net.studio1122.changi1122.portfoliowebsite.web.formatter.BlogCategoryFormatter;
 import net.studio1122.changi1122.portfoliowebsite.web.interceptor.AuthInterceptor;
 import net.studio1122.changi1122.portfoliowebsite.web.interceptor.GetOnlyInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,5 +24,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/error", "/login", "/logout", "/signup");
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new BlogCategoryFormatter());
     }
 }
