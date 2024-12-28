@@ -8,6 +8,10 @@
     <script th:src="@{/js/utility.js}"></script>
 
     <form class="mBox" action="/home" method="post" th:action="${action}" th:object="${home}">
+        <div style="margin-bottom: 24px" th:if="${#fields.hasGlobalErrors()}">
+            <p class="error-label" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+        </div>
+
         <label for="accessKey">액세스 키</label>
         <input class="short-textbox" type="text" id="accessKey" name="accessKey" th:field="*{accessKey}">
         <p class="error-label" th:errors="*{accessKey}">액세스키 오류</p>

@@ -6,7 +6,7 @@
         <div class="board-item" th:each="home : ${homes}">
             <a class="board-title" th:href="|/?ack=${home.accessKey}|" th:text="|홈화면 (액세스 키: ${home.accessKey})|">제목</a>
             <p class="board-category" th:text="|만료일 ${home.getExpireDateString()}|">>1970.01.01</p>
-            <p class="board-id" th:text="${home.id}">>id</p>
+            <p class="board-id" th:text="${home.accessKey}">>id</p>
             <div class="board-button">
                 <button class="edit_button">수정</button>
                 <button class="delete_button">삭제</button>
@@ -36,15 +36,15 @@
             }
 
             function editArticle() {
-                let id = this.parentNode.parentNode.querySelector("p.board-id").innerText;
-                window.location = '/manage/home/edit?id=' + id;
+                let accessKey = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+                window.location = '/manage/home/edit?accessKey=' + accessKey;
             }
             function deleteArticle() {
                 if (confirm('게시물을 삭제하겠습니까?')) {
-                    let id = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+                    let accessKey = this.parentNode.parentNode.querySelector("p.board-id").innerText;
 
                     var request = new XMLHttpRequest();
-                    request.open('DELETE', '/home/' + id, true);
+                    request.open('DELETE', '/home/' + accessKey, true);
                     request.send();
 
                     window.location = window.location;

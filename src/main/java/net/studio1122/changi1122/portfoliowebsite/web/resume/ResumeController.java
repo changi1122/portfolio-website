@@ -47,9 +47,8 @@ public class ResumeController {
     }
 
     @PostMapping("/resume/{accessKey}")
-    public String updateResumeArticle(@PathVariable String accessKey,
-                                      @Validated @ModelAttribute("resume") Resume resume,
-                                      BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String updateResume(@PathVariable String accessKey, @Validated @ModelAttribute("resume") Resume resume,
+                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute(
@@ -68,7 +67,7 @@ public class ResumeController {
     }
 
     @DeleteMapping("/resume/{accessKey}")
-    public String deleteResumeArticle(@PathVariable String accessKey) {
+    public String deleteResume(@PathVariable String accessKey) {
         // TODO id 존재하지 않는 경우 예외 처리
         resumeService.deleteResume(accessKey);
 

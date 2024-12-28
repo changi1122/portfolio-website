@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -38,6 +35,11 @@ public class HomeController {
                     "이미 존재하는 액세스 키입니다.");
         }
 
+        if (home.getProjects() == null || home.getProjects().size() != 3) {
+            bindingResult.reject("home.projectSizeNotAllowed",
+                    "홈화면의 프로젝트의 수는 3개여야 합니다.");
+        }
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.home",
@@ -49,6 +51,37 @@ public class HomeController {
         }
 
         homeService.createHome(home);
+
+        return "redirect:/manage/home/list";
+    }
+
+    @PostMapping("/home/{accessKey}")
+    public String updateHome(@PathVariable("accessKey") String accessKey, @Validated @ModelAttribute("home") Home home,
+                             BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (home.getProjects() == null || home.getProjects().size() != 3) {
+            bindingResult.reject("home.projectSizeNotAllowed",
+                    "홈화면의 프로젝트의 수는 3개여야 합니다.");
+        }
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.home",
+                    bindingResult
+            );
+            redirectAttributes.addFlashAttribute("home", home);
+
+            return "redirect:/manage/home/edit?accessKey=" + accessKey;
+        }
+
+        homeService.updateHome(accessKey, home);
+
+        return "redirect:/manage/home/list";
+    }
+
+    @DeleteMapping("/home/{accessKey}")
+    public String deleteHome(@PathVariable String accessKey) {
+        homeService.deleteHome(accessKey);
 
         return "redirect:/manage/home/list";
     }
