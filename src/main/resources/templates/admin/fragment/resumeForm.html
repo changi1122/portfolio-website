@@ -62,7 +62,8 @@
         <label>질의응답</label>
         <div id="qnaBox">
             <div th:each="qna, qnaStat : ${resume.questions}">
-                <input type="hidden" th:value="${qna.questionNumber}"/>
+                <input type="hidden" th:name="|questions[${qnaStat.index}].questionNumber|"
+                       th:value="${qna.questionNumber}"/>
                 <input class="long-textbox" type="text"
                        th:name="|questions[${qnaStat.index}].question|" th:value="${qna.question}">
                 <textarea class="short-textarea"
@@ -74,7 +75,7 @@
         <script>
             const QNADIV =
                 '<div>\n' +
-                '  <input type="hidden" value="{1}">\n' +
+                '  <input type="hidden" name="questions[{0}].questionNumber" value="{1}">\n' +
                 '  <input class="long-textbox" type="text"' +
                 '   id="questions[{0}].question" name="questions[{0}].question">\n' +
                 '  <textarea class="short-textarea" id="questions[{0}].answer"' +
