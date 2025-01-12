@@ -39,7 +39,7 @@
             </div>
         </div>
         <article class="resume">
-            <section class="introduce fade-effect" th:if="${#lists.size(resume.questions) > 0}">
+            <section class="introduce fade-effect" th:if="${resume.questions != null && #lists.size(resume.questions) > 0}">
                 <div class="title">
                     <h3>자기소개</h3>
                     <span class="open-button">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </section>
-            <section class="experience fade-effect" th:if="${#lists.size(resume.experiences) > 0}">
+            <section class="experience fade-effect" th:if="${resume.experiences != null && #lists.size(resume.experiences) > 0}">
                 <div class="title">
                     <h3>경력</h3>
                     <span class="open-button">
@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </section>
-            <section class="school fade-effect" th:if="${#lists.size(resume.degrees) > 0}">
+            <section class="school fade-effect" th:if="${resume.degrees != null && #lists.size(resume.degrees) > 0}">
                 <div class="title">
                     <h3>학력</h3>
                     <span class="open-button">
@@ -120,7 +120,7 @@
                     </div>
                 </div>
             </section>
-            <section class="project fade-effect" th:if="${#lists.size(resume.projects) > 0}">
+            <section class="project fade-effect" th:if="${resume.projects != null && #lists.size(resume.projects) > 0}">
                 <div class="title">
                     <h3>사이드 프로젝트</h3>
                     <span class="open-button">
@@ -151,7 +151,8 @@
                     </div>
                 </div>
             </section>
-            <section class="license fade-effect" th:if="${#lists.size(resume.certifications) + #lists.size(resume.awards) > 0}">
+            <section class="license fade-effect" th:if="${resume.certifications != null && #lists.size(resume.certifications) > 0 ||
+                                                          resume.awards != null && #lists.size(resume.awards) > 0}">
                 <div class="title">
                     <h3>수상 및 자격증</h3>
                     <span class="open-button">
@@ -161,7 +162,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6z"/></svg>
                     </span>
                 </div>
-                <div class="license-wrap" th:if="${#lists.size(resume.certifications) > 0}">
+                <div class="license-wrap" th:if="${resume.certifications != null && #lists.size(resume.certifications) > 0}">
                     <div class="exp" th:each="certification : ${resume.certifications}">
                         <span class="duration" th:utext="${certification.duration}">2024-09</span>
                         <div>
@@ -170,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-                <div th:if="${#lists.size(resume.awards) > 0}">
+                <div th:if="${resume.awards != null && #lists.size(resume.awards) > 0}">
                     <div class="exp" th:each="award : ${resume.awards}">
                         <span class="duration" th:utext="${award.duration}">2024-07</span>
                         <div>
