@@ -95,7 +95,7 @@
     border-radius: 30px;
     border: none;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 24px;
     transition: background-color .17s ease;
 }
@@ -116,8 +116,8 @@
     border-radius: 30px;
     border: none;
     font-family: inherit;
-    font-size: 16px;
-    line-height: 36px;
+    font-size: 15px;
+    line-height: 30px;
     transition: background-color .17s ease;
 }
 .mArticle .submit-button:hover {
@@ -195,7 +195,7 @@
     position: relative;
     background-color: white;
     margin-top: -1px;
-    padding: 20px 20px;
+    padding: 20px 30px;
     border: 1px solid #d1d5da;
 }
 .mBoard .fileboard-button {

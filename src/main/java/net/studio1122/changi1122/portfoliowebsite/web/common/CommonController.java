@@ -40,20 +40,4 @@ public class CommonController {
     public String projectEditor(Model model) {
         return "admin/projectEditor";
     }
-
-    /* For test */
-    @GetMapping("/manage/file/list")
-    public String fileList(Model model) {
-        model.addAttribute("content", "admin/fragment/fileList");
-
-        return "admin/manage";
-    }
-
-    /* For test */
-    @GetMapping("/manage/image/list")
-    public String imageList(Model model) {
-        model.addAttribute("content", "admin/fragment/imageFileList");
-
-        return "admin/manage";
-    }
 }

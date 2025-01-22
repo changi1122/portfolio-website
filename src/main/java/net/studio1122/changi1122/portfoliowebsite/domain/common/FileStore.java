@@ -7,6 +7,9 @@ import org.thymeleaf.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class FileStore {
@@ -49,6 +52,16 @@ public class FileStore {
             if (!success)
                 throw new IOException();
         }
+    }
+
+    public List<String> listFiles(boolean isImageUpload) throws IOException {
+        makeDirectoryIfNotExists(isImageUpload);
+
+        String dir = isImageUpload ? imageDir : fileDir;
+        File directory = new File(dir);
+
+        String[] fileList = directory.list();
+        return (fileList == null) ? Collections.emptyList() : Arrays.asList(fileList);
     }
 
     private void makeDirectoryIfNotExists(boolean isImageUpload) throws IOException {

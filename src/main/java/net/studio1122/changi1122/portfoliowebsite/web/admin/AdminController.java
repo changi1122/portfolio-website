@@ -6,16 +6,27 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.studio1122.changi1122.portfoliowebsite.domain.admin.Admin;
 import net.studio1122.changi1122.portfoliowebsite.domain.admin.AuthService;
+import net.studio1122.changi1122.portfoliowebsite.domain.common.FileStore;
 import net.studio1122.changi1122.portfoliowebsite.global.SessionConst;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
+import org.springframework.web.util.UriUtils;
+import org.thymeleaf.util.StringUtils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -24,6 +35,7 @@ import java.util.NoSuchElementException;
 public class AdminController {
 
     private final AuthService authService;
+    private final FileStore fileStore;
 
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginForm loginForm, BindingResult bindingResult,
@@ -77,6 +89,72 @@ public class AdminController {
         return "redirect:/manage";
     }
 
+    @PostMapping("/file")
+    public String uploadFile(MultipartFile uploadFile,
+                             @RequestParam(required = false) String storeName) throws IOException {
+
+        if (!uploadFile.isEmpty()) {
+            fileStore.storeFile(uploadFile, storeName, false);
+        }
+        return "redirect:/manage/file/list";
+    }
+
+    @DeleteMapping("/file/{filename}")
+    public String deleteFile(@PathVariable String filename) throws IOException {
+        if (!StringUtils.isEmpty(filename)) {
+            fileStore.deleteFile(filename, false);
+        }
+        return "redirect:/manage/file/list";
+    }
+
+    @PostMapping("/image")
+    public String uploadImage(MultipartFile uploadFile,
+                             @RequestParam(required = false) String storeName) throws IOException {
+
+        if (!uploadFile.isEmpty()) {
+            fileStore.storeFile(uploadFile, storeName, true);
+        }
+        return "redirect:/manage/image/list";
+    }
+
+    @DeleteMapping("/image/{filename}")
+    public String deleteImage(@PathVariable String filename) throws IOException {
+        if (!StringUtils.isEmpty(filename)) {
+            fileStore.deleteFile(filename, true);
+        }
+        return "redirect:/manage/image/list";
+    }
+
+    @GetMapping("/file/{filename}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws IOException {
+        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(filename, false));
+        if (!resource.exists() || !resource.isReadable()) {
+            throw new FileNotFoundException(filename);
+        }
+
+        String encodedFilename = UriUtils.encode(filename, StandardCharsets.UTF_8);
+        String contentDisposition = "attachment; filename=\"" + encodedFilename + "\"";
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                .body(resource);
+    }
+
+    @GetMapping("/image/{filename}")
+    public ResponseEntity<Resource> downloadImage(@PathVariable String filename) throws IOException {
+        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(filename, true));
+        if (!resource.exists() || !resource.isReadable()) {
+            throw new FileNotFoundException(filename);
+        }
+
+        MediaType contentType = MediaType.parseMediaType(Files.probeContentType(Path.of(filename)));
+
+        return ResponseEntity.ok()
+                .contentType(contentType)
+                .body(resource);
+    }
+
+
     /* View Rendering Method  */
 
     @GetMapping("/manage")
@@ -112,6 +190,22 @@ public class AdminController {
         model.addAttribute("loginForm", new LoginForm());
 
         return "admin/signup";
+    }
+
+    @GetMapping("/manage/file/list")
+    public String fileList(Model model) throws IOException {
+        model.addAttribute("content", "admin/fragment/fileList");
+        model.addAttribute("fileList", fileStore.listFiles(false));
+
+        return "admin/manage";
+    }
+
+    @GetMapping("/manage/image/list")
+    public String imageList(Model model) throws IOException {
+        model.addAttribute("content", "admin/fragment/imageFileList");
+        model.addAttribute("fileList", fileStore.listFiles(true));
+
+        return "admin/manage";
     }
 
     public String getClientIp(HttpServletRequest request) {

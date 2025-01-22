@@ -45,9 +45,11 @@
 
                     var request = new XMLHttpRequest();
                     request.open('DELETE', '/home/' + accessKey, true);
-                    request.send();
 
-                    window.location = window.location;
+                    request.onload = function () {
+                        window.location.reload(); // 페이지 새로고침
+                    };
+                    request.send();
                 }
             }
         </script>
