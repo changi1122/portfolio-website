@@ -30,43 +30,46 @@ class FileStoreTest {
     private String fileDir;
     @Value("${image.dir}")
     private String imageDir;
+    @Value("${video.dir}")
+    private String videoDir;
 
     @AfterEach
     void tearDown() {
         FileUtils.deleteFolderContents(new File(fileDir));
         FileUtils.deleteFolderContents(new File(imageDir));
+        FileUtils.deleteFolderContents(new File(videoDir));
     }
 
     @DisplayName("업로드한 파일을 파일 디렉터리에 저장합니다.")
-    @CsvSource(value = {"null, false", "newName, true"}, nullValues = { "null" })
+    @CsvSource(value = {"null, FILE", "newName, IMAGE", "null, VIDEO"}, nullValues = { "null" })
     @ParameterizedTest
-    void storeFile(String storeName, Boolean isImageUpload) throws IOException {
+    void storeFile(String storeName, UploadType type) throws IOException {
         // given
         MultipartFile uploadFile = getUploadFile();
 
         // when
-        fileStore.storeFile(uploadFile, storeName, isImageUpload);
+        fileStore.storeFile(uploadFile, storeName, type);
 
         // then
-        String dir = (isImageUpload) ? imageDir : fileDir;
+        String dir = getDirectory(type);
         String filename = (storeName == null) ? "sky.jpg" : storeName + ".jpg";
         File file = new File(dir + filename);
         assertThat(file).exists();
     }
 
     @DisplayName("업로드한 파일을 파일 디렉터리에서 삭제합니다.")
-    @CsvSource({"false", "true"})
+    @CsvSource({"FILE", "IMAGE", "VIDEO"})
     @ParameterizedTest
-    void deleteFile(Boolean isImageUpload) throws IOException {
+    void deleteFile(UploadType type) throws IOException {
         // given
         MultipartFile uploadFile = getUploadFile();
-        fileStore.storeFile(uploadFile, null, isImageUpload);
+        fileStore.storeFile(uploadFile, null, type);
 
         // when
-        fileStore.deleteFile("sky.jpg", isImageUpload);
+        fileStore.deleteFile("sky.jpg", type);
 
         // then
-        String dir = (isImageUpload) ? imageDir : fileDir;
+        String dir = getDirectory(type);
         File file = new File(dir + "sky.jpg");
         assertThat(file).doesNotExist();
     }
@@ -76,11 +79,11 @@ class FileStoreTest {
     void listFiles() throws IOException {
         // given
         MultipartFile uploadFile = getUploadFile();
-        fileStore.storeFile(uploadFile, null, false);
-        fileStore.storeFile(uploadFile, "test", false);
+        fileStore.storeFile(uploadFile, null, UploadType.FILE);
+        fileStore.storeFile(uploadFile, "test", UploadType.FILE);
 
         // when
-        List<String> fileList = fileStore.listFiles(false);
+        List<String> fileList = fileStore.listFiles(UploadType.FILE);
 
         // then
         assertThat(fileList).hasSize(2)
@@ -100,4 +103,11 @@ class FileStoreTest {
         );
     }
 
+    private String getDirectory(UploadType type) {
+        return switch (type) {
+            case FILE -> fileDir;
+            case IMAGE -> imageDir;
+            case VIDEO -> videoDir;
+        };
+    }
 }

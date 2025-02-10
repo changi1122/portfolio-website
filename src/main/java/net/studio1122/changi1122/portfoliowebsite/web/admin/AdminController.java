@@ -7,11 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import net.studio1122.changi1122.portfoliowebsite.domain.admin.Admin;
 import net.studio1122.changi1122.portfoliowebsite.domain.admin.AuthService;
 import net.studio1122.changi1122.portfoliowebsite.domain.common.FileStore;
+import net.studio1122.changi1122.portfoliowebsite.domain.common.UploadType;
 import net.studio1122.changi1122.portfoliowebsite.global.SessionConst;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -94,7 +94,7 @@ public class AdminController {
                              @RequestParam(required = false) String storeName) throws IOException {
 
         if (!uploadFile.isEmpty()) {
-            fileStore.storeFile(uploadFile, storeName, false);
+            fileStore.storeFile(uploadFile, storeName, UploadType.FILE);
         }
         return "redirect:/manage/file/list";
     }
@@ -102,7 +102,7 @@ public class AdminController {
     @DeleteMapping("/file/{filename}")
     public String deleteFile(@PathVariable String filename) throws IOException {
         if (!StringUtils.isEmpty(filename)) {
-            fileStore.deleteFile(filename, false);
+            fileStore.deleteFile(filename, UploadType.FILE);
         }
         return "redirect:/manage/file/list";
     }
@@ -112,7 +112,7 @@ public class AdminController {
                              @RequestParam(required = false) String storeName) throws IOException {
 
         if (!uploadFile.isEmpty()) {
-            fileStore.storeFile(uploadFile, storeName, true);
+            fileStore.storeFile(uploadFile, storeName, UploadType.IMAGE);
         }
         return "redirect:/manage/image/list";
     }
@@ -120,14 +120,32 @@ public class AdminController {
     @DeleteMapping("/image/{filename}")
     public String deleteImage(@PathVariable String filename) throws IOException {
         if (!StringUtils.isEmpty(filename)) {
-            fileStore.deleteFile(filename, true);
+            fileStore.deleteFile(filename, UploadType.IMAGE);
         }
         return "redirect:/manage/image/list";
     }
 
+    @PostMapping("/video")
+    public String uploadVideo(MultipartFile uploadFile,
+                              @RequestParam(required = false) String storeName) throws IOException {
+
+        if (!uploadFile.isEmpty()) {
+            fileStore.storeFile(uploadFile, storeName, UploadType.VIDEO);
+        }
+        return "redirect:/manage/video/list";
+    }
+
+    @DeleteMapping("/video/{filename}")
+    public String deleteVideo(@PathVariable String filename) throws IOException {
+        if (!StringUtils.isEmpty(filename)) {
+            fileStore.deleteFile(filename, UploadType.VIDEO);
+        }
+        return "redirect:/manage/video/list";
+    }
+
     @GetMapping("/file/{filename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws IOException {
-        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(filename, false));
+        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(filename, UploadType.FILE));
         if (!resource.exists() || !resource.isReadable()) {
             throw new FileNotFoundException(filename);
         }
@@ -142,7 +160,7 @@ public class AdminController {
 
     @GetMapping("/image/{filename}")
     public ResponseEntity<Resource> downloadImage(@PathVariable String filename) throws IOException {
-        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(filename, true));
+        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(filename, UploadType.IMAGE));
         if (!resource.exists() || !resource.isReadable()) {
             throw new FileNotFoundException(filename);
         }
@@ -152,6 +170,33 @@ public class AdminController {
         return ResponseEntity.ok()
                 .contentType(contentType)
                 .body(resource);
+    }
+
+    @GetMapping("/video/{filename}")
+    public ResponseEntity<ResourceRegion> downloadVideo(@PathVariable String filename, @RequestHeader HttpHeaders headers
+    ) throws IOException {
+
+        UrlResource video = new UrlResource("file:" + fileStore.getFullPath(filename, UploadType.VIDEO));
+        if (!video.exists() || !video.isReadable()) {
+            throw new FileNotFoundException(filename);
+        }
+
+        long contentLength = video.contentLength();
+        HttpRange range = headers.getRange().stream().findFirst().orElse(null);
+
+        ResourceRegion region;
+        if (range != null) {
+            long start = range.getRangeStart(contentLength);
+            long end = Math.min(start + 1024 * 1024, contentLength - 1); // 1MB 단위로 전송
+            region = new ResourceRegion(video, start, end - start + 1);
+        } else {
+            region = new ResourceRegion(video, 0, Math.min(1024 * 1024, contentLength)); // 기본값 첫 1MB 전송
+        }
+
+        return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
+                .contentType(MediaTypeFactory.getMediaType(video).orElse(MediaType.APPLICATION_OCTET_STREAM))
+                .header(HttpHeaders.ACCEPT_RANGES, "bytes")
+                .body(region);
     }
 
 
@@ -195,7 +240,7 @@ public class AdminController {
     @GetMapping("/manage/file/list")
     public String fileList(Model model) throws IOException {
         model.addAttribute("content", "admin/fragment/fileList");
-        model.addAttribute("fileList", fileStore.listFiles(false));
+        model.addAttribute("fileList", fileStore.listFiles(UploadType.FILE));
 
         return "admin/manage";
     }
@@ -203,7 +248,15 @@ public class AdminController {
     @GetMapping("/manage/image/list")
     public String imageList(Model model) throws IOException {
         model.addAttribute("content", "admin/fragment/imageFileList");
-        model.addAttribute("fileList", fileStore.listFiles(true));
+        model.addAttribute("fileList", fileStore.listFiles(UploadType.IMAGE));
+
+        return "admin/manage";
+    }
+
+    @GetMapping("/manage/video/list")
+    public String videoList(Model model) throws IOException {
+        model.addAttribute("content", "admin/fragment/videoFileList");
+        model.addAttribute("fileList", fileStore.listFiles(UploadType.VIDEO));
 
         return "admin/manage";
     }

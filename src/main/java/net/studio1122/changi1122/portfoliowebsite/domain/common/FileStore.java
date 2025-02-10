@@ -20,31 +20,35 @@ public class FileStore {
     @Value("${image.dir}")
     private String imageDir;
 
-    public String getFullPath(String filename, boolean isImageUpload) {
-        if (isImageUpload)
-            return imageDir + filename;
-        else
-            return fileDir + filename;
+    @Value("${video.dir}")
+    private String videoDir;
+
+    public String getFullPath(String filename, UploadType type) {
+        return switch (type) {
+            case FILE -> fileDir + filename;
+            case IMAGE -> imageDir + filename;
+            case VIDEO -> videoDir + filename;
+        };
     }
 
-    public void storeFile(MultipartFile file, String storeName, boolean isImageUpload) throws IOException {
+    public void storeFile(MultipartFile file, String storeName, UploadType type) throws IOException {
         if (file.isEmpty())
             return;
 
-        makeDirectoryIfNotExists(isImageUpload);
+        makeDirectoryIfNotExists(type);
 
         String originalFilename = file.getOriginalFilename();
         String storeFilename = getStoreFilename(originalFilename, storeName);
 
-        File destination = new File(getFullPath(storeFilename, isImageUpload));
+        File destination = new File(getFullPath(storeFilename, type));
         if (destination.exists())
             throw new IllegalArgumentException("File already exists");
 
         file.transferTo(destination);
     }
 
-    public void deleteFile(String filename, boolean isImageUpload) throws IOException {
-        File target = new File(getFullPath(filename, isImageUpload));
+    public void deleteFile(String filename, UploadType type) throws IOException {
+        File target = new File(getFullPath(filename, type));
 
         if (target.exists()) {
             boolean success = target.delete();
@@ -54,14 +58,23 @@ public class FileStore {
         }
     }
 
-    public List<String> listFiles(boolean isImageUpload) throws IOException {
-        makeDirectoryIfNotExists(isImageUpload);
+    public List<String> listFiles(UploadType type) throws IOException {
+        makeDirectoryIfNotExists(type);
 
-        String dir = isImageUpload ? imageDir : fileDir;
+        String dir = getDirectory(type);
         File directory = new File(dir);
 
         String[] fileList = directory.list();
         return (fileList == null) ? Collections.emptyList() : Arrays.asList(fileList);
+    }
+
+    private void makeDirectoryIfNotExists(UploadType type) throws IOException {
+        File directory = new File(getDirectory(type));
+        if (!directory.exists()) {
+            boolean success = directory.mkdirs();
+            if (!success)
+                throw new IOException();
+        }
     }
 
     private void makeDirectoryIfNotExists(boolean isImageUpload) throws IOException {
@@ -89,4 +102,11 @@ public class FileStore {
         return originalFilename.substring(pos + 1);
     }
 
+    private String getDirectory(UploadType type) {
+        return switch (type) {
+            case FILE -> fileDir;
+            case IMAGE -> imageDir;
+            case VIDEO -> videoDir;
+        };
+    }
 }

@@ -33,7 +33,7 @@
 
             function copyToClipboard() {
                 const filename = this.parentNode.parentNode.querySelector("p.board-id").innerText;
-                navigator.clipboard.writeText('/' + filename)
+                navigator.clipboard.writeText('/file/' + filename)
                     .then(() => {
                         console.log("텍스트가 성공적으로 복사되었습니다.");
                     })
