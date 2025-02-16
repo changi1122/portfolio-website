@@ -26,6 +26,8 @@ public class Project {
     String body;
     List<String> bodyLinks;
 
+    boolean isHidden;
+
     @Builder
     public Project(String name, String description, String imageSrc, List<Keyword> keywords, List<String> links,
                    String category, List<String> badges, String body, List<String> bodyLinks) {
@@ -38,5 +40,7 @@ public class Project {
         this.badges = badges;
         this.body = body;
         this.bodyLinks = bodyLinks;
+
+        isHidden = false;
     }
 }

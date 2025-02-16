@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class BlogService {
 
-    public final BlogArticleRepository blogArticleRepository;
+    private final BlogArticleRepository blogArticleRepository;
 
     @Transactional
     public BlogArticle createBlogArticle(BlogArticle request) {
