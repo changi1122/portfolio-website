@@ -1,0 +1,135 @@
+/* Component */
+.transparent-button {
+    display: inline-block;
+    color: #000;
+    padding: 2px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 36px;
+    transition: background-color .2s ease;
+}
+.transparent-button:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+.transparent-button>svg {
+    fill: #000;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+}
+.save-button {
+    color: #fff;
+    background-color: black;
+}
+.save-button>svg {
+    fill: #fff;
+}
+.save-button:hover {
+    background-color: #00D5B8;
+}
+
+.long-textbox {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid #d1d5da;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.short-textbox {
+    width: 236px;
+    padding: 4px 8px;
+    border: 1px solid #d1d5da;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 14px;
+}
+.short-textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 5px 10px;
+    margin-bottom: 12px;
+    border: 1px solid #d1d5da;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    resize: vertical
+}
+
+.tag-button {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 30px;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 24px;
+    transition: background-color .17s ease;
+}
+.tag-button:hover {
+    background-color: #00D5B8;
+    cursor: pointer;
+}
+
+
+
+/* Layout */
+
+.editor-head {
+    display: block;
+    height: 60px;
+    border-bottom: 1px solid #d1d5da;
+    box-sizing: border-box;
+}
+.editor-head .head-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 24px;
+    padding-top: 10px;
+}
+.editor-head .toolbox {
+    width: 260px;
+}
+.editor-head .titlebox {
+    width: 360px;
+    padding: 4px 10px;
+    font-size: 18px;
+    font-family: inherit;
+    border: 1px solid #d1d5da;
+    border-radius: 30px;
+    box-sizing: border-box;
+}
+
+.editor-flex {
+    display: flex;
+    justify-content: space-between;
+    height: calc(100vh - 64px);
+}
+.editor-flex>div {
+    flex: 1
+}
+
+.editor-data {
+    max-width: 320px;
+    padding: 12px 8px;
+    border-right: 1px solid #d1d5da;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.editor-data label {
+    font-size: 14px;
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+.editor-data>.data-item {
+    margin-bottom: 12px;
+}

@@ -2,9 +2,160 @@
 <html lang="ko">
 <head>
     <title>프로젝트 에디터</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/project-editor.css" th:href="@{/css/project-editor.css}" />
+    <script th:src="@{/js/utility.js}"></script>
+    <!-- Remarkable -->
+    <script th:src="@{/js/remarkable-2.0.1.min.js}"></script>
+    <!-- Highlight.js -->
+    <script th:src="@{/js/highlight.js-11.11.1.core.min.js}"></script>
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap' rel='stylesheet'/>
 </head>
 <body>
 <div th:fragment="content">
-    <p>이것은 프로젝트 에디터 페이지입니다.</p>
+    <form method="post" id="editForm" action="/to-do" th:object="${project}">
+        <!-- 에디터 상단 -->
+        <div class="editor-head">
+            <div class="head-flex">
+                <div class="toolbox">
+                    <a class="transparent-button" th:href="@{/manage/project/list}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M8.73171 16.7951C9.03264 17.0797 9.50733 17.0665 9.79196 16.7656C10.0766 16.4646 10.0634 15.9899 9.76243 15.7053L4.52339 10.7502H17.2471C17.6613 10.7502 17.9971 10.4144 17.9971 10.0002C17.9971 9.58598 17.6613 9.25019 17.2471 9.25019H4.52112L9.76243 4.29294C10.0634 4.00831 10.0766 3.53362 9.79196 3.23269C9.50733 2.93175 9.03264 2.91853 8.73171 3.20316L2.31449 9.2726C2.14819 9.42989 2.04819 9.63 2.01448 9.83879C2.00308 9.89077 1.99707 9.94478 1.99707 10.0002C1.99707 10.0578 2.00356 10.1139 2.01585 10.1677C2.05084 10.3735 2.15039 10.5704 2.31449 10.7256L8.73171 16.7951Z"/>
+                        </svg>
+                        돌아가기
+                    </a>
+                </div>
+                <input class="titlebox" type="text" id="name" name="name" th:field="*{name}" placeholder="프로젝트 이름">
+                <div class="toolbox">
+                    <a class="transparent-button" th:href="@{/manage/image/list}" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M10 5.5C10 7.98528 7.98528 10 5.5 10C3.01472 10 1 7.98528 1 5.5C1 3.01472 3.01472 1 5.5 1C7.98528 1 10 3.01472 10 5.5ZM6 3.5C6 3.22386 5.77614 3 5.5 3C5.22386 3 5 3.22386 5 3.5V5H3.5C3.22386 5 3 5.22386 3 5.5C3 5.77614 3.22386 6 3.5 6H5L5 7.5C5 7.77614 5.22386 8 5.5 8C5.77614 8 6 7.77614 6 7.5V6H7.5C7.77614 6 8 5.77614 8 5.5C8 5.22386 7.77614 5 7.5 5H6V3.5ZM14 4H10.793C10.6944 3.65136 10.5622 3.31679 10.4003 3H14C15.6569 3 17 4.34315 17 6V14C17 15.6569 15.6569 17 14 17H6C4.34315 17 3 15.6569 3 14V10.4003C3.31679 10.5622 3.65136 10.6944 4 10.793V14C4 14.3726 4.10191 14.7215 4.27937 15.0201L8.94868 10.432C9.53227 9.85859 10.4677 9.85859 11.0513 10.432L15.7206 15.0201C15.8981 14.7215 16 14.3726 16 14V6C16 4.89543 15.1046 4 14 4ZM14 7.5C14 8.32843 13.3284 9 12.5 9C11.6716 9 11 8.32843 11 7.5C11 6.67157 11.6716 6 12.5 6C13.3284 6 14 6.67157 14 7.5ZM13 7.5C13 7.22386 12.7761 7 12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8C12.7761 8 13 7.77614 13 7.5ZM4.98824 15.7256C5.28505 15.9 5.63085 16 6 16H14C14.3692 16 14.7149 15.9 15.0118 15.7256L10.3504 11.1453C10.1559 10.9542 9.84409 10.9542 9.64956 11.1453L4.98824 15.7256Z"/>
+                        </svg>
+                        이미지 업로드
+                    </a>
+                    <a class="transparent-button save-button" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M3 5C3 3.89543 3.89543 3 5 3H13.3787C13.9091 3 14.4178 3.21071 14.7929 3.58579L16.4142 5.20711C16.7893 5.58218 17 6.09089 17 6.62132V15C17 16.1046 16.1046 17 15 17H5C3.89543 17 3 16.1046 3 15V5ZM5 4C4.44772 4 4 4.44772 4 5V15C4 15.5523 4.44772 16 5 16L5 11.5C5 10.6716 5.67157 10 6.5 10H13.5C14.3284 10 15 10.6716 15 11.5V16C15.5523 16 16 15.5523 16 15V6.62132C16 6.3561 15.8946 6.10175 15.7071 5.91421L14.0858 4.29289C13.8983 4.10536 13.6439 4 13.3787 4L13 4V6.5C13 7.32843 12.3284 8 11.5 8L7.5 8C6.67157 8 6 7.32843 6 6.5L6 4H5ZM7 4L7 6.5C7 6.77614 7.22386 7 7.5 7L11.5 7C11.7761 7 12 6.77614 12 6.5V4L7 4ZM14 16V11.5C14 11.2239 13.7761 11 13.5 11H6.5C6.22386 11 6 11.2239 6 11.5V16H14Z"/>
+                        </svg>
+                        저장하기
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 에디터 본문 -->
+        <div class="editor-flex">
+            <div class="editor-data">
+                <div class="data-item">
+                    <label for="description">프로젝트 주제 (설명)</label>
+                    <input class="long-textbox" type="text" id="description" name="description" th:field="*{description}" placeholder="설명" value="">
+                </div>
+                <div class="data-item">
+                    <label for="imageSrc">이미지 경로</label>
+                    <input class="long-textbox" type="text" id="imageSrc" name="imageSrc" th:field="*{imageSrc}" placeholder="이미지 URL" value="">
+                </div>
+                <div class="data-item">
+                    <label for="imageSrc">카테고리 (이름 상단 표시)</label>
+                    <input class="long-textbox" type="text" id="category" name="category" th:field="*{category}" placeholder="카테고리" value="">
+                </div>
+                <div class="data-item">
+                    <label for="badges">뱃지 (기술 스택 태그)</label>
+                    <input class="long-textbox" type="text" id="badges" name="badges" th:field="*{badges}" placeholder="콤마(,)로 구분해 입력" value="">
+                </div>
+
+                <!-- keywords -->
+                <label>키워드</label>
+                <div id="keywordBox" class="tag-wrap">
+                    <div th:each="keyword, keyStat : ${project.keywords}">
+                        <input class="short-textbox" th:value="${keyword.keyword}"
+                               th:name="|keywords[${keyStat.index}].keyword|">
+                        <input class="long-textbox" th:value="${keyword.description}"
+                               th:name="|keywords[${keyStat.index}].description|">
+                    </div>
+                </div>
+                <div style="margin: 12px 0 24px">
+                    <input class="tag-button" type="button" value="+" onclick="addKeyword()">
+                    <input class="tag-button" type="button" value="-" onclick="removeKeyword()">
+                </div>
+                <script>
+                    const KEYWORDDIV =
+                        '<div>\n' +
+                        '  <input class="short-textbox" name="keywords[{0}].keyword">\n' +
+                        '  <input class="long-textbox" name=keywords[{0}].description">\n' +
+                        '</div>';
+
+                    function addKeyword() {
+                        const keywordBox = document.getElementById('keywordBox');
+                        const keywordIndex = keywordBox.children.length;
+
+                        keywordBox.innerHTML = keywordBox.innerHTML.concat(
+                            formatString(KEYWORDDIV, keywordIndex)
+                        );
+                    }
+
+                    function removeKeyword() {
+                        const keywordBox = document.getElementById('keywordBox');
+                        if (keywordBox.lastElementChild)
+                            keywordBox.removeChild(keywordBox.lastElementChild);
+                    }
+                </script>
+
+                <!-- links -->
+                <label>링크 (프로젝트 목록 표시)</label>
+                <div id="linksBox" class="tag-wrap">
+                    <textarea class="short-textarea" name="links" th:each="link : ${project.links}" th:text="${link}">
+                    </textarea>
+                </div>
+                <input class="tag-button" type="button" value="+" onclick="addLink()">
+                <input class="tag-button" type="button" value="-" onclick="removeLink()">
+                <script>
+                    const LINKTEXTAREA = '<textarea class="short-textarea" name="links"></textarea>';
+
+                    const linksBox = document.getElementById("linksBox");
+
+                    function addLink() {
+                        linksBox.innerHTML = linksBox.innerHTML.concat(LINKTEXTAREA);
+                    }
+                    function removeLink() {
+                        if (linksBox.lastElementChild)
+                            linksBox.removeChild(linksBox.lastElementChild);
+                    }
+                </script>
+
+                <!-- links -->
+                <label>본문 링크 (상세페이지 표시)</label>
+                <div id="bodyLinksBox" class="tag-wrap">
+                    <textarea class="short-textarea" name="bodyLinks" th:each="link : ${project.bodyLinks}" th:text="${link}">
+                    </textarea>
+                </div>
+                <input class="tag-button" type="button" value="+" onclick="addBodyLink()">
+                <input class="tag-button" type="button" value="-" onclick="removeBodyLink()">
+                <script>
+                    const BODYLINKTEXTAREA = '<textarea class="short-textarea" name="bodyLinks"></textarea>';
+
+                    const bodyLinksBox = document.getElementById("bodyLinksBox");
+
+                    function addBodyLink() {
+                        bodyLinksBox.innerHTML = bodyLinksBox.innerHTML.concat(BODYLINKTEXTAREA);
+                    }
+                    function removeBodyLink() {
+                        if (bodyLinksBox.lastElementChild)
+                            bodyLinksBox.removeChild(bodyLinksBox.lastElementChild);
+                    }
+                </script>
+            </div>
+            <div class="editor-body">
+                sfwefwef
+            </div>
+            <div class="editor-preview" style="background-color: #aaaaaa">
+                wefwefwfe
+            </div>
+        </div>
+    </form>
+
+
 </div>
 </body>
