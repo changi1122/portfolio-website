@@ -133,3 +133,33 @@
 .editor-data>.data-item {
     margin-bottom: 12px;
 }
+
+.editor-body {
+    padding: 12px;
+}
+.editor-body>textarea {
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    border: 1px solid #d1d5da;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.editor-preview {
+    padding: 12px;
+}
+.editor-preview>#body-preview {
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    border: 1px solid #d1d5da;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}

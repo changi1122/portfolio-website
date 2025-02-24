@@ -1,0 +1,283 @@
+.md {
+    line-height: 1.5;
+}
+.md h1, .md h2, .md h3 {
+    font-weight: bold;
+}
+.md h1, .md h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.md h3, .md h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.md h5, .md h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.md h1 {
+    font-size: 28px;
+}
+.md h2 {
+    font-size: 24px;
+}
+.md h3 {
+    font-size: 20px;
+}
+.md h4 {
+    font-size: 16px;
+}
+.md p {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.md a {
+    color: #19ddc4;
+}
+.md a:hover {
+    text-decoration: underline;
+}
+.md p code {
+    padding: 2px 4px;
+    font-family: Menlo, Consolas, Monaco, monospace;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+.md hr {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.md blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+.md blockquote p {
+    font-size: 17.5px;
+}
+.md blockquote p:last-child, .md blockquote ul:last-child, .md blockquote ol:last-child {
+    margin-bottom: 0;
+}
+.md blockquote footer, .md blockquote small, .md blockquote .small {
+    display: block;
+    font-size: 80%;
+    line-height: 1.42857143;
+    color: #777;
+}
+.md blockquote footer:before, .md blockquote small:before, .md blockquote .small:before {
+    content: '\2014 \00A0';
+}
+.md .blockquote-reverse, .md blockquote.pull-right {
+    padding-right: 15px;
+    padding-left: 0;
+    text-align: right;
+    border-right: 5px solid #eee;
+    border-left: 0;
+}
+.md .blockquote-reverse footer:before, .md blockquote.pull-right footer:before, .md .blockquote-reverse small:before, .md blockquote.pull-right small:before, .md .blockquote-reverse .small:before, .md blockquote.pull-right .small:before {
+    content: '';
+}
+.md .blockquote-reverse footer:after, .md blockquote.pull-right footer:after, .md .blockquote-reverse small:after, .md blockquote.pull-right small:after, .md .blockquote-reverse .small:after, .md blockquote.pull-right .small:after {
+    content: '\00A0 \2014';
+}
+.md blockquote:before, .md blockquote:after {
+    content: "";
+}
+.md sub, .md sup {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
+}
+.md sup {
+    top: -0.5em;
+}
+.md sub {
+    bottom: -0.25em;
+}
+.md mark {
+    padding: 0.2em;
+    background-color: #fcf8e3;
+}
+.md ul, .md ol {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-inline-start: 36px;
+}
+.md li {
+    display: list-item;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.md ul {
+    list-style-type: disc;
+}
+.md ul li::marker {
+    font-size: 0.5em;
+}
+.md ol {
+    list-style-type: decimal;
+}
+.md pre {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.md pre code {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+    font-family: Menlo, Consolas, Monaco, monospace;
+}
+.md table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.md tr:nth-of-type(odd) {
+    background: #f9f9f9;
+}
+.md th {
+    background: #fff;
+    font-weight: bold;
+}
+.md td, .md th {
+    padding: 10px;
+    text-align: left;
+    font-size: 15px;
+    border-bottom: 2px solid #ddd;
+}
+.md td {
+    border-bottom: none;
+    border-top: 1px solid #ddd;
+}
+.md dt {
+    font-weight: bold;
+}
+.md dt, .md dd {
+    line-height: 1.428571;
+}
+.md dl {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.md abbr[title], .md abbr[data-original-title] {
+    cursor: help;
+}
+.md img {
+    display: block;
+    max-width: 660px;
+    max-height: 400px;
+    margin: 0 auto;
+}
+.md img.round {
+    border-radius: 8px;
+}
+@media only screen and (max-width: 1262px) {
+    .md img {
+        max-width: 600px;
+    }
+}
+@media only screen and (max-width: 738px) {
+    .md img {
+        max-width: 100%;
+        max-height: unset;
+    }
+}
+.hljs {
+    background-color: transparent;
+}
+/* Loading icon */
+.gooey {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 142px;
+    height: 40px;
+    margin: -20px 0 0 -71px;
+    background: #fff;
+    filter: contrast(20);
+}
+.gooey .dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 12px;
+    left: 15px;
+    filter: blur(4px);
+    background: #000;
+    border-radius: 50%;
+    transform: translateX(0);
+    animation: dot 2.8s infinite;
+}
+.gooey .dots {
+    transform: translateX(0);
+    margin-top: 12px;
+    margin-left: 31px;
+    animation: dots 2.8s infinite;
+}
+.gooey .dots span {
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+    margin-left: 16px;
+    filter: blur(4px);
+    background: #000;
+    border-radius: 50%;
+}
+@-moz-keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+@-webkit-keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+@-o-keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+@keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+@-moz-keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+@-webkit-keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+@-o-keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+@keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}

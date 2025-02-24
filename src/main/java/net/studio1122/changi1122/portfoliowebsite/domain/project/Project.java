@@ -24,6 +24,7 @@ public class Project {
     String category;
     List<String> badges;
     String body;
+    String bodyHtml;
     List<String> bodyLinks;
 
     String themeColor;
@@ -31,7 +32,8 @@ public class Project {
 
     @Builder
     public Project(String name, String description, String imageSrc, List<Keyword> keywords, List<String> links,
-                   String category, List<String> badges, String body, List<String> bodyLinks, String themeColor) {
+                   String category, List<String> badges, String body, String bodyHtml, List<String> bodyLinks,
+                   String themeColor) {
         this.name = name;
         this.description = description;
         this.imageSrc = imageSrc;
@@ -40,6 +42,7 @@ public class Project {
         this.category = category;
         this.badges = badges;
         this.body = body;
+        this.bodyHtml = bodyHtml;
         this.bodyLinks = bodyLinks;
         this.themeColor = themeColor;
 

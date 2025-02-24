@@ -4,6 +4,7 @@ import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticle;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.Keyword;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.Project;
 import net.studio1122.changi1122.portfoliowebsite.web.blog.BlogService;
+import net.studio1122.changi1122.portfoliowebsite.web.project.MarkdownConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -59,8 +60,9 @@ public class CommonController {
                 .links(List.of("<a>소개</a>"))
                 .category("이름 위 표시 문자열")
                 .badges(List.of("Spring", "React"))
-                .body("markdown")
+                .body(MarkdownConst.MARKDOWN_BODY_DEFAULT)
                 .bodyLinks(List.of("<a>소개ewfwef</a>"))
+                .themeColor("#999999")
                 .build();
     }
 }
