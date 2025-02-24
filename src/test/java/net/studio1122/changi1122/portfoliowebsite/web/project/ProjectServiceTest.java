@@ -68,7 +68,10 @@ class ProjectServiceTest {
                 .category("카테고리수정")
                 .badges(List.of("Spring boot"))
                 .body("본문수정.MD")
+                .bodyHtml("<p>본문수정.MD</p>")
                 .bodyLinks(Collections.emptyList())
+                .order(1)
+                .themeColor("#ffffff")
                 .build();
 
         // when
@@ -78,8 +81,8 @@ class ProjectServiceTest {
         Project saved = projectRepository.findByName(request.getName()).orElseThrow();
 
         assertThat(saved)
-                .extracting("name", "description", "imageSrc", "category", "body")
-                .containsExactly("프로젝트수정", "주제수정", "/수정", "카테고리수정", "본문수정.MD");
+                .extracting("name", "description", "imageSrc", "category", "body", "bodyHtml", "order", "themeColor")
+                .containsExactly("프로젝트수정", "주제수정", "/수정", "카테고리수정", "본문수정.MD", "<p>본문수정.MD</p>", 1, "#ffffff");
         assertThat(saved.getKeywords()).hasSize(1);
         assertThat(saved.getLinks()).hasSize(2);
         assertThat(saved.getBadges()).hasSize(1)

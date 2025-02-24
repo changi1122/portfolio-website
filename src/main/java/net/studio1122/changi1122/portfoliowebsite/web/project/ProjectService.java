@@ -35,16 +35,19 @@ public class ProjectService {
         project.setCategory(request.getCategory());
         project.setBadges(request.getBadges());
         project.setBody(request.getBody());
+        project.setBodyHtml(request.getBodyHtml());
         project.setBodyLinks(request.getBodyLinks());
+        project.setOrder(request.getOrder());
+        project.setThemeColor(request.getThemeColor());
 
         return projectRepository.save(project);
     }
 
     @Transactional
-    public Project toggleProjectVisibility(String id) {
+    public void toggleProjectVisibility(String id) {
         Project project = projectRepository.findById(id).orElseThrow();
         project.setHidden(!project.isHidden());
-        return projectRepository.save(project);
+        projectRepository.save(project);
     }
 
     @Transactional

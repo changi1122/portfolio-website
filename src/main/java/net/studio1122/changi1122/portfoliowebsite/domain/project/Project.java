@@ -28,12 +28,13 @@ public class Project {
     List<String> bodyLinks;
 
     String themeColor;
+    int order;
     boolean isHidden;
 
     @Builder
     public Project(String name, String description, String imageSrc, List<Keyword> keywords, List<String> links,
                    String category, List<String> badges, String body, String bodyHtml, List<String> bodyLinks,
-                   String themeColor) {
+                   Integer order, String themeColor) {
         this.name = name;
         this.description = description;
         this.imageSrc = imageSrc;
@@ -44,6 +45,7 @@ public class Project {
         this.body = body;
         this.bodyHtml = bodyHtml;
         this.bodyLinks = bodyLinks;
+        this.order = order == null ? 0 : order;
         this.themeColor = themeColor;
 
         isHidden = false;

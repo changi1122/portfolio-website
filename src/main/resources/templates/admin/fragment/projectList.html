@@ -1,3 +1,75 @@
 <div th:fragment="content">
-    <p>이것은 프로젝트 관리 페이지 콘텐츠입니다.</p>
+    <div class="mTitle">
+        <p class="set-title">프로젝트 관리</p>
+    </div>
+    <div class="mBoard">
+        <div class="board-item" th:each="project : ${projects}">
+            <a class="board-title" th:href="|/project/${project.id}|" th:text="${project.name}">프로젝트 이름</a>
+            <p class="board-category" th:text="|${project.description} (순서:${project.order}) (${project.isHidden ? '비공개' : '공개'})|">프로젝트 주제</p>
+            <p class="board-id" th:text="${project.id}">>id</p>
+            <div class="board-button" style="width: 272px">
+                <button class="hide_button">공개/비공개</button>
+                <button class="edit_button">수정</button>
+                <button class="delete_button">삭제</button>
+            </div>
+        </div>
+        <ul class="pagination">
+            <a th:href="@{/manage/project/list(page=${start - 1})}" th:if="${start != 1}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
+            </a>
+            <a th:each="num : ${#numbers.sequence(start, end)}" th:href="@{/manage/project/list(page=${num})}"
+               th:classappend="${num == page} ? 'active' : ''">
+                [[${num}]]
+            </a>
+            <a th:href="@{/manage/project/list(page=${end + 1})}" th:if="${end + 1 <= total}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
+            </a>
+        </ul>
+
+        <script>
+            let hideButtons = document.getElementsByClassName("hide_button");
+            for (let i = 0; i < hideButtons.length; i++) {
+                hideButtons[i].addEventListener("click", hideArticle);
+            }
+            let editButtons = document.getElementsByClassName("edit_button");
+            for (let i = 0; i < editButtons.length; i++) {
+                editButtons[i].addEventListener("click", editArticle);
+            }
+            let deleteButtons = document.getElementsByClassName("delete_button");
+            for (let i = 0; i < deleteButtons.length; i++) {
+                deleteButtons[i].addEventListener("click", deleteArticle);
+            }
+
+            function hideArticle() {
+                if (confirm('게시물의 공개 상태를 변경하겠습니까?')) {
+                    let id = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+
+                    var request = new XMLHttpRequest();
+                    request.open('PUT', '/project/' + id + '/hidden', true);
+
+                    request.onload = function () {
+                        window.location.reload(); // 페이지 새로고침
+                    };
+                    request.send();
+                }
+            }
+            function editArticle() {
+                let id = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+                window.location = '/manage/project/edit?id=' + id;
+            }
+            function deleteArticle() {
+                if (confirm('게시물을 삭제하겠습니까?')) {
+                    let id = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+
+                    var request = new XMLHttpRequest();
+                    request.open('DELETE', '/project/' + id, true);
+
+                    request.onload = function () {
+                        window.location.reload(); // 페이지 새로고침
+                    };
+                    request.send();
+                }
+            }
+        </script>
+    </div>
 </div>

@@ -32,7 +32,7 @@
 </head>
 <body>
 <div th:fragment="content">
-    <form method="post" id="project-form" action="/to-do" th:object="${project}">
+    <form method="post" id="project-form" th:action="${action}" th:object="${project}">
         <!-- 에디터 상단 -->
         <div class="editor-head">
             <div class="head-flex">
@@ -65,6 +65,10 @@
         <!-- 에디터 본문 -->
         <div class="editor-flex">
             <div class="editor-data">
+                <div class="data-item">
+                    <label for="order">프로젝트 표시 순서</label>
+                    <input class="short-textbox" type="number" id="order" name="order" th:field="*{order}" value="1">
+                </div>
                 <div class="data-item">
                     <label for="description">프로젝트 주제 (설명)</label>
                     <input class="long-textbox" type="text" id="description" name="description" th:field="*{description}" placeholder="설명" value="">
@@ -193,9 +197,7 @@
             document.querySelector("#body-md").value = encodeURIComponent(document.querySelector("#body-md").value);
             document.querySelector("#bodyHtml").value = encodeURIComponent(document.querySelector("#bodyHtml").value);
 
-            console.log(decodeURIComponent(document.querySelector("#bodyHtml").value))
-
-            //document.getElementById("project-form").submit();
+            document.getElementById("project-form").submit();
         }
     </script>
 </div>
