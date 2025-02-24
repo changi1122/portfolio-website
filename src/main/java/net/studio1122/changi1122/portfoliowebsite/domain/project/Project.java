@@ -26,11 +26,12 @@ public class Project {
     String body;
     List<String> bodyLinks;
 
+    String themeColor;
     boolean isHidden;
 
     @Builder
     public Project(String name, String description, String imageSrc, List<Keyword> keywords, List<String> links,
-                   String category, List<String> badges, String body, List<String> bodyLinks) {
+                   String category, List<String> badges, String body, List<String> bodyLinks, String themeColor) {
         this.name = name;
         this.description = description;
         this.imageSrc = imageSrc;
@@ -40,6 +41,7 @@ public class Project {
         this.badges = badges;
         this.body = body;
         this.bodyLinks = bodyLinks;
+        this.themeColor = themeColor;
 
         isHidden = false;
     }

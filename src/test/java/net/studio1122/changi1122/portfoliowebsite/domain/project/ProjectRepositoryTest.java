@@ -89,6 +89,7 @@ class ProjectRepositoryTest {
                 .badges(List.of("Spring", "React"))
                 .body("markdown")
                 .bodyLinks(List.of("<a>소개</a>"))
+                .themeColor("#000000")
                 .build();
     }
 }

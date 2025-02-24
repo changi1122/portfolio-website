@@ -172,6 +172,7 @@ class ProjectServiceTest {
                 .badges(List.of("Spring", "React"))
                 .body("본문.MD")
                 .bodyLinks(List.of("<a>소개</a>"))
+                .themeColor("#000000")
                 .build();
     }
 }
