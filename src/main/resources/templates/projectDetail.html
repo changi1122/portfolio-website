@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title th:text="${project.name}">프로젝트 상세페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/project-detail.css" th:href="@{/css/project-detail.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/markdown.css" th:href="@{/css/markdown.css}" />
+
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap' rel='stylesheet'/>
+</head>
+<body>
+    <!-- Header -->
+    <header th:replace="~{fragment/style :: header}">
+    </header>
+
+    <!-- Content -->
+    <section class="container">
+        <article class="project-detail">
+            <p class="category" th:style="'color: ' + ${project.themeColor}" th:text="${project.category}">카테고리</p>
+            <h2 class="name" th:text="${project.name}">프로젝트 이름</h2>
+            <div class="space-between">
+                <ul class="tags">
+                    <li th:each="tag : ${project.badges}" th:text="${tag}">Java</li>
+                </ul>
+                <div class="links">
+                    <a class="more-button" th:each="link : ${project.bodyLinks}" th:utext="${link}">
+                        코드
+                    </a>
+                </div>
+            </div>
+            <div class="md" th:utext="${project.bodyHtml}">
+                본문
+            </div>
+            <div class="bottom-button">
+                <a class="transparent-button " href="/project">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2 4.75C2 4.33579 2.33579 4 2.75 4H17.25C17.6642 4 18 4.33579 18 4.75C18 5.16421 17.6642 5.5 17.25 5.5H2.75C2.33579 5.5 2 5.16421 2 4.75ZM2 9.75C2 9.33579 2.33579 9 2.75 9H17.25C17.6642 9 18 9.33579 18 9.75C18 10.1642 17.6642 10.5 17.25 10.5H2.75C2.33579 10.5 2 10.1642 2 9.75ZM2.75 14C2.33579 14 2 14.3358 2 14.75C2 15.1642 2.33579 15.5 2.75 15.5H17.25C17.6642 15.5 18 15.1642 18 14.75C18 14.3358 17.6642 14 17.25 14H2.75Z"/>
+                    </svg>
+                    목록으로 돌아가기
+                </a>
+            </div>
+        </article>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragment/style :: footer}">
+    </footer>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="../static/js/style.js" th:src="@{/js/style.js}"></script>
+</body>
+</html>

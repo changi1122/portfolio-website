@@ -52,6 +52,16 @@ public class ProjectController {
 
     /* View Rendering Method  */
 
+    @GetMapping("/project/{id}")
+    public String readProject(@PathVariable String id, Model model) {
+
+        Project project = projectService.readProject(id);
+        project.setBodyHtml(URLDecoder.decode(project.getBodyHtml(), StandardCharsets.UTF_8));
+
+        model.addAttribute("project", project);
+        return "projectDetail";
+    }
+
     @GetMapping("/manage/project/list")
     public String projectList(@RequestParam(defaultValue = "1") int page, Model model) {
 
