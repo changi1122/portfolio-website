@@ -13,5 +13,5 @@ public interface ProjectRepository extends MongoRepository<Project, String> {
 
     Page<Project> findAllBy(Pageable pageable);
 
-    List<Project> findByIsHiddenFalse();
+    List<Project> findByIsHiddenFalseOrderByOrderAsc();
 }

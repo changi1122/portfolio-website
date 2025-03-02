@@ -48,6 +48,9 @@
     .gallery {
         flex-wrap: wrap;
     }
+    .gallery>img {
+        width: 100%;
+    }
 }
 
 

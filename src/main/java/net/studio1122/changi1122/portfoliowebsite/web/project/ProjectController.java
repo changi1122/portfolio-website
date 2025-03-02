@@ -52,6 +52,14 @@ public class ProjectController {
 
     /* View Rendering Method  */
 
+    @GetMapping("/project")
+    public String project(Model model) {
+        List<Project> projects = projectService.listProjectVisible();
+        model.addAttribute("projects", projects);
+
+        return "project";
+    }
+
     @GetMapping("/project/{id}")
     public String readProject(@PathVariable String id, Model model) {
 

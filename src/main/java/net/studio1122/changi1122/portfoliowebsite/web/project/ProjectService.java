@@ -65,6 +65,6 @@ public class ProjectService {
     }
 
     public List<Project> listProjectVisible() {
-        return projectRepository.findByIsHiddenFalse();
+        return projectRepository.findByIsHiddenFalseOrderByOrderAsc();
     }
 }

@@ -27,7 +27,7 @@ class ProjectRepositoryTest {
     @Test
     void findByName() {
         // given
-        Project project = createProject("이름");
+        Project project = createProject("이름", 0);
         project = projectRepository.save(project);
 
         // when
@@ -41,8 +41,8 @@ class ProjectRepositoryTest {
     @Test
     void findAllBy() {
         // given
-        Project project1 = projectRepository.save(createProject("프로젝트1"));
-        Project project2 = projectRepository.save(createProject("프로젝트2"));
+        Project project1 = projectRepository.save(createProject("프로젝트1", 2));
+        Project project2 = projectRepository.save(createProject("프로젝트2", 1));
 
         PageRequest pageRequest = PageRequest.of(0, 4);
 
@@ -58,27 +58,42 @@ class ProjectRepositoryTest {
 
     @DisplayName("공개 상태인 프로젝트 목록을 조회합니다.")
     @Test
-    void findByHiddenFalse() {
+    void findByIsHidden() {
         // given
-        Project project1 = projectRepository.save(createProject("프로젝트1"));
-        Project project2 = projectRepository.save(createProject("프로젝트2"));
+        Project project1 = projectRepository.save(createProject("프로젝트1", 2));
+        Project project2 = projectRepository.save(createProject("프로젝트2", 0));
         project2.setHidden(true);
         projectRepository.save(project2);
 
-        PageRequest pageRequest = PageRequest.of(0, 4);
-
         // when
-        List<Project> result = projectRepository.findByIsHiddenFalse();
+        List<Project> result = projectRepository.findByIsHiddenFalseOrderByOrderAsc();
 
         // then
         assertThat(result).hasSize(1)
                 .extracting("name")
-                .containsExactlyInAnyOrder("프로젝트1");
+                .containsExactly("프로젝트1");
     }
 
-    private Project createProject(String name) {
+    @DisplayName("공개 상태인 프로젝트 목록의 순서는 order 내림차순입니다.")
+    @Test
+    void findByIsHiddenFalseOrderByOrderAsc() {
+        // given
+        Project project1 = projectRepository.save(createProject("프로젝트1", 2));
+        Project project2 = projectRepository.save(createProject("프로젝트2", 0));
+
+        // when
+        List<Project> result = projectRepository.findByIsHiddenFalseOrderByOrderAsc();
+
+        // then
+        assertThat(result).hasSize(2)
+                .extracting("name")
+                .containsExactly("프로젝트2", "프로젝트1");
+    }
+
+    private Project createProject(String name, int order) {
         return Project.builder()
                 .name(name)
+                .order(order)
                 .description("주제")
                 .imageSrc("/")
                 .keywords(List.of(
