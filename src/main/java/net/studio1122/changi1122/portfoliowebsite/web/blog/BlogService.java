@@ -50,7 +50,7 @@ public class BlogService {
     }
 
     public Page<BlogArticle> listBlogByCategory(Pageable pageable, String category) {
-        return blogArticleRepository.findByCategoryOrderByPubDateDesc(pageable, category);
+        return blogArticleRepository.findByCategoryContainingOrderByPubDateDesc(pageable, category);
     }
 
     public Page<BlogArticle> listBlogByQuery(Pageable pageable, String query) {

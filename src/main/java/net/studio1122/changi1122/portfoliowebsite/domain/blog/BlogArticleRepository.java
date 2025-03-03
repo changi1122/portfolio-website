@@ -8,7 +8,7 @@ public interface BlogArticleRepository extends MongoRepository<BlogArticle, Stri
 
     Page<BlogArticle> findAllByOrderByPubDateDesc(Pageable pageable);
 
-    Page<BlogArticle> findByCategoryOrderByPubDateDesc(Pageable pageable, String category);
+    Page<BlogArticle> findByCategoryContainingOrderByPubDateDesc(Pageable pageable, String category);
 
     Page<BlogArticle> findByTitleContainingOrderByPubDateDesc(Pageable pageable, String title);
 
