@@ -11,6 +11,7 @@ import net.studio1122.changi1122.portfoliowebsite.domain.blog.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -72,11 +73,11 @@ public class BlogController {
     }
 
     @DeleteMapping("/blog/{id}")
-    public String deleteBlogArticle(@PathVariable String id) {
+    public ResponseEntity<Void> deleteBlogArticle(@PathVariable String id) {
         // TODO id 존재하지 않는 경우 예외 처리
         blogService.deleteBlogArticle(id);
 
-        return "redirect:/manage/blog/list";
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/blog/category")

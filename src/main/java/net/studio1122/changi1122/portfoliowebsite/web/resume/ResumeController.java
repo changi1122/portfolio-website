@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.Resume;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,11 +67,11 @@ public class ResumeController {
     }
 
     @DeleteMapping("/resume/{accessKey}")
-    public String deleteResume(@PathVariable String accessKey) {
+    public ResponseEntity<Void> deleteResume(@PathVariable String accessKey) {
         // TODO id 존재하지 않는 경우 예외 처리
         resumeService.deleteResume(accessKey);
 
-        return "redirect:/manage/resume/list";
+        return ResponseEntity.ok().build();
     }
 
 

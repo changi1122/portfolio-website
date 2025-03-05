@@ -7,6 +7,7 @@ import net.studio1122.changi1122.portfoliowebsite.web.blog.BlogService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -80,10 +81,10 @@ public class HomeController {
     }
 
     @DeleteMapping("/home/{accessKey}")
-    public String deleteHome(@PathVariable String accessKey) {
+    public ResponseEntity<Void> deleteHome(@PathVariable String accessKey) {
         homeService.deleteHome(accessKey);
 
-        return "redirect:/manage/home/list";
+        return ResponseEntity.ok().build();
     }
 
     /* View Rendering Method  */

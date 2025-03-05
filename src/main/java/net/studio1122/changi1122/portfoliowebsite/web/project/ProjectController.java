@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,10 +44,10 @@ public class ProjectController {
     }
 
     @DeleteMapping("/project/{id}")
-    public String deleteProject(@PathVariable  String id) {
+    public ResponseEntity<Void> deleteProject(@PathVariable  String id) {
 
         projectService.deleteProject(id);
-        return "redirect:/manage/project/list";
+        return ResponseEntity.ok().build();
     }
 
 

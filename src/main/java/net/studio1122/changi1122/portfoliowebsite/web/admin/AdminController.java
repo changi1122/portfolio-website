@@ -100,11 +100,11 @@ public class AdminController {
     }
 
     @DeleteMapping("/file/{filename}")
-    public String deleteFile(@PathVariable String filename) throws IOException {
+    public ResponseEntity<Void> deleteFile(@PathVariable String filename) throws IOException {
         if (!StringUtils.isEmpty(filename)) {
             fileStore.deleteFile(filename, UploadType.FILE);
         }
-        return "redirect:/manage/file/list";
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/image")
@@ -118,11 +118,11 @@ public class AdminController {
     }
 
     @DeleteMapping("/image/{filename}")
-    public String deleteImage(@PathVariable String filename) throws IOException {
+    public ResponseEntity<Void> deleteImage(@PathVariable String filename) throws IOException {
         if (!StringUtils.isEmpty(filename)) {
             fileStore.deleteFile(filename, UploadType.IMAGE);
         }
-        return "redirect:/manage/image/list";
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/video")
@@ -136,11 +136,11 @@ public class AdminController {
     }
 
     @DeleteMapping("/video/{filename}")
-    public String deleteVideo(@PathVariable String filename) throws IOException {
+    public ResponseEntity<Void> deleteVideo(@PathVariable String filename) throws IOException {
         if (!StringUtils.isEmpty(filename)) {
             fileStore.deleteFile(filename, UploadType.VIDEO);
         }
-        return "redirect:/manage/video/list";
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/file/{filename}")
