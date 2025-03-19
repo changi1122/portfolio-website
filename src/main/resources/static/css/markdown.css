@@ -202,6 +202,14 @@
     padding: 1em;
     font-family: Menlo, Consolas, Monaco, monospace;
 }
+.md code {
+    padding: .2em .6em;
+    margin: 0;
+    font-size: 100%;
+    white-space: break-spaces;
+    background-color: #F5F5F5;
+    border-radius: 6px;
+}
 .md table {
     width: 100%;
     border-collapse: collapse;
