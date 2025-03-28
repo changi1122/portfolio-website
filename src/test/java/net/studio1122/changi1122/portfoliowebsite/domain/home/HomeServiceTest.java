@@ -1,11 +1,9 @@
-package net.studio1122.changi1122.portfoliowebsite.web.home;
+package net.studio1122.changi1122.portfoliowebsite.domain.home;
 
-import net.studio1122.changi1122.portfoliowebsite.domain.home.Home;
-import net.studio1122.changi1122.portfoliowebsite.domain.home.HomeRepository;
-import net.studio1122.changi1122.portfoliowebsite.domain.home.Question;
-import net.studio1122.changi1122.portfoliowebsite.domain.home.SideProjectImage;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Keyword;
-import org.assertj.core.groups.Tuple;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Home;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Question;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.SideProjectImage;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Keyword;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +17,6 @@ import java.util.NoSuchElementException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.groups.Tuple.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class HomeServiceTest {

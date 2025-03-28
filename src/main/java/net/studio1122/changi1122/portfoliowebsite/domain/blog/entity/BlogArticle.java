@@ -1,8 +1,11 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.blog;
+package net.studio1122.changi1122.portfoliowebsite.domain.blog.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;

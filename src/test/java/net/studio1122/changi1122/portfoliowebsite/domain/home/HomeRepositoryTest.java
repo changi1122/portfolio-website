@@ -1,7 +1,9 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.home;
 
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Keyword;
-import net.studio1122.changi1122.portfoliowebsite.web.home.HomeService;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Home;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Question;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.SideProjectImage;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Keyword;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

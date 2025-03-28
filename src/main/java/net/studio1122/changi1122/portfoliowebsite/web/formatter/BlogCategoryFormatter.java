@@ -3,8 +3,8 @@ package net.studio1122.changi1122.portfoliowebsite.web.formatter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogCategory;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.Category;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogCategory;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.Category;
 import org.springframework.format.Formatter;
 
 import java.text.ParseException;

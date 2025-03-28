@@ -1,13 +1,16 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.resume;
+package net.studio1122.changi1122.portfoliowebsite.domain.resume.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import net.studio1122.changi1122.portfoliowebsite.domain.home.Question;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Career;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Record;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.SideProject;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Question;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Career;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Record;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.SideProject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

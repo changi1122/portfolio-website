@@ -1,8 +1,7 @@
-package net.studio1122.changi1122.portfoliowebsite.web.project;
+package net.studio1122.changi1122.portfoliowebsite.domain.project;
 
-import net.studio1122.changi1122.portfoliowebsite.domain.project.Keyword;
-import net.studio1122.changi1122.portfoliowebsite.domain.project.Project;
-import net.studio1122.changi1122.portfoliowebsite.domain.project.ProjectRepository;
+import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Keyword;
+import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Project;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,8 @@
 package net.studio1122.changi1122.portfoliowebsite.web.resume;
 
 import lombok.RequiredArgsConstructor;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.Resume;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.ResumeService;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.Resume;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;

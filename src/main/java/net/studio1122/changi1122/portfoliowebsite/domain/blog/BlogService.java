@@ -1,8 +1,7 @@
-package net.studio1122.changi1122.portfoliowebsite.web.blog;
+package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
 import lombok.RequiredArgsConstructor;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticle;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticleRepository;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

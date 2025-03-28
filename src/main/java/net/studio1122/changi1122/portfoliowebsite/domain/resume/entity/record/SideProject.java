@@ -1,4 +1,4 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.resume.record;
+package net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +11,9 @@ import java.util.List;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class Career extends Record {
+public class SideProject extends Record {
 
-    String position;
-    List<String> tags;
+    List<Keyword> keywords;
     String themeColor;
 
 }

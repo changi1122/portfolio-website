@@ -1,5 +1,7 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogCategory;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.Category;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BlogCategoryServiceTest {

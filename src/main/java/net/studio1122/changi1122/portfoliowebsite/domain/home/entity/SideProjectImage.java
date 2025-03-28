@@ -1,10 +1,10 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.home;
+package net.studio1122.changi1122.portfoliowebsite.domain.home.entity;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Keyword;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Keyword;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package net.studio1122.changi1122.portfoliowebsite.web.blog;
+package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticle;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticleRepository;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BlogServiceTest {

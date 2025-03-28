@@ -4,10 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogArticle;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogCategory;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogCategoryService;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.Category;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogService;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogCategory;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

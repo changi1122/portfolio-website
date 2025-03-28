@@ -1,8 +1,8 @@
 package net.studio1122.changi1122.portfoliowebsite.web.formatter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogCategory;
-import net.studio1122.changi1122.portfoliowebsite.domain.blog.Category;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogCategory;
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BlogCategoryFormatterTest {
 

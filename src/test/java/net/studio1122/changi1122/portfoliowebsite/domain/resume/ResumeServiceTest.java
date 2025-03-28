@@ -1,12 +1,11 @@
-package net.studio1122.changi1122.portfoliowebsite.web.resume;
+package net.studio1122.changi1122.portfoliowebsite.domain.resume;
 
-import net.studio1122.changi1122.portfoliowebsite.domain.home.Question;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.Resume;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.ResumeRepository;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Career;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Keyword;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.Record;
-import net.studio1122.changi1122.portfoliowebsite.domain.resume.record.SideProject;
+import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Question;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.Resume;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Career;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Keyword;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Record;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.SideProject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

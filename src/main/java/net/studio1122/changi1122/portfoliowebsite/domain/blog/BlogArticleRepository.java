@@ -1,5 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
+import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;

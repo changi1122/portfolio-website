@@ -1,8 +1,9 @@
 package net.studio1122.changi1122.portfoliowebsite.web.project;
 
 import lombok.RequiredArgsConstructor;
-import net.studio1122.changi1122.portfoliowebsite.domain.project.Keyword;
-import net.studio1122.changi1122.portfoliowebsite.domain.project.Project;
+import net.studio1122.changi1122.portfoliowebsite.domain.project.ProjectService;
+import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Keyword;
+import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

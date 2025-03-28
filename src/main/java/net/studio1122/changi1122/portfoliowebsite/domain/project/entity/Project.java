@@ -1,6 +1,9 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.project;
+package net.studio1122.changi1122.portfoliowebsite.domain.project.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

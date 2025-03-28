@@ -1,4 +1,4 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.resume.record;
+package net.studio1122.changi1122.portfoliowebsite.domain.project.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

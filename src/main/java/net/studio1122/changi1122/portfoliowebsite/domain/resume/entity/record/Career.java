@@ -1,4 +1,4 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.resume.record;
+package net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +11,10 @@ import java.util.List;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class Record {
+public class Career extends Record {
 
-    String duration;
-    String name;
-    String description;
-    List<String> links;
+    String position;
+    List<String> tags;
+    String themeColor;
 
 }

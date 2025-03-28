@@ -1,3 +1,9 @@
 <div th:fragment="content">
-    <p>이것은 홈 페이지 콘텐츠입니다. (watchtower 이미지 업데이트 테스트 - 3/10 13:30 커밋)</p>
+    <div class="mTitle">
+        <p class="set-title">관리 페이지 홈</p>
+    </div>
+    <div class="mBox">
+        <p style="margin-bottom: 12px; font-weight: bold;">현재 서버 시간</p>
+        <p th:text="${#calendars.format(#calendars.createNow())}">시간</p>
+    </div>
 </div>

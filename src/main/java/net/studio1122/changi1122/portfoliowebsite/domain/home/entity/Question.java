@@ -1,4 +1,4 @@
-package net.studio1122.changi1122.portfoliowebsite.domain.home;
+package net.studio1122.changi1122.portfoliowebsite.domain.home.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
