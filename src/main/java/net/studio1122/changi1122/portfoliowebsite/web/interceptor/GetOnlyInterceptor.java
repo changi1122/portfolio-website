@@ -22,19 +22,11 @@ public class GetOnlyInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute(SessionConst.LOGIN_ID) == null) {
-            log.info("미인증 GET 이외 요청 시도 : [{}] from [{}]", requestURI, getClientIp(request));
+            log.info("미인증 GET 이외 요청 시도 : [{}] from [{}]", requestURI, IPUtils.getClientIp(request));
             response.sendRedirect("/login?redirectURL=" + requestURI);
             return false;
         }
 
         return true;
-    }
-
-    public String getClientIp(HttpServletRequest request) {
-        String clientIp = request.getHeader("X-Forwarded-For"); // 프록시를 통과한 경우 실제 IP
-        if (clientIp == null || clientIp.isEmpty()) {
-            clientIp = request.getRemoteAddr(); // 기본적으로 RemoteAddr 사용
-        }
-        return clientIp;
     }
 }
