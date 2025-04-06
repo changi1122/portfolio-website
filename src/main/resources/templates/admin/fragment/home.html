@@ -5,15 +5,5 @@
     <div class="mBox">
         <p style="margin-bottom: 12px; font-weight: bold;">현재 서버 시간</p>
         <p style="margin-bottom: 36px" th:text="${#calendars.format(#calendars.createNow())}">시간</p>
-
-        <p style="margin-bottom: 12px; font-weight: bold;">서버 로그</p>
-        <textarea id="logTextArea" class="long-textarea" style="resize: both;" readonly></textarea>
-        <script>
-            (async () => {
-                const logTextArea = document.getElementById("logTextArea");
-                const res = await fetch("/docker-logs");
-                logTextArea.innerText = await res.text();
-            }) ();
-        </script>
     </div>
 </div>
