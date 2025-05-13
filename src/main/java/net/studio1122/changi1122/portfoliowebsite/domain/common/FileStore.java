@@ -78,8 +78,13 @@ public class FileStore {
 
         String dir = getDirectory(type);
         File directory = new File(dir);
+        log.error("[조회] directory 경로={}", dir);
 
+        log.error("[조회] list 시작");
         String[] fileList = directory.list();
+
+        log.error("[조회] fileList == null : {}", (fileList == null));
+        log.error("[조회] fileList.length : {}", (fileList == null) ? 0 : fileList.length);
         return (fileList == null) ? Collections.emptyList() : Arrays.asList(fileList);
     }
 
