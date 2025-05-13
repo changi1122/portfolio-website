@@ -55,6 +55,12 @@ public class FileStore {
         log.error("파일 저장");
         file.transferTo(destination);
 
+        String dir = getDirectory(type);
+        File directory = new File(dir);
+        String[] fileList = directory.list();
+        log.error("[조회] fileList == null : {}", (fileList == null));
+        log.error("[조회] fileList.length : {}", (fileList == null) ? 0 : fileList.length);
+
         log.error("파일 저장 완료");
     }
 
