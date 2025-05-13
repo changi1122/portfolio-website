@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew build -x test
 
       - name: Test with Gradle
-        run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test
+        run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test --no-parallel
         env:
           FILE_DIR: ./build/tmp_files
           IMAGE_DIR: ./build/tmp_images
