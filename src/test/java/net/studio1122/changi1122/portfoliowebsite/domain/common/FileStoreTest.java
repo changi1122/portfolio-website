@@ -79,8 +79,14 @@ class FileStoreTest {
     void listFiles() throws IOException {
         // given
         MultipartFile uploadFile = getUploadFile();
-        fileStore.storeFile(uploadFile, null, UploadType.FILE);
-        fileStore.storeFile(uploadFile, "test", UploadType.FILE);
+        try {
+            fileStore.storeFile(uploadFile, null, UploadType.FILE);
+            fileStore.storeFile(uploadFile, "test", UploadType.FILE);            
+        } catch (IOException e) {
+            System.out.println("io exception 있었음");
+            throw e;
+        }
+
 
         // when
         List<String> fileList = fileStore.listFiles(UploadType.FILE);

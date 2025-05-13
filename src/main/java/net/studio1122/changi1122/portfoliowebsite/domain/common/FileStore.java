@@ -90,8 +90,11 @@ public class FileStore {
 
     private void makeDirectoryIfNotExists(UploadType type) throws IOException {
         File directory = new File(getDirectory(type));
+        log.error("디렉토리 생성 경로 : {}", directory.getAbsolutePath());
         if (!directory.exists()) {
+            log.error("디렉토리 존재하지 않음");
             boolean success = directory.mkdirs();
+            log.error("directory.mkdirs() 실행 완료");
             if (!success)
                 throw new IOException();
         }
