@@ -12,18 +12,27 @@ public class FileUtils {
      */
     public static boolean deleteFolderContents(File folder) {
 
+        System.out.println("[AfterEach] Delete folder: " + folder.getAbsolutePath());
+
         if (folder == null || !folder.exists() || !folder.isDirectory()) {
             return false; // 유효하지 않은 폴더 처리
         }
+        System.out.println("[AfterEach] 유효한 폴더 확인");
 
         File[] files = folder.listFiles();
+
+        System.out.println("[AfterEach] listFiles() 실행 완료");
+        
         if (files != null) {
             for (File file : files) {
+                System.out.println("[AfterEach] 파일: " + file.getAbsolutePath());
+
                 if (file.isDirectory()) {
                     // 재귀적으로 하위 폴더 삭제
                     deleteFolderContents(file);
                 }
                 // 파일 또는 빈 폴더 삭제
+                System.out.println("[AfterEach] 파일 삭제: " + file.getAbsolutePath());
                 if (!file.delete()) {
                     System.err.println("Failed to delete: " + file.getAbsolutePath());
                 }
