@@ -1,5 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.common;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Component
 public class FileStore {
 
@@ -35,23 +37,36 @@ public class FileStore {
         if (file.isEmpty())
             return;
 
+        log.info("디렉토리 생성");
+
         makeDirectoryIfNotExists(type);
+
+        log.info("디렉토리 생성 완료");
 
         String originalFilename = file.getOriginalFilename();
         String storeFilename = getStoreFilename(originalFilename, storeName);
 
+        log.info("파일 존재 여부 확인");
+        
         File destination = new File(getFullPath(storeFilename, type));
         if (destination.exists())
             throw new IllegalArgumentException("File already exists");
 
+        log.info("파일 저장");
         file.transferTo(destination);
+
+        log.info("파일 저장 완료");
     }
 
     public void deleteFile(String filename, UploadType type) throws IOException {
+        log.info("[삭제] 파일 객체 생성");
+
         File target = new File(getFullPath(filename, type));
 
         if (target.exists()) {
+            log.info("[삭제] 파일 삭제 시도");
             boolean success = target.delete();
+            log.info("[삭제] 파일 삭제 완료");
 
             if (!success)
                 throw new IOException();
