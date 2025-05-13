@@ -36,11 +36,17 @@ jobs:
         run: ./gradlew build -x test
 
       - name: Test with Gradle
-        run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test --no-parallel
+        run: |
+          export FILE_DIR="$RUNNER_TEMP/tmp_files"
+          export IMAGE_DIR="$RUNNER_TEMP/tmp_images"
+          export VIDEO_DIR="$RUNNER_TEMP/tmp_videos"
+
+          echo "FILE_DIR=$FILE_DIR"
+          echo "IMAGE_DIR=$IMAGE_DIR"
+          echo "VIDEO_DIR=$VIDEO_DIR"
+
+          SPRING_PROFILES_ACTIVE=test ./gradlew test --no-parallel
         env:
-          FILE_DIR: ./build/tmp_files
-          IMAGE_DIR: ./build/tmp_images
-          VIDEO_DIR: ./build/tmp_videos
           MONGO_HOST_IP: localhost
           MINIO_ENDPOINT: ${{ secrets.MINIO_ENDPOINT }}
           MINIO_BUCKET: portfolio-test
