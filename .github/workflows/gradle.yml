@@ -37,9 +37,9 @@ jobs:
 
       - name: Test with Gradle
         run: |
-          export FILE_DIR="$RUNNER_TEMP/tmp_files"
-          export IMAGE_DIR="$RUNNER_TEMP/tmp_images"
-          export VIDEO_DIR="$RUNNER_TEMP/tmp_videos"
+          export FILE_DIR="$RUNNER_TEMP/tmp_files/"
+          export IMAGE_DIR="$RUNNER_TEMP/tmp_images/"
+          export VIDEO_DIR="$RUNNER_TEMP/tmp_videos/"
 
           echo "FILE_DIR=$FILE_DIR"
           echo "IMAGE_DIR=$IMAGE_DIR"
