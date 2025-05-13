@@ -45,7 +45,7 @@ jobs:
           echo "IMAGE_DIR=$IMAGE_DIR"
           echo "VIDEO_DIR=$VIDEO_DIR"
 
-          SPRING_PROFILES_ACTIVE=test ./gradlew test --no-parallel
+          SPRING_PROFILES_ACTIVE=test ./gradlew test --no-parallel --info
         env:
           MONGO_HOST_IP: localhost
           MINIO_ENDPOINT: ${{ secrets.MINIO_ENDPOINT }}
