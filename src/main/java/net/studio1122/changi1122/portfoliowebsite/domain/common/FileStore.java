@@ -37,36 +37,36 @@ public class FileStore {
         if (file.isEmpty())
             return;
 
-        log.info("디렉토리 생성");
+        log.error("디렉토리 생성");
 
         makeDirectoryIfNotExists(type);
 
-        log.info("디렉토리 생성 완료");
+        log.error("디렉토리 생성 완료");
 
         String originalFilename = file.getOriginalFilename();
         String storeFilename = getStoreFilename(originalFilename, storeName);
 
-        log.info("파일 존재 여부 확인");
+        log.error("파일 존재 여부 확인");
         
         File destination = new File(getFullPath(storeFilename, type));
         if (destination.exists())
             throw new IllegalArgumentException("File already exists");
 
-        log.info("파일 저장");
+        log.error("파일 저장");
         file.transferTo(destination);
 
-        log.info("파일 저장 완료");
+        log.error("파일 저장 완료");
     }
 
     public void deleteFile(String filename, UploadType type) throws IOException {
-        log.info("[삭제] 파일 객체 생성");
+        log.error("[삭제] 파일 객체 생성");
 
         File target = new File(getFullPath(filename, type));
 
         if (target.exists()) {
-            log.info("[삭제] 파일 삭제 시도");
+            log.error("[삭제] 파일 삭제 시도");
             boolean success = target.delete();
-            log.info("[삭제] 파일 삭제 완료");
+            log.error("[삭제] 파일 삭제 완료");
 
             if (!success)
                 throw new IOException();
