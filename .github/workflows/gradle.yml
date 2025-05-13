@@ -37,6 +37,15 @@ jobs:
 
       - name: Test with Gradle
         run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test
+        env:
+          FILE_DIR: ./build/tmp_files
+          IMAGE_DIR: ./build/tmp_images
+          VIDEO_DIR: ./build/tmp_videos
+          MONGO_HOST_IP: localhost
+          MINIO_ENDPOINT: ${{ secrets.MINIO_ENDPOINT }}
+          MINIO_BUCKET: portfolio-test
+          MINIO_USERNAME: ${{ secrets.MINIO_USERNAME }}
+          MINIO_PASSWORD: ${{ secrets.MINIO_PASSWORD }}
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2.6.1
