@@ -53,6 +53,7 @@ public class FileStore {
             throw new IllegalArgumentException("File already exists");
 
         log.error("파일 저장");
+        log.error("파일 크기: {}", file.getSize());
         file.transferTo(destination);
 
         String dir = getDirectory(type);
