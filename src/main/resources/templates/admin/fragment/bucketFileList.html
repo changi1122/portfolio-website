@@ -1,0 +1,63 @@
+<div th:fragment="content">
+    <div class="mTitle">
+        <p class="set-title">버킷 파일 업로드</p>
+    </div>
+    <form class="mBox" style="display: flex; flex-direction: column-reverse; margin-bottom: 10px" action="/bucket" method="post" enctype="multipart/form-data">
+        <div class="right-align">
+            <input class="short-textbox" style="margin-right: 20px;" type="text" name="storeName" placeholder="파일 이름">
+            <input class="submit-button" type="submit" value="파일 업로드">
+        </div>
+        <input type="file" name="uploadFile">
+    </form>
+    <div class="mBoard">
+        <div class="fileboard-item" th:each="file : ${fileList}">
+            <a class="board-title" th:href="|${minioEndpoint}/${file[0]}|" th:text="${file[0]}">파일 이름</a>
+            <p class="board-category" th:text="|${file[1]} bytes|">>용량</p>
+            <p class="board-id" th:text="${file[0]}">>id</p>
+            <div class="fileboard-button">
+                <a class="raw_button" th:href="|${minioEndpoint}/${file[0]}|">RAW</a>
+                <a class="delete_button copy">링크 복사</a>
+                <a class="delete_button delete">삭제</a>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            const minioEndpoint = /*[[${minioEndpoint}]]*/ '';
+
+            let copyButtons = document.getElementsByClassName("copy");
+            for (let i = 0; i < copyButtons.length; i++) {
+                copyButtons[i].addEventListener("click", copyToClipboard);
+            }
+
+            let deleteButtons = document.getElementsByClassName("delete");
+            for (let i = 0; i < deleteButtons.length; i++) {
+                deleteButtons[i].addEventListener("click", deleteFile);
+            }
+
+            function copyToClipboard() {
+                const filename = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+                navigator.clipboard.writeText(minioEndpoint + '/' + filename)
+                    .then(() => {
+                        console.log("텍스트가 성공적으로 복사되었습니다.");
+                    })
+                    .catch(err => {
+                        console.error("텍스트 복사에 실패했습니다: ", err);
+                    });
+            }
+
+            function deleteFile() {
+                if (confirm('파일을 삭제하겠습니까?')) {
+                    let fileName = this.parentNode.parentNode.querySelector("p.board-id").innerText;
+
+                    var request = new XMLHttpRequest();
+                    request.open('DELETE', '/bucket/' + fileName, true);
+
+                    request.onload = function () {
+                        window.location.reload(); // 페이지 새로고침
+                    };
+                    request.send();
+                }
+            }
+        </script>
+    </div>
+</div>

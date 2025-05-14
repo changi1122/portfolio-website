@@ -1,5 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.domain.common;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,9 +22,11 @@ import java.util.List;
 public class S3FileStore {
 
     @Value("${minio.endpoint}")
+    @Getter
     private String endpoint;
 
     @Value("${minio.bucket}")
+    @Getter
     private String bucket;
 
     private final S3Client s3Client;

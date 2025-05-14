@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.studio1122.changi1122.portfoliowebsite.domain.admin.Admin;
 import net.studio1122.changi1122.portfoliowebsite.domain.admin.AuthService;
 import net.studio1122.changi1122.portfoliowebsite.domain.common.FileStore;
+import net.studio1122.changi1122.portfoliowebsite.domain.common.S3FileStore;
 import net.studio1122.changi1122.portfoliowebsite.domain.common.UploadType;
 import net.studio1122.changi1122.portfoliowebsite.global.SessionConst;
 import org.springframework.core.io.Resource;
@@ -36,6 +37,7 @@ public class AdminController {
 
     private final AuthService authService;
     private final FileStore fileStore;
+    private final S3FileStore s3FileStore;
 
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginForm loginForm, BindingResult bindingResult,
@@ -139,6 +141,24 @@ public class AdminController {
     public ResponseEntity<Void> deleteVideo(@PathVariable String filename) throws IOException {
         if (!StringUtils.isEmpty(filename)) {
             fileStore.deleteFile(filename, UploadType.VIDEO);
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/bucket")
+    public String uploadBucketFile(MultipartFile uploadFile,
+                              @RequestParam(required = false) String storeName) throws IOException {
+
+        if (!uploadFile.isEmpty()) {
+            s3FileStore.storeFile(uploadFile, storeName);
+        }
+        return "redirect:/manage/bucket/list";
+    }
+
+    @DeleteMapping("/bucket/{filename}")
+    public ResponseEntity<Void> deleteBucketFile(@PathVariable String filename) throws IOException {
+        if (!StringUtils.isEmpty(filename)) {
+            s3FileStore.deleteFile(filename);
         }
         return ResponseEntity.ok().build();
     }
@@ -257,6 +277,16 @@ public class AdminController {
     public String videoList(Model model) throws IOException {
         model.addAttribute("content", "admin/fragment/videoFileList");
         model.addAttribute("fileList", fileStore.listFiles(UploadType.VIDEO));
+
+        return "admin/manage";
+    }
+
+    @GetMapping("/manage/bucket/list")
+    public String bucketFileList(Model model) throws IOException {
+        model.addAttribute("content", "admin/fragment/bucketFileList");
+        model.addAttribute("minioEndpoint",
+                s3FileStore.getEndpoint() + s3FileStore.getBucket());
+        model.addAttribute("fileList", s3FileStore.listFiles());
 
         return "admin/manage";
     }
