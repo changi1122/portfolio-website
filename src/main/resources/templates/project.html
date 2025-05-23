@@ -26,17 +26,13 @@
                 <div class="main-project fade-effect" th:each="project : ${projects}">
                     <div>
                         <a th:href="|/project/${project.id}|">
-                            <img src="../static/img/project/project1.png" th:src="${project.imageSrc}" alt="하모나이즈 프로젝트 사진">
-                        </a>
-                    </div>
-                    <div>
-                        <a th:href="|/project/${project.id}|">
+                            <p class="category" th:style="'color: ' + ${project.themeColor}" th:text="${project.category}">카테고리</p>
                             <h3 class="title" th:text="${project.name}">하모나이즈</h3>
                             <p class="description" th:utext="${project.description}">사용자 목소리 기반 노래방 음악 추천시스템</p>
                         </a>
                         <ul class="summary">
                             <li th:each="keyword : ${project.keywords}">
-                                <span th:text="${keyword.keyword}" th:style="'color: ' + ${project.themeColor}">기술</span>
+                                <span th:text="${keyword.keyword}">기술</span>
                                 <span th:utext="${keyword.description}">Spring boot, JPA, Kafka, Tensorflow, Android</span>
                             </li>
                         </ul>
@@ -45,6 +41,11 @@
                                 코드
                             </a>
                         </div>
+                    </div>
+                    <div class="img-wrap">
+                        <a th:href="|/project/${project.id}|">
+                            <img src="../static/img/project/project1.png" th:src="${project.imageSrc}" alt="하모나이즈 프로젝트 사진">
+                        </a>
                     </div>
                 </div>
             </div>
