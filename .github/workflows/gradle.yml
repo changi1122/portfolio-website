@@ -60,6 +60,7 @@ jobs:
           files: build/test-results/**/*.xml
 
   push:
+    if: github.event_name == 'push'
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     permissions:
