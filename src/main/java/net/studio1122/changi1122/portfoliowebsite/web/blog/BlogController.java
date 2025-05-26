@@ -113,7 +113,7 @@ public class BlogController {
         model.addAttribute("categories", blogCategoryService.find());
         model.addAttribute("categoryString", category.equals("") ? "전체 카테고리" : category);
 
-        userMetricRecorder.countPageView("/blog/" + page);
+        userMetricRecorder.countPageView("/blog");
         return "blog";
     }
 

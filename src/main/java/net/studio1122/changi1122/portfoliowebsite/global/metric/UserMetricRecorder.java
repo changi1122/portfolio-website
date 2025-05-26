@@ -17,6 +17,10 @@ public class UserMetricRecorder {
      * @param path URL 경로 (ex. "/project/1")
      */
     public void countPageView(String path) {
-        counter.increment(MetricNames.PAGE_VIEW_COUNTER, MetricTags.PATH, path);
+        counter.increment(MetricNames.PAGE_VIEW_COUNTER, MetricTags.PATH, path, MetricTags.ACCESS_KEY, "none");
+    }
+
+    public void countPageView(String path, String accessKey) {
+        counter.increment(MetricNames.PAGE_VIEW_COUNTER, MetricTags.PATH, path, MetricTags.ACCESS_KEY, accessKey);
     }
 }
