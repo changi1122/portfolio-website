@@ -5,6 +5,7 @@ import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogService;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.HomeService;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Home;
+import net.studio1122.changi1122.portfoliowebsite.global.metric.UserMetricRecorder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ public class HomeController {
 
     private final HomeService homeService;
     private final BlogService blogService;
+    private final UserMetricRecorder userMetricRecorder;
 
     /* CRUD Operation Methods */
 
@@ -105,6 +107,7 @@ public class HomeController {
         List<BlogArticle> articles = blogService.listBlog(pageable).getContent();
         model.addAttribute("articles", articles);
 
+        userMetricRecorder.countPageView("/", accessKey);
         return "index";
     }
 

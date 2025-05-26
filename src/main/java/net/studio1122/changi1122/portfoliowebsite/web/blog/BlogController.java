@@ -1,7 +1,6 @@
 package net.studio1122.changi1122.portfoliowebsite.web.blog;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogCategoryService;
@@ -9,6 +8,7 @@ import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogService;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogCategory;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.Category;
+import net.studio1122.changi1122.portfoliowebsite.global.metric.UserMetricRecorder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +29,7 @@ public class BlogController {
 
     public final BlogService blogService;
     public final BlogCategoryService blogCategoryService;
-    public final ObjectMapper objectMapper;
+    public final UserMetricRecorder userMetricRecorder;
 
     /* CRUD Operation Methods */
 
@@ -113,6 +113,7 @@ public class BlogController {
         model.addAttribute("categories", blogCategoryService.find());
         model.addAttribute("categoryString", category.equals("") ? "전체 카테고리" : category);
 
+        userMetricRecorder.countPageView("/blog");
         return "blog";
     }
 
