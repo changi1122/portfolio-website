@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.ProjectService;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Keyword;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Project;
+import net.studio1122.changi1122.portfoliowebsite.global.metric.UserMetricRecorder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,6 +23,7 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final UserMetricRecorder userMetricRecorder;
 
     /* CRUD Operation Methods */
     @PostMapping("/project")
@@ -59,6 +61,7 @@ public class ProjectController {
         List<Project> projects = projectService.listProjectVisible();
         model.addAttribute("projects", projects);
 
+        userMetricRecorder.countPageView("/project");
         return "project";
     }
 
@@ -69,6 +72,8 @@ public class ProjectController {
         project.setBodyHtml(URLDecoder.decode(project.getBodyHtml(), StandardCharsets.UTF_8));
 
         model.addAttribute("project", project);
+
+        userMetricRecorder.countPageView("/project/" + id);
         return "projectDetail";
     }
 

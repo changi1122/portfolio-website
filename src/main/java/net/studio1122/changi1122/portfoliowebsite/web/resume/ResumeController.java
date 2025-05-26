@@ -3,6 +3,7 @@ package net.studio1122.changi1122.portfoliowebsite.web.resume;
 import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.ResumeService;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.Resume;
+import net.studio1122.changi1122.portfoliowebsite.global.metric.UserMetricRecorder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 public class ResumeController {
 
     private final ResumeService resumeService;
+    private final UserMetricRecorder userMetricRecorder;
 
     /* CRUD Operation Methods */
 
@@ -89,6 +91,7 @@ public class ResumeController {
         Resume resume = resumeService.readResume(accessKey, today);
         model.addAttribute("resume", resume);
 
+        userMetricRecorder.countPageView("/about" + "?accessKey=" + accessKey);
         return "about";
     }
 
