@@ -9,6 +9,20 @@ public interface MarkdownConst {
             
             Click the `clear` link to start with a clean slate, or get the `permalink` to share or save your results.
             
+            ---
+            
+            <details>
+            <summary>토글 버튼 여기를 클릭하면 펼쳐집니다</summary>
+            
+            여기에 접었다 펼 수 있는 내용을 작성합니다. \s
+            **마크다운 문법도 사용 가능**합니다.
+            
+            - 리스트
+            - 강조
+            - 코드 블록 등
+            
+            </details>
+            
             ___
             
             
