@@ -1,3 +1,7 @@
+@Field def IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
+@Field def SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
+@Field def FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
+
 pipeline {
     agent {
         node {
@@ -16,12 +20,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    env.IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
-                    env.SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
-                    env.FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
-                }
-
                 publishChecks name: 'Checkout', status: IN_PROGRESS, summary: 'Cloning repository...'
 
                 git branch: 'master',
