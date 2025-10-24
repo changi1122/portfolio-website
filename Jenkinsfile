@@ -1,3 +1,5 @@
+import groovy.transform.Field
+
 @Field def IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
 @Field def SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
 @Field def FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
