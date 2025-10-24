@@ -17,9 +17,9 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
-                    SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
-                    FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
+                    env.IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
+                    env.SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
+                    env.FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
                 }
 
                 publishChecks name: 'Checkout', status: IN_PROGRESS, summary: 'Cloning repository...'
