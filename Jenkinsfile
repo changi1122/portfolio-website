@@ -13,13 +13,15 @@ pipeline {
         MINIO_PASSWORD  = credentials('MINIO_PASSWORD')
     }
 
-    def IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
-    def SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
-    def FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
-
     stages {
         stage('Checkout') {
             steps {
+                script {
+                    IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
+                    SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
+                    FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
+                }
+
                 publishChecks name: 'Checkout', status: IN_PROGRESS, summary: 'Cloning repository...'
 
                 git branch: 'master',
