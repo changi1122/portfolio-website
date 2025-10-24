@@ -1,8 +1,13 @@
 import groovy.transform.Field
 
-@Field def IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("IN_PROGRESS")
-@Field def SUCCESS     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("SUCCESS")
-@Field def FAILURE     = io.jenkins.plugins.checks.api.ChecksStatus.valueOf("FAILURE")
+// Status
+@Field def QUEUED      = io.jenkins.plugins.checks.api.ChecksStatus.QUEUED
+@Field def IN_PROGRESS = io.jenkins.plugins.checks.api.ChecksStatus.IN_PROGRESS
+@Field def COMPLETED   = io.jenkins.plugins.checks.api.ChecksStatus.COMPLETED
+
+// Conclusion
+@Field def SUCCESS     = io.jenkins.plugins.checks.api.ChecksConclusion.SUCCESS
+@Field def FAILURE     = io.jenkins.plugins.checks.api.ChecksConclusion.FAILURE
 
 pipeline {
     agent {
@@ -22,7 +27,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                publishChecks name: 'Checkout', status: IN_PROGRESS, summary: 'Cloning repository...'
+                publishChecks name: 'Checkout',
+                              status: IN_PROGRESS,
+                              summary: 'Cloning repository...'
 
                 git branch: 'master',
                     credentialsId: 'github-app',
@@ -30,17 +37,25 @@ pipeline {
             }
             post {
                 success {
-                    publishChecks name: 'Checkout', status: SUCCESS, summary: 'Checkout completed successfully ✅'
+                    publishChecks name: 'Checkout',
+                                  status: COMPLETED,
+                                  conclusion: SUCCESS,
+                                  summary: 'Checkout completed successfully ✅'
                 }
                 failure {
-                    publishChecks name: 'Checkout', status: FAILURE, summary: 'Checkout failed ❌'
+                    publishChecks name: 'Checkout',
+                                  status: COMPLETED,
+                                  conclusion: FAILURE,
+                                  summary: 'Checkout failed ❌'
                 }
             }
         }
 
         stage('Start MongoDB') {
             steps {
-                publishChecks name: 'MongoDB', status: IN_PROGRESS, summary: 'Starting MongoDB container...'
+                publishChecks name: 'MongoDB',
+                              status: IN_PROGRESS,
+                              summary: 'Starting MongoDB container...'
                 sh '''
                     echo "Starting MongoDB container..."
                     docker run -d --rm --network jenkins_jenkins --name mongo-test mongo:4.4.29
@@ -58,33 +73,49 @@ pipeline {
             }
             post {
                 success {
-                    publishChecks name: 'MongoDB', status: SUCCESS, summary: 'MongoDB is running ✅'
+                    publishChecks name: 'MongoDB',
+                                  status: COMPLETED,
+                                  conclusion: SUCCESS,
+                                  summary: 'MongoDB is running ✅'
                 }
                 failure {
-                    publishChecks name: 'MongoDB', status: FAILURE, summary: 'MongoDB failed to start ❌'
+                    publishChecks name: 'MongoDB',
+                                  status: COMPLETED,
+                                  conclusion: FAILURE,
+                                  summary: 'MongoDB failed to start ❌'
                 }
             }
         }
 
         stage('Build') {
             steps {
-                publishChecks name: 'Build', status: IN_PROGRESS, summary: 'Building project...'
+                publishChecks name: 'Build',
+                              status: IN_PROGRESS,
+                              summary: 'Building project...'
                 sh 'chmod +x gradlew'
                 sh './gradlew build -x test'
             }
             post {
                 success {
-                    publishChecks name: 'Build', status: SUCCESS, summary: 'Build succeeded ✅'
+                    publishChecks name: 'Build',
+                                  status: COMPLETED,
+                                  conclusion: SUCCESS,
+                                  summary: 'Build succeeded ✅'
                 }
                 failure {
-                    publishChecks name: 'Build', status: FAILURE, summary: 'Build failed ❌'
+                    publishChecks name: 'Build',
+                                  status: COMPLETED,
+                                  conclusion: FAILURE,
+                                  summary: 'Build failed ❌'
                 }
             }
         }
 
         stage('Test') {
             steps {
-                publishChecks name: 'Test', status: IN_PROGRESS, summary: 'Running tests...'
+                publishChecks name: 'Test',
+                              status: IN_PROGRESS,
+                              summary: 'Running tests...'
                 sh '''
                     export FILE_DIR="$WORKSPACE/tmp_files/"
                     export IMAGE_DIR="$WORKSPACE/tmp_images/"
@@ -97,34 +128,52 @@ pipeline {
                     junit 'build/test-results/test/*.xml'
                 }
                 success {
-                    publishChecks name: 'Test', status: SUCCESS, summary: 'All tests passed ✅'
+                    publishChecks name: 'Test',
+                                  status: COMPLETED,
+                                  conclusion: SUCCESS,
+                                  summary: 'All tests passed ✅'
                 }
                 failure {
-                    publishChecks name: 'Test', status: FAILURE, summary: 'Some tests failed ❌'
+                    publishChecks name: 'Test',
+                                  status: COMPLETED,
+                                  conclusion: FAILURE,
+                                  summary: 'Some tests failed ❌'
                 }
             }
         }
 
         stage('Docker Login') {
             steps {
-                publishChecks name: 'Docker Login', status: IN_PROGRESS, summary: 'Logging into Docker Hub...'
-                withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                publishChecks name: 'Docker Login',
+                              status: IN_PROGRESS,
+                              summary: 'Logging into Docker Hub...'
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB',
+                                                  usernameVariable: 'DOCKER_USER',
+                                                  passwordVariable: 'DOCKER_PASS')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                 }
             }
             post {
                 success {
-                    publishChecks name: 'Docker Login', status: SUCCESS, summary: 'Docker login successful ✅'
+                    publishChecks name: 'Docker Login',
+                                  status: COMPLETED,
+                                  conclusion: SUCCESS,
+                                  summary: 'Docker login successful ✅'
                 }
                 failure {
-                    publishChecks name: 'Docker Login', status: FAILURE, summary: 'Docker login failed ❌'
+                    publishChecks name: 'Docker Login',
+                                  status: COMPLETED,
+                                  conclusion: FAILURE,
+                                  summary: 'Docker login failed ❌'
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                publishChecks name: 'Docker Build', status: IN_PROGRESS, summary: 'Building Docker image...'
+                publishChecks name: 'Docker Build',
+                              status: IN_PROGRESS,
+                              summary: 'Building Docker image...'
                 sh '''
                     docker build -t changi1122/portfolio-website:latest .
                     docker push changi1122/portfolio-website:latest
@@ -132,10 +181,16 @@ pipeline {
             }
             post {
                 success {
-                    publishChecks name: 'Docker Build', status: SUCCESS, summary: 'Image built and pushed ✅'
+                    publishChecks name: 'Docker Build',
+                                  status: COMPLETED,
+                                  conclusion: SUCCESS,
+                                  summary: 'Image built and pushed ✅'
                 }
                 failure {
-                    publishChecks name: 'Docker Build', status: FAILURE, summary: 'Docker build failed ❌'
+                    publishChecks name: 'Docker Build',
+                                  status: COMPLETED,
+                                  conclusion: FAILURE,
+                                  summary: 'Docker build failed ❌'
                 }
             }
         }
@@ -151,10 +206,16 @@ pipeline {
             '''
         }
         success {
-            publishChecks name: 'CI', status: SUCCESS, summary: 'All stages completed successfully 🎉'
+            publishChecks name: 'CI',
+                          status: COMPLETED,
+                          conclusion: SUCCESS,
+                          summary: 'All stages completed successfully 🎉'
         }
         failure {
-            publishChecks name: 'CI', status: FAILURE, summary: 'Pipeline failed ❌'
+            publishChecks name: 'CI',
+                          status: COMPLETED,
+                          conclusion: FAILURE,
+                          summary: 'Pipeline failed ❌'
         }
     }
 }
