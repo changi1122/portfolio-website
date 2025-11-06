@@ -1,0 +1,60 @@
+server:
+  # Port
+  port: 1123
+
+  servlet:
+    # Session
+    session:
+      tracking-modes: cookie
+      cookie:
+        same-site: strict
+        secure: true
+        http-only: true
+
+spring:
+  application:
+    name: portfolio-website
+
+  # Request Maximum Size
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  # MongoDB
+  data:
+    mongodb:
+      host: ${MONGO_HOST_IP}
+      port: 27017
+      database: changi1122HomepageDB
+
+  # Cache
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=10000,expireAfterWrite=10m,recordStats
+
+# File upload directory
+file:
+  dir: ${FILE_DIR}
+image:
+  dir: ${IMAGE_DIR}
+video:
+  dir: ${VIDEO_DIR}
+
+# MinIO
+minio:
+  endpoint: ${MINIO_ENDPOINT}
+  bucket: ${MINIO_BUCKET}
+  username: ${MINIO_USERNAME}
+  password: ${MINIO_PASSWORD}
+
+# Spring Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}

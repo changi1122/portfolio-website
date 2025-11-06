@@ -2,6 +2,8 @@ package net.studio1122.changi1122.portfoliowebsite.domain.blog;
 
 import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,13 @@ public class BlogService {
     private final BlogArticleRepository blogArticleRepository;
 
     @Transactional
+    @CacheEvict(cacheNames = { "listBlog", "listBlogByCategory", "listBlogByQuery", "listBlogByTag" }, allEntries = true)
     public BlogArticle createBlogArticle(BlogArticle request) {
         return blogArticleRepository.save(request);
     }
 
     @Transactional
+    @CacheEvict(cacheNames = { "listBlog", "listBlogByCategory", "listBlogByQuery", "listBlogByTag" }, allEntries = true)
     public BlogArticle updateBlogArticle(String id, BlogArticle request) {
         BlogArticle article = blogArticleRepository.findById(id).orElseThrow();
 
@@ -35,6 +39,7 @@ public class BlogService {
     }
 
     @Transactional
+    @CacheEvict(cacheNames = { "listBlog", "listBlogByCategory", "listBlogByQuery", "listBlogByTag" }, allEntries = true)
     public void deleteBlogArticle(String id) {
         BlogArticle article = blogArticleRepository.findById(id).orElseThrow();
         blogArticleRepository.delete(article);
@@ -44,18 +49,23 @@ public class BlogService {
         return blogArticleRepository.findById(id).orElseThrow();
     }
 
+    @Cacheable(value = "listBlog", key = "#pageable.pageNumber")
     public Page<BlogArticle> listBlog(Pageable pageable) {
+        System.out.println(">>> Cache MISS");
         return blogArticleRepository.findAllByOrderByPubDateDesc(pageable);
     }
 
+    @Cacheable(value = "listBlogByCategory", key = "#pageable.pageNumber + '-' + #category")
     public Page<BlogArticle> listBlogByCategory(Pageable pageable, String category) {
         return blogArticleRepository.findByCategoryContainingOrderByPubDateDesc(pageable, category);
     }
 
+    @Cacheable(value = "listBlogByQuery", key = "#pageable.pageNumber + '-' + #query")
     public Page<BlogArticle> listBlogByQuery(Pageable pageable, String query) {
         return blogArticleRepository.findByTitleContainingOrderByPubDateDesc(pageable, query);
     }
 
+    @Cacheable(value = "listBlogByTag", key = "#pageable.pageNumber + '-' + #tag")
     public Page<BlogArticle> listBlogByTag(Pageable pageable, String tag) {
         return blogArticleRepository.findByTagsOrderByPubDateDesc(pageable, tag);
     }
