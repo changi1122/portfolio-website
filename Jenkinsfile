@@ -175,7 +175,7 @@ pipeline {
                               status: IN_PROGRESS,
                               summary: 'Building Docker image...'
                 sh '''
-                    docker build -t changi1122/portfolio-website:latest .
+                    docker build --build-arg CACHE_BUST=$(date +%s) -t changi1122/portfolio-website:latest .
                     docker push changi1122/portfolio-website:latest
                 '''
             }
