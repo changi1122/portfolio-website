@@ -49,23 +49,22 @@ public class BlogService {
         return blogArticleRepository.findById(id).orElseThrow();
     }
 
-    @Cacheable(value = "listBlog", key = "#pageable.pageNumber")
+    @Cacheable(value = "listBlog", key = "#pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<BlogArticle> listBlog(Pageable pageable) {
-        System.out.println(">>> Cache MISS");
         return blogArticleRepository.findAllByOrderByPubDateDesc(pageable);
     }
 
-    @Cacheable(value = "listBlogByCategory", key = "#pageable.pageNumber + '-' + #category")
+    @Cacheable(value = "listBlogByCategory", key = "#pageable.pageNumber + '-' + #pageable.pageSize + '-' + #category")
     public Page<BlogArticle> listBlogByCategory(Pageable pageable, String category) {
         return blogArticleRepository.findByCategoryContainingOrderByPubDateDesc(pageable, category);
     }
 
-    @Cacheable(value = "listBlogByQuery", key = "#pageable.pageNumber + '-' + #query")
+    @Cacheable(value = "listBlogByQuery", key = "#pageable.pageNumber + '-' + #pageable.pageSize + '-' + #query")
     public Page<BlogArticle> listBlogByQuery(Pageable pageable, String query) {
         return blogArticleRepository.findByTitleContainingOrderByPubDateDesc(pageable, query);
     }
 
-    @Cacheable(value = "listBlogByTag", key = "#pageable.pageNumber + '-' + #tag")
+    @Cacheable(value = "listBlogByTag", key = "#pageable.pageNumber + '-' + #pageable.pageSize + '-' + #tag")
     public Page<BlogArticle> listBlogByTag(Pageable pageable, String tag) {
         return blogArticleRepository.findByTagsOrderByPubDateDesc(pageable, tag);
     }
