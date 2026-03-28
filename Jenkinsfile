@@ -12,7 +12,7 @@ import groovy.transform.Field
 pipeline {
     agent {
         node {
-            label 'docker-agent-jdk17'
+            label 'docker-agent-jdk21'
         }
     }
 
