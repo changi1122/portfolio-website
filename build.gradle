@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'net.studio1122.changi1122'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
     toolchain {
