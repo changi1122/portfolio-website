@@ -15,7 +15,7 @@ RUN chmod +x gradlew
 RUN ./gradlew clean bootJar --no-daemon
 
 # 빌드된 JAR를 경량화 이미지에 복사
-FROM gcr.io/distroless/java21-debian12
+FROM gcr.io/distroless/java21-debian13
 LABEL description="changi1122 Homepage Application"
 EXPOSE 1123
 
