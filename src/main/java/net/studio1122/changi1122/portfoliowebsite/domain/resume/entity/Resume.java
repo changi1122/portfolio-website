@@ -55,6 +55,10 @@ public class Resume {
         return (expireDate != null) ? expireDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) : "";
     }
 
+    public boolean isExpired(LocalDate today) {
+        return expireDate.isBefore(today);
+    }
+
     @Builder
     private Resume(String accessKey, LocalDate expireDate, List<String> links, List<String> interests, String intro,
                   List<Question> questions, List<Career> experiences, List<Career> degrees, List<SideProject> projects,

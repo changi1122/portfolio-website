@@ -9,6 +9,9 @@ import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Si
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -418,5 +421,65 @@ class ResumeServiceTest {
                                 .build()
                 ))
                 .build();
+    }
+
+    @DisplayName("유효한 accessKey로 조회하면 해당 이력서를 반환합니다.")
+    @Test
+    void readResumeOrDefault() {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 1);
+        resumeRepository.save(createResume("default", LocalDate.of(2025, 12, 31)));
+        resumeRepository.save(createResume("company-a", LocalDate.of(2025, 12, 31)));
+
+        // when
+        Resume found = resumeService.readResumeOrDefault("company-a", today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("company-a");
+    }
+
+    @DisplayName("accessKey가 비어 있거나 존재하지 않으면 기본 이력서를 반환합니다.")
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"  ", "no-such-key"})
+    void readResumeOrDefaultFallback(String accessKey) {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 1);
+        resumeRepository.save(createResume("default", LocalDate.of(2025, 12, 31)));
+
+        // when
+        Resume found = resumeService.readResumeOrDefault(accessKey, today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("default");
+    }
+
+    @DisplayName("만료된 accessKey로 조회하면 기본 이력서를 반환합니다.")
+    @Test
+    void readResumeOrDefaultExpired() {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 31);
+        resumeRepository.save(createResume("default", LocalDate.of(2025, 12, 31)));
+        resumeRepository.save(createResume("company-a", LocalDate.of(2025, 12, 30)));
+
+        // when
+        Resume found = resumeService.readResumeOrDefault("company-a", today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("default");
+    }
+
+    @DisplayName("기본 이력서는 만료되었더라도 fallback으로 반환됩니다.")
+    @Test
+    void readResumeOrDefaultExpiredDefault() {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 31);
+        resumeRepository.save(createResume("default", LocalDate.of(2025, 12, 1)));
+
+        // when
+        Resume found = resumeService.readResumeOrDefault("no-such-key", today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("default");
     }
 }

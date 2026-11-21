@@ -3,6 +3,7 @@ package net.studio1122.changi1122.portfoliowebsite.web.resume;
 import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.ResumeService;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.Resume;
+import net.studio1122.changi1122.portfoliowebsite.global.AppConstants;
 import net.studio1122.changi1122.portfoliowebsite.global.metric.UserMetricRecorder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -81,14 +82,11 @@ public class ResumeController {
     /* View Rendering Method  */
 
     @GetMapping("/about")
-    public String about(@RequestParam(value = "ack", required = false) String accessKey, Model model) {
+    public String about(@RequestParam(value = "ack", defaultValue = AppConstants.DEFAULT_ACCESS_KEY) String accessKey, Model model) {
 
-        if (accessKey == null) {
-            accessKey = "default";
-        }
         LocalDate today = LocalDate.now();
 
-        Resume resume = resumeService.readResume(accessKey, today);
+        Resume resume = resumeService.readResumeOrDefault(accessKey, today);
         model.addAttribute("resume", resume);
 
         userMetricRecorder.countPageView("/about", accessKey);
@@ -110,9 +108,9 @@ public class ResumeController {
     public String resumeForm(Model model) {
         if (!model.containsAttribute("resume")) {
             // default 객체가 존재하면 기본값으로 표시
-            if (resumeService.existsAccessKey("default")) {
+            if (resumeService.existsAccessKey(AppConstants.DEFAULT_ACCESS_KEY)) {
                 model.addAttribute("resume",
-                        resumeService.readResume("default")
+                        resumeService.readResume(AppConstants.DEFAULT_ACCESS_KEY)
                 );
             }
             else {

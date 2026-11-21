@@ -2,13 +2,16 @@ package net.studio1122.changi1122.portfoliowebsite.domain.resume;
 
 import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.Resume;
+import net.studio1122.changi1122.portfoliowebsite.global.AppConstants;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -51,10 +54,18 @@ public class ResumeService {
     public Resume readResume(String accessKey, LocalDate today) {
         Resume resume = resumeRepository.findByAccessKey(accessKey).orElseThrow();
 
-        if (resume.getExpireDate().isBefore(today))
+        if (resume.isExpired(today))
             throw new IllegalArgumentException("유효 기한이 만료되었습니다.");
 
         return resume;
+    }
+
+    public Resume readResumeOrDefault(String accessKey, LocalDate today) {
+        return Optional.ofNullable(accessKey)
+                .filter(StringUtils::hasText)
+                .flatMap(resumeRepository::findByAccessKey)
+                .filter(resume -> !resume.isExpired(today))
+                .orElseGet(() -> readResume(AppConstants.DEFAULT_ACCESS_KEY));
     }
 
     public void deleteResume(String accessKey) {

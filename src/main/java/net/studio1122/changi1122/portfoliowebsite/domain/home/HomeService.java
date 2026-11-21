@@ -2,13 +2,16 @@ package net.studio1122.changi1122.portfoliowebsite.domain.home;
 
 import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Home;
+import net.studio1122.changi1122.portfoliowebsite.global.AppConstants;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -44,10 +47,18 @@ public class HomeService {
     public Home readHome(String accessKey, LocalDate today) {
         Home home = homeRepository.findByAccessKey(accessKey).orElseThrow();
 
-        if (home.getExpireDate().isBefore(today))
+        if (home.isExpired(today))
             throw new IllegalArgumentException("유효 기한이 만료되었습니다.");
 
         return home;
+    }
+
+    public Home readHomeOrDefault(String accessKey, LocalDate today) {
+        return Optional.ofNullable(accessKey)
+                .filter(StringUtils::hasText)
+                .flatMap(homeRepository::findByAccessKey)
+                .filter(home -> !home.isExpired(today))
+                .orElseGet(() -> readHome(AppConstants.DEFAULT_ACCESS_KEY));
     }
 
     @Transactional

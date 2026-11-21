@@ -45,6 +45,10 @@ public class Home {
         return (expireDate != null) ? expireDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) : "";
     }
 
+    public boolean isExpired(LocalDate today) {
+        return expireDate.isBefore(today);
+    }
+
     @Builder
     public Home(String accessKey, LocalDate expireDate, List<String> interests, String intro, List<Question> questions,
                 List<SideProjectImage> projects)

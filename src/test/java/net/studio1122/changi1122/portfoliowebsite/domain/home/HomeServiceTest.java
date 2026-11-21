@@ -7,6 +7,9 @@ import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.record.Ke
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -273,5 +276,65 @@ class HomeServiceTest {
                 ))
                 .themeColor("#000000")
                 .build();
+    }
+
+    @DisplayName("유효한 accessKey로 조회하면 해당 홈화면을 반환합니다.")
+    @Test
+    void readHomeOrDefault() {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 1);
+        homeRepository.save(createHome("default", LocalDate.of(2025, 12, 31)));
+        homeRepository.save(createHome("company-a", LocalDate.of(2025, 12, 31)));
+
+        // when
+        Home found = homeService.readHomeOrDefault("company-a", today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("company-a");
+    }
+
+    @DisplayName("accessKey가 비어 있거나 존재하지 않으면 기본 홈화면을 반환합니다.")
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"  ", "no-such-key"})
+    void readHomeOrDefaultFallback(String accessKey) {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 1);
+        homeRepository.save(createHome("default", LocalDate.of(2025, 12, 31)));
+
+        // when
+        Home found = homeService.readHomeOrDefault(accessKey, today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("default");
+    }
+
+    @DisplayName("만료된 accessKey로 조회하면 기본 홈화면을 반환합니다.")
+    @Test
+    void readHomeOrDefaultExpired() {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 31);
+        homeRepository.save(createHome("default", LocalDate.of(2025, 12, 31)));
+        homeRepository.save(createHome("company-a", LocalDate.of(2025, 12, 30)));
+
+        // when
+        Home found = homeService.readHomeOrDefault("company-a", today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("default");
+    }
+
+    @DisplayName("기본 홈화면은 만료되었더라도 fallback으로 반환됩니다.")
+    @Test
+    void readHomeOrDefaultExpiredDefault() {
+        // given
+        LocalDate today = LocalDate.of(2025, 12, 31);
+        homeRepository.save(createHome("default", LocalDate.of(2025, 12, 1)));
+
+        // when
+        Home found = homeService.readHomeOrDefault("no-such-key", today);
+
+        // then
+        assertThat(found.getAccessKey()).isEqualTo("default");
     }
 }

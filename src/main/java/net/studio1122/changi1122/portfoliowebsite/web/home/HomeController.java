@@ -5,6 +5,7 @@ import net.studio1122.changi1122.portfoliowebsite.domain.blog.BlogService;
 import net.studio1122.changi1122.portfoliowebsite.domain.blog.entity.BlogArticle;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.HomeService;
 import net.studio1122.changi1122.portfoliowebsite.domain.home.entity.Home;
+import net.studio1122.changi1122.portfoliowebsite.global.AppConstants;
 import net.studio1122.changi1122.portfoliowebsite.global.metric.UserMetricRecorder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -93,14 +94,11 @@ public class HomeController {
     /* View Rendering Method  */
 
     @GetMapping("/")
-    public String index(@RequestParam(value = "ack", required = false) String accessKey, Model model) {
+    public String index(@RequestParam(value = "ack", defaultValue = AppConstants.DEFAULT_ACCESS_KEY) String accessKey, Model model) {
 
-        if (accessKey == null) {
-            accessKey = "default";
-        }
         LocalDate today = LocalDate.now();
 
-        Home home = homeService.readHome(accessKey, today);
+        Home home = homeService.readHomeOrDefault(accessKey, today);
         model.addAttribute("home", home);
 
         Pageable pageable = PageRequest.of(0, 4);
@@ -126,9 +124,9 @@ public class HomeController {
     public String homeForm(Model model) {
         if (!model.containsAttribute("home")) {
             // default 객체가 존재하면 기본값으로 표시
-            if (homeService.existsAccessKey("default")) {
+            if (homeService.existsAccessKey(AppConstants.DEFAULT_ACCESS_KEY)) {
                 model.addAttribute("home",
-                    homeService.readHome("default")
+                    homeService.readHome(AppConstants.DEFAULT_ACCESS_KEY)
                 );
             }
             else {
