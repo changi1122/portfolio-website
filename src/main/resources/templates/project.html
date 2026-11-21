@@ -25,7 +25,7 @@
             <div class="project">
                 <div class="main-project fade-effect" th:each="project : ${projects}">
                     <div>
-                        <a th:href="|/project/${project.id}|">
+                        <a th:href="${ack != null} ? @{/project/{id}(id=${project.id}, ack=${ack})} : @{/project/{id}(id=${project.id})}">
                             <p class="category" th:style="'color: ' + ${project.themeColor}" th:text="${project.category}">카테고리</p>
                             <h3 class="title" th:text="${project.name}">하모나이즈</h3>
                             <p class="description" th:utext="${project.description}">사용자 목소리 기반 노래방 음악 추천시스템</p>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="img-wrap">
-                        <a th:href="|/project/${project.id}|">
+                        <a th:href="${ack != null} ? @{/project/{id}(id=${project.id}, ack=${ack})} : @{/project/{id}(id=${project.id})}">
                             <img src="../static/img/project/project1.png" th:src="${project.imageSrc}" alt="하모나이즈 프로젝트 사진">
                         </a>
                     </div>

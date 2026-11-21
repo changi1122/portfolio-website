@@ -13,16 +13,16 @@
     <header th:fragment="header">
         <div class="container header-wrap">
             <div class="header-logo">
-                <a href="./" th:href="@{/}">
+                <a href="./" th:href="${ack != null} ? @{/(ack=${ack})} : @{/}">
                     <h1>changi1122</h1>
                 </a>
             </div>
             <!-- Desktop -->
             <nav class="header-menu" aria-label="사이트 전체 메뉴">
-                <a href="./" th:href="@{/}">홈</a>
-                <a href="./about.html" th:href="@{/about}">소개</a>
-                <a href="./project.html" th:href="@{/project}">프로젝트</a>
-                <a href="./blog.html" th:href="@{/blog/1}">블로그</a>
+                <a href="./" th:href="${ack != null} ? @{/(ack=${ack})} : @{/}">홈</a>
+                <a href="./about.html" th:href="${ack != null} ? @{/about(ack=${ack})} : @{/about}">소개</a>
+                <a href="./project.html" th:href="${ack != null} ? @{/project(ack=${ack})} : @{/project}">프로젝트</a>
+                <a href="./blog.html" th:href="${ack != null} ? @{/blog/1(ack=${ack})} : @{/blog/1}">블로그</a>
                 <!--<a href="./blogList.html" th:href="@{/manage}">관리</a>-->
             </nav>
             <span class="menu-right">
@@ -43,10 +43,10 @@
         </div>
         <!-- Mobile -->
         <nav id="mobile-header-menu" class="container mobile-menu" aria-label="사이트 전체 메뉴">
-            <a style="opacity: 0" href="./" th:href="@{/}">홈</a>
-            <a style="opacity: 0" href="./about.html" th:href="@{/about}">소개</a>
-            <a style="opacity: 0" href="./project.html" th:href="@{/project}">프로젝트</a>
-            <a style="opacity: 0" href="./blog.html" th:href="@{/blog/1}">블로그</a>
+            <a style="opacity: 0" href="./" th:href="${ack != null} ? @{/(ack=${ack})} : @{/}">홈</a>
+            <a style="opacity: 0" href="./about.html" th:href="${ack != null} ? @{/about(ack=${ack})} : @{/about}">소개</a>
+            <a style="opacity: 0" href="./project.html" th:href="${ack != null} ? @{/project(ack=${ack})} : @{/project}">프로젝트</a>
+            <a style="opacity: 0" href="./blog.html" th:href="${ack != null} ? @{/blog/1(ack=${ack})} : @{/blog/1}">블로그</a>
             <!--<a style="opacity: 0" href="./blogList.html" th:href="@{/manage}">관리</a>-->
             <!--<span style="opacity: 0" class="menu-bottom">
                 <a href="./login.html" th:href="@{/login}">로그인</a>
@@ -63,7 +63,7 @@
                 <span>무단 전재 및 재배포 금지</span>
             </div>
             <ul class="links mobile-invisible">
-                <li><a href="/" th:href="@{/}">홈</a></li>
+                <li><a href="./" th:href="${ack != null} ? @{/(ack=${ack})} : @{/}">홈</a></li>
                 <li><a href="mailto:changi112242@gmail.com">문의</a></li>
                 <li><a href="/login" th:href="@{/login}">관리</a></li>
             </ul>

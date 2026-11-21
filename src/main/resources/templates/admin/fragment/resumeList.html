@@ -4,7 +4,7 @@
     </div>
     <div class="mBoard">
         <div class="board-item" th:each="resume : ${resumes}">
-            <a class="board-title" th:href="|/?ack=${resume.accessKey}|" th:text="|이력서 (액세스 키: ${resume.accessKey})|">제목</a>
+            <a class="board-title" th:href="@{/about(ack=${resume.accessKey})}" th:text="|이력서 (액세스 키: ${resume.accessKey})|">제목</a>
             <p class="board-category" th:text="|만료일 ${resume.getExpireDateString()}|">>1970.01.01</p>
             <p class="board-id" th:text="${resume.accessKey}">>id</p>
             <div class="board-button">
