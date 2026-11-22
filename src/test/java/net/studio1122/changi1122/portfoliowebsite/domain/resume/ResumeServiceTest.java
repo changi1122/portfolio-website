@@ -102,12 +102,14 @@ class ResumeServiceTest {
     void updateResume() {
         //given
         Resume resume = createResume("default", LocalDate.of(2025, 12, 31));
+        resume.setProjectIds(List.of("project-1"));
         resumeRepository.save(resume);
 
         Resume request = getUpdatedResume(
                 "default",
                 LocalDate.of(2020, 1, 1)
         );
+        request.setProjectIds(List.of("project-2", "project-3"));
 
         // when
         request = resumeService.updateResume(request.getAccessKey(), request);
@@ -142,6 +144,8 @@ class ResumeServiceTest {
         assertThat(saved.getCourseCertifications()).hasSize(1)
                 .extracting("name")
                 .contains("수정된수료증");
+        assertThat(saved.getProjectIds())
+                .containsExactly("project-2", "project-3");
     }
 
     @DisplayName("존재하지 않는 accessKey로 이력서 객체를 수정하면 오류가 반환됩니다.")

@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.ProjectService;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Keyword;
 import net.studio1122.changi1122.portfoliowebsite.domain.project.entity.Project;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.ResumeService;
+import net.studio1122.changi1122.portfoliowebsite.domain.resume.entity.Resume;
+import net.studio1122.changi1122.portfoliowebsite.global.AppConstants;
 import net.studio1122.changi1122.portfoliowebsite.global.metric.UserMetricRecorder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,7 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final ResumeService resumeService;
     private final UserMetricRecorder userMetricRecorder;
 
     /* CRUD Operation Methods */
@@ -57,8 +62,11 @@ public class ProjectController {
     /* View Rendering Method  */
 
     @GetMapping("/project")
-    public String project(Model model) {
-        List<Project> projects = projectService.listProjectVisible();
+    public String project(@RequestParam(value = "ack", defaultValue = AppConstants.DEFAULT_ACCESS_KEY) String accessKey,
+                          Model model) {
+
+        Resume resume = resumeService.readResumeOrDefault(accessKey, LocalDate.now());
+        List<Project> projects = projectService.listProjectVisible(resume.getProjectIds());
         model.addAttribute("projects", projects);
 
         userMetricRecorder.countPageView("/project");

@@ -89,7 +89,7 @@ public class ResumeController {
         Resume resume = resumeService.readResumeOrDefault(accessKey, today);
         model.addAttribute("resume", resume);
 
-        userMetricRecorder.countPageView("/about", accessKey);
+        userMetricRecorder.countPageView("/about", resume.getAccessKey());
         return "about";
     }
 

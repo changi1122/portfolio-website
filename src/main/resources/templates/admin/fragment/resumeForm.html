@@ -607,6 +607,10 @@
 
         </script>
 
+        <label for="projectIdsText">프로젝트 페이지 표시 목록</label>
+        <p class="description">프로젝트 ID를 한 줄에 하나씩, 보여줄 순서대로 입력합니다. 비워두면 공개 프로젝트 전체를 표시합니다.</p>
+        <textarea class="short-textarea" id="projectIdsText" name="projectIdsText" th:text="*{projectIdsText}"></textarea>
+
         <div class="right-align">
             <input class="submit-button" type="submit" value="저장하기"/>
         </div>

@@ -47,6 +47,7 @@ public class Resume {
     private List<Career> experiences;
     private List<Career> degrees;
     private List<SideProject> projects;
+    private List<String> projectIds;        // 프로젝트 페이지에 표시될 프로젝트 목록
     private List<Record> certifications;
     private List<Record> awards;
     private List<Record> courseCertifications;
@@ -59,10 +60,24 @@ public class Resume {
         return expireDate.isBefore(today);
     }
 
+    /** 관리 폼 textarea용: 프로젝트 ID를 한 줄에 하나씩 표시합니다. */
+    public String getProjectIdsText() {
+        return (projectIds != null) ? String.join("\n", projectIds) : "";
+    }
+
+    /** 관리 폼 textarea용: 줄 단위로 나누고, 공백과 빈 줄, 중복을 제거합니다. */
+    public void setProjectIdsText(String text) {
+        this.projectIds = (text == null) ? List.of() : text.lines()
+                .map(String::strip)
+                .filter(line -> !line.isEmpty())
+                .distinct()
+                .toList();
+    }
+
     @Builder
     private Resume(String accessKey, LocalDate expireDate, List<String> links, List<String> interests, String intro,
                   List<Question> questions, List<Career> experiences, List<Career> degrees, List<SideProject> projects,
-                  List<Record> certifications, List<Record> awards, List<Record> courseCertifications) {
+                  List<String> projectIds, List<Record> certifications, List<Record> awards, List<Record> courseCertifications) {
         this.accessKey = accessKey;
         this.expireDate = expireDate;
         this.links = links;
@@ -72,6 +87,7 @@ public class Resume {
         this.experiences = experiences;
         this.degrees = degrees;
         this.projects = projects;
+        this.projectIds = projectIds;
         this.certifications = certifications;
         this.awards = awards;
         this.courseCertifications = courseCertifications;

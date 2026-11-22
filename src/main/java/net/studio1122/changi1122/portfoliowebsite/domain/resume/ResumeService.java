@@ -40,6 +40,7 @@ public class ResumeService {
         resume.setExperiences(request.getExperiences());
         resume.setDegrees(request.getDegrees());
         resume.setProjects(request.getProjects());
+        resume.setProjectIds(request.getProjectIds());
         resume.setCertifications(request.getCertifications());
         resume.setAwards(request.getAwards());
         resume.setCourseCertifications(request.getCourseCertifications());

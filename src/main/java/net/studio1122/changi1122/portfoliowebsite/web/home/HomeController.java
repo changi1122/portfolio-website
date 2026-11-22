@@ -105,7 +105,7 @@ public class HomeController {
         List<BlogArticle> articles = blogService.listBlog(pageable).getContent();
         model.addAttribute("articles", articles);
 
-        userMetricRecorder.countPageView("/", accessKey);
+        userMetricRecorder.countPageView("/", home.getAccessKey());
         return "index";
     }
 

@@ -7,7 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,5 +69,22 @@ public class ProjectService {
 
     public List<Project> listProjectVisible() {
         return projectRepository.findByIsHiddenFalseOrderByOrderAsc();
+    }
+
+    public List<Project> listProjectVisible(List<String> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return listProjectVisible();
+        }
+
+        Map<String, Project> projectsById = projectRepository.findAllById(ids).stream()
+                .collect(Collectors.toMap(Project::getId, p -> p));
+
+        List<Project> projects = ids.stream()
+                .map(projectsById::get)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparing(Project::getOrder))
+                .toList();
+
+        return projects.isEmpty() ? listProjectVisible() : projects;
     }
 }

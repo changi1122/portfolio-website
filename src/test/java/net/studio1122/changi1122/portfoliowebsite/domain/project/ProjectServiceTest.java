@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -159,6 +160,94 @@ class ProjectServiceTest {
         // when then
         assertThatThrownBy(() -> projectService.readProject("no-such-id"))
                 .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @DisplayName("지정한 ID의 프로젝트만 프로젝트 표시 순서(order)대로 조회합니다.")
+    @Test
+    void listProjectVisibleWithIds() {
+        // given
+        Project a = projectRepository.save(createProject("A", 3));
+        Project b = projectRepository.save(createProject("B", 1));
+        projectRepository.save(createProject("C", 2));
+
+        // when
+        List<Project> projects = projectService.listProjectVisible(List.of(a.getId(), b.getId()));
+
+        // then
+        assertThat(projects).extracting("name")
+                .containsExactly("B", "A");
+    }
+
+    @DisplayName("ID 목록이 비어 있으면 공개 프로젝트 전체를 조회합니다.")
+    @ParameterizedTest
+    @NullAndEmptySource
+    void listProjectVisibleWithoutIds(List<String> ids) {
+        // given
+        projectRepository.save(createProject("A", 2));
+        projectRepository.save(createProject("B", 1));
+        Project hidden = createProject("숨김", 0);
+        hidden.setHidden(true);
+        projectRepository.save(hidden);
+
+        // when
+        List<Project> projects = projectService.listProjectVisible(ids);
+
+        // then
+        assertThat(projects).extracting("name")
+                .containsExactly("B", "A");
+    }
+
+    @DisplayName("존재하지 않는 ID는 제외하고 조회합니다.")
+    @Test
+    void listProjectVisibleWithUnknownIds() {
+        // given
+        Project a = projectRepository.save(createProject("A", 1));
+        projectRepository.save(createProject("B", 2));
+
+        // when
+        List<Project> projects = projectService.listProjectVisible(List.of("no-such-id", a.getId()));
+
+        // then
+        assertThat(projects).extracting("name")
+                .containsExactly("A");
+    }
+
+    @DisplayName("유효한 ID가 하나도 없으면 공개 프로젝트 전체를 조회합니다.")
+    @Test
+    void listProjectVisibleWithOnlyUnknownIds() {
+        // given
+        projectRepository.save(createProject("A", 2));
+        projectRepository.save(createProject("B", 1));
+
+        // when
+        List<Project> projects = projectService.listProjectVisible(List.of("no-such-id"));
+
+        // then
+        assertThat(projects).extracting("name")
+                .containsExactly("B", "A");
+    }
+
+    @DisplayName("ID를 지정하면 비공개 프로젝트도 조회합니다.")
+    @Test
+    void listProjectVisibleWithHiddenId() {
+        // given
+        Project hidden = createProject("숨김", 1);
+        hidden.setHidden(true);
+        hidden = projectRepository.save(hidden);
+        projectRepository.save(createProject("공개", 2));
+
+        // when
+        List<Project> projects = projectService.listProjectVisible(List.of(hidden.getId()));
+
+        // then
+        assertThat(projects).extracting("name")
+                .containsExactly("숨김");
+    }
+
+    private Project createProject(String name, int order) {
+        Project project = createProject(name);
+        project.setOrder(order);
+        return project;
     }
 
     private Project createProject(String name) {

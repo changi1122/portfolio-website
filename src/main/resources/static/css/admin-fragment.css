@@ -8,12 +8,18 @@
     display: block;
     margin: 16px 0 12px 0;
 }
+
 .mBox {
     background-color: white;
     padding: 40px 30px;
     border: 1px solid lightgray;
     border-radius: 1px;
     box-sizing: border-box;
+}
+.mBox .description {
+    margin: 8px 0 12px 0;
+    font-size: 14px;
+    color: gray;
 }
 
 .set-title {
